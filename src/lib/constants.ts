@@ -18,7 +18,7 @@ export const NAV_ITEMS = [
     label: 'Home Nursing Care',
     href: '/home-nursing-care',
     children: [
-      { label: 'Baby Care', href: '/home-nursing-care/baby-care' },
+      { label: 'Baby Care', href: '/baby-care' },
       { label: 'Patient Assistant Care', href: '/home-nursing-care/patient-assistant-care' },
       { label: 'Basic Nursing Care', href: '/basic-nursing-care', highlight: true },
       { label: 'Advance Nursing Care', href: '/home-nursing-care/advance-nursing-care' },

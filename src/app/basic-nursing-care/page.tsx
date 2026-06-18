@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BRAND } from '@/lib/constants';
 import { FAQS } from '@/lib/faqs';
-import { CARE_PACKAGES } from '@/lib/packages';
+import { CARE_PACKAGE_NAMES, CARE_PACKAGES } from '@/lib/packages';
 import { DELIVERABLES } from '@/lib/deliverables';
 import { WHO_WE_CARE_FOR } from '@/lib/whoWeCareFor';
 import { BLOG_POSTS } from '@/lib/blogs';
@@ -71,7 +71,7 @@ export default function BasicNursingCarePage() {
                 <a href={BRAND.whatsapp} className="btn btn--outline btn--lg" target="_blank" rel="noopener"><SiteIcon name="WhatsApp" size={18} /> WhatsApp Us</a>
               </div>
             </div>
-            <CTAForm title="Book Your Free Basic Nursing Care Assessment" />
+            <CTAForm title="Book Your Free Basic Nursing Care Assessment" packageOptions={CARE_PACKAGE_NAMES} />
           </div>
         </div>
       </section>
@@ -243,7 +243,7 @@ export default function BasicNursingCarePage() {
           <div className="packages-grid">
             {CARE_PACKAGES.map(pkg => (
               <div key={pkg.id} className="package-card" id={`package-${pkg.id}`} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <div className="package-card__header" style={{ background: pkg.color }}>
+                <div className="package-card__header" style={{ background: pkg.gradient }}>
                   <div className="package-card__name">{pkg.name}</div>
                   <div className="package-card__tagline">{pkg.tagline}</div>
                 </div>
@@ -270,7 +270,10 @@ export default function BasicNursingCarePage() {
                 </div>
                 <div className="package-card__footer">
                   <p className="package-card__cost">{pkg.costCue}</p>
-                  <Link href="/contact" className="btn btn--primary btn--sm" style={{ width: '100%', justifyContent: 'center' }}>Book Now</Link>
+                  <div className="package-card__actions">
+                    <Link href={pkg.href} className="btn btn--outline btn--sm">View Details</Link>
+                    <Link href={`${pkg.href}#basic-package-form`} className="btn btn--primary btn--sm">Book Now</Link>
+                  </div>
                 </div>
               </div>
             ))}

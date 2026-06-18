@@ -144,17 +144,29 @@ const visualRoutes: Array<{ match: (path: string) => boolean; config: VisualConf
 
 const routesWithPrimaryVisuals = new Set([
   '/',
+  '/baby-care',
   '/basic-nursing-care',
+  '/elder-care',
   '/home-nursing-care',
+  '/home-nursing-care/baby-care',
   '/medical-equipment',
   '/blog',
   '/resources/how-to-choose-nursing-care-plan',
+  '/services/active-assist',
+  '/services/guided-living',
+  '/services/caring-hands',
+  '/services/comfort-plus',
 ]);
 
 export default function RouteVisualBanner() {
   const pathname = usePathname();
 
-  if (routesWithPrimaryVisuals.has(pathname) || pathname.startsWith('/blog/') || pathname.startsWith('/medical-equipment/')) return null;
+  if (
+    routesWithPrimaryVisuals.has(pathname)
+    || pathname.startsWith('/baby-care/')
+    || pathname.startsWith('/blog/')
+    || pathname.startsWith('/medical-equipment/')
+  ) return null;
 
   const visual = visualRoutes.find((entry) => entry.match(pathname))?.config;
   if (!visual) return null;

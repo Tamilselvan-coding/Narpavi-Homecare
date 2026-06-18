@@ -67,19 +67,19 @@ export default function PostSurgeryRecovery() {
         <h2 id="choose-care-plan" style={{ marginTop: '2.5rem', marginBottom: '1rem' }}>Choosing the Right Basic Nursing Care Plan</h2>
         <div className="grid-2" style={{ marginBottom: '2rem' }}>
           <div className="card">
-            <h4 style={{ color: '#10B981', marginBottom: '0.5rem' }}>Active Assist</h4>
+            <h4 style={{ color: '#0CB3B3', marginBottom: '0.5rem' }}>Active Assist</h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Independent but weak? Light support for faster recovery.</p>
           </div>
           <div className="card">
-            <h4 style={{ color: '#3B82F6', marginBottom: '0.5rem' }}>Guided Living</h4>
+            <h4 style={{ color: '#0A8F8F', marginBottom: '0.5rem' }}>Guided Living</h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Need more routine help and reminders? Structured daily support.</p>
           </div>
           <div className="card">
-            <h4 style={{ color: '#8B5CF6', marginBottom: '0.5rem' }}>Caring Hands</h4>
+            <h4 style={{ color: '#0A8F8F', marginBottom: '0.5rem' }}>Caring Hands</h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Mobility is severely limited? Full ADL and transfer support.</p>
           </div>
           <div className="card">
-            <h4 style={{ color: '#EC4899', marginBottom: '0.5rem' }}>Comfort Plus</h4>
+            <h4 style={{ color: '#FF6B35', marginBottom: '0.5rem' }}>Comfort Plus</h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Bedridden but no clinical needs? Complete bedside care.</p>
           </div>
         </div>

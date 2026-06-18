@@ -3,7 +3,7 @@ import { BRAND } from '@/lib/constants';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 const NURSING_LINKS = [
-  { label: 'Baby Care', href: '/home-nursing-care/baby-care' },
+  { label: 'Baby Care', href: '/baby-care' },
   { label: 'Basic Nursing Care', href: '/basic-nursing-care' },
   { label: 'Advance Nursing Care', href: '/home-nursing-care/advance-nursing-care' },
   { label: 'Specialty Nursing Care', href: '/home-nursing-care/specialty-nursing-care' },
