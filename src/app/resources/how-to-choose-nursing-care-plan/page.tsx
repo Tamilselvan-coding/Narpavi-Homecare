@@ -6,7 +6,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'How to Choose the Right Basic Nursing Care Plan — Narpavi Homecare',
-  description: 'A complete family guide to choosing home care plans in Chennai. Assess mobility, clinical needs, budget, and caregiver training in 6 steps.',
+  description: 'A complete family guide to choosing home care plans. Assess mobility, clinical needs, budget, and caregiver training in 6 steps.',
   alternates: { canonical: 'https://www.narpavihomecare.com/resources/how-to-choose-nursing-care-plan' },
 };
 
@@ -17,12 +17,12 @@ export default function HowToChoosePage() {
       <section className="section" style={{ marginTop: 0 }}>
         <div className="container" style={{ maxWidth: '800px' }}>
           <span style={{ color: 'var(--accent)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.85rem' }}>Educational Guide</span>
-          <h1 style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>How to Choose the Right Basic Nursing Care Plan in Chennai</h1>
+          <h1 style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>How to Choose the Right Basic Nursing Care Plan</h1>
           <p style={{ color: 'var(--text-light)', fontSize: '0.9rem', marginBottom: '2.5rem' }}>A Complete Family Guide for Choosing Safe Home Care Services</p>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '2.5rem', alignItems: 'center', marginBottom: '3rem' }}>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.9' }}>
-              Finding the right Basic Nursing Care service can be overwhelming — especially if you are arranging help for the first time or managing care from abroad. This guide will help you evaluate your loved one&apos;s needs, compare care plans, and choose a reliable service in Chennai.
+              Finding the right Basic Nursing Care service can be overwhelming — especially if you are arranging help for the first time or managing care from abroad. This guide will help you evaluate your loved one&apos;s needs, compare care plans, and choose a reliable service.
             </p>
             <div style={{ position: 'relative', width: '100%', height: '220px', borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: 'var(--shadow-md)' }}>
               <Image src="/images/pik-11.png" alt="How to Choose the Right Basic Nursing Care Plan" fill style={{ objectFit: 'cover' }} />
@@ -72,9 +72,9 @@ export default function HowToChoosePage() {
 
           <div style={{ background: 'var(--primary-light)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', textAlign: 'center' }}>
             <h3 style={{ marginBottom: '0.75rem' }}>Get Professional Advice</h3>
-            <p style={{ color: 'var(--text-secondary)', marginBottom: '1.75rem' }}>Book a free nursing assessment to get a personalized home care design.</p>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '1.75rem' }}>Book a professional nursing assessment to get a personalized home care design.</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link href="/contact" className="btn btn--primary">Book Free Assessment</Link>
+              <Link href="/contact" className="btn btn--primary">Book Care Assessment</Link>
               <a href={BRAND.phoneHref} className="btn btn--outline">Call Us</a>
             </div>
           </div>

@@ -33,7 +33,7 @@ export default function BasicCarePackageLanding({ packageId }: BasicCarePackageL
   const otherPackages = getOtherCarePackages(packageId);
   const schemas = [
     getWebPageSchema({
-      title: `${pkg.name} Basic Nursing Care in Chennai`,
+      title: `${pkg.name} Basic Nursing Care`,
       description: `${pkg.tagline}. ${pkg.summary}`,
       path: pkg.href,
     }),

@@ -30,8 +30,8 @@ const CARE_TAILORED = [
 
 const HOME_AI_FAQS = [
   {
-    question: 'How quickly can home healthcare start in Chennai?',
-    answer: 'Most Narpavi Homecare services can begin within 24 to 48 hours after your family completes a free assessment and confirms the care plan.',
+    question: 'How quickly can home healthcare start?',
+    answer: 'Most Narpavi Homecare services can begin within 24 to 48 hours after your family completes a care assessment and confirms the care plan.',
   },
   {
     question: 'Which home care service is best after hospital discharge?',
@@ -76,15 +76,15 @@ const CARE_JOURNEYS = [
   },
   {
     title: 'Need oxygen, cots, monitors, or respiratory devices?',
-    copy: 'Choose Medical Equipment support for fast setup of recovery essentials at home in Chennai.',
+    copy: 'Choose Medical Equipment support for fast setup of recovery essentials at home.',
     href: '/medical-equipment',
     label: 'Browse Equipment',
   },
 ];
 
 export const metadata: Metadata = {
-  title: 'Home Healthcare Services in Chennai',
-  description: `Book trusted home healthcare in Chennai with Narpavi Homecare. Compare nursing care, elder care, ICU at home, baby care, and medical equipment support. Call ${BRAND.phoneFormatted}.`,
+  title: 'Home Healthcare Services',
+  description: `Book trusted home healthcare with Narpavi Homecare. Compare nursing care, elder care, ICU at home, baby care, and medical equipment support. Call ${BRAND.phoneFormatted}.`,
   keywords: [
     'home healthcare chennai',
     'home nursing care chennai',
@@ -94,8 +94,8 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Narpavi Homecare | Home Healthcare Services in Chennai',
-    description: 'Compare home nursing care, elder care, baby care, ICU at home, and medical equipment support in Chennai.',
+    title: 'Narpavi Homecare | Home Healthcare Services',
+    description: 'Compare home nursing care, elder care, baby care, ICU at home, and medical equipment support.',
     url: BRAND.url,
     siteName: BRAND.name,
     locale: 'en_IN',
@@ -103,16 +103,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Narpavi Homecare | Home Healthcare Services in Chennai',
-    description: 'Trusted home healthcare in Chennai with nursing care, elder care, ICU at home, and medical equipment support.',
+    title: 'Narpavi Homecare | Home Healthcare Services',
+    description: 'Trusted home healthcare with nursing care, elder care, ICU at home, and medical equipment support.',
   },
 };
 
 export default function HomePage() {
   const homeSchemas = [
     getWebPageSchema({
-      title: 'Home Healthcare Services in Chennai',
-      description: 'Trusted home healthcare in Chennai with nursing care, elder care, baby care, ICU at home, and medical equipment support.',
+      title: 'Home Healthcare Services',
+      description: 'Trusted home healthcare with nursing care, elder care, baby care, ICU at home, and medical equipment support.',
       path: '/',
     }),
     getFaqSchema(HOME_AI_FAQS),
@@ -227,7 +227,7 @@ export default function HomePage() {
         <div className="container">
           <div className="section__header">
             <h2>Benefits of Home Healthcare</h2>
-            <p>Why thousands of families in Chennai are choosing professional home care over hospitals and nursing homes.</p>
+            <p>Why thousands of families are choosing professional home care over hospitals and nursing homes.</p>
           </div>
           <div className="grid-4">
             {[
@@ -407,9 +407,9 @@ export default function HomePage() {
       <section className="cta-strip" id="cta-strip">
         <div className="container">
           <h2>Ready to Start Safe Home Healthcare?</h2>
-          <p>Book a free expert assessment and get professional care started within 24-48 hours.</p>
+          <p>Book an expert care assessment and get professional care started within 24-48 hours.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/contact" className="btn btn--white btn--lg" id="cta-book">Book Free Assessment</Link>
+            <Link href="/contact" className="btn btn--white btn--lg" id="cta-book">Book Care Assessment</Link>
             <a href={BRAND.phoneHref} className="btn btn--outline btn--lg" style={{ color: 'white', borderColor: 'white' }} id="cta-call"><SiteIcon name="Phone" size={18} /> {BRAND.phone}</a>
           </div>
           <div className="cta-strip__badges">

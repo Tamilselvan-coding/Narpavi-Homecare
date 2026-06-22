@@ -8,7 +8,7 @@ import { BRAND } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Palliative Care at Home â€” Comfort & Dignity for Loved Ones',
-  description: 'Professional palliative care at home in Chennai. Comfort-focused support with daily family updates. Dignity-first approach for your loved ones.',
+  description: 'Professional palliative care at home. Comfort-focused support with daily family updates. Dignity-first approach for your loved ones.',
   keywords: ['palliative care at home chennai', 'home palliative care', 'comfort care at home', 'dignified care at home'],
   alternates: { canonical: 'https://www.narpavihomecare.com/blog/palliative-care-at-home' },
 };
@@ -30,12 +30,12 @@ export default function PalliativeCareAtHome() {
         slug="palliative-care-at-home"
         title="Palliative Care at Home â€” Comfort & Dignity for Loved Ones"
         image="/images/pik-14.png"
-        imageAlt="Palliative care at home in Chennai"
+        imageAlt="Palliative care at home"
         readTime="6 min read"
         toc={TOC_ITEMS}
       >
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.9', marginBottom: '1.5rem' }}>
-          Facing a life-limiting illness can be overwhelming for the person and the family. Palliative care at home focuses on comfort, dignity, and emotional well-being rather than aggressive hospital treatment. With Basic Nursing Care support, families in Chennai can ensure their loved ones spend this stage with peace and respect.
+          Facing a life-limiting illness can be overwhelming for the person and the family. Palliative care at home focuses on comfort, dignity, and emotional well-being rather than aggressive hospital treatment. With Basic Nursing Care support, families can ensure their loved ones spend this stage with peace and respect.
         </p>
 
         <h2 id="what-palliative-care-means" style={{ marginTop: '2.5rem', marginBottom: '1rem' }}>What Palliative Care Really Means</h2>
@@ -107,7 +107,7 @@ export default function PalliativeCareAtHome() {
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Need Palliative Care at Home?</h3>
           <p style={{ opacity: 0.9 }}>Call {BRAND.phone} or request a palliative care assessment to create a personalised home care plan.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/contact" className="btn btn--white">Book Free Assessment</Link>
+            <Link href="/contact" className="btn btn--white">Book Care Assessment</Link>
             <a href={BRAND.phoneHref} className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Call {BRAND.phone}</a>
           </div>
         </div>

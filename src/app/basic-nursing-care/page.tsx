@@ -16,7 +16,7 @@ import SiteIcon from '@/components/ui/SiteIcon';
 import { getServiceSchema, getWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Basic Nursing Care at Home in Chennai — Narpavi Homecare',
+  title: 'Basic Nursing Care at Home — Narpavi Homecare',
   description: 'Expert basic nursing care services at home. ADL support, vital monitoring, mobility aid & medication reminders. Nurse-supervised. Starts within 24-48 hrs.',
   keywords: ['basic nursing care at home', 'home nursing care chennai', 'caregiver at home chennai', 'post surgery care'],
   alternates: { canonical: '/basic-nursing-care' },
@@ -30,13 +30,13 @@ const BNC_BANNERS = [
 export default function BasicNursingCarePage() {
   const pageSchemas = [
     getWebPageSchema({
-      title: 'Basic Nursing Care at Home in Chennai',
-      description: 'Basic Nursing Care at home in Chennai with ADL support, recovery supervision, hygiene support, vital monitoring, and family updates.',
+      title: 'Basic Nursing Care at Home',
+      description: 'Basic Nursing Care at home with ADL support, recovery supervision, hygiene support, vital monitoring, and family updates.',
       path: '/basic-nursing-care',
     }),
     getServiceSchema({
-      name: 'Basic Nursing Care at Home in Chennai',
-      description: 'Structured, nurse-supervised basic nursing care in Chennai for post-surgery recovery, chronic illness support, hygiene, mobility, and monitoring at home.',
+      name: 'Basic Nursing Care at Home',
+      description: 'Structured, nurse-supervised basic nursing care for post-surgery recovery, chronic illness support, hygiene, mobility, and monitoring at home.',
       path: '/basic-nursing-care',
       serviceType: 'Basic nursing care service',
     }),
@@ -56,9 +56,9 @@ export default function BasicNursingCarePage() {
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '3rem', alignItems: 'center' }}>
             <div className="hero__content">
-              <div className="hero__badge"><SiteIcon name="Star Rating" size={16} /> #1 Basic Nursing Care in Chennai</div>
+              <div className="hero__badge"><SiteIcon name="Star Rating" size={16} /> #1 Basic Nursing Care</div>
               <h1 className="hero__title">
-                Professional <span>Basic Nursing Care</span> Service at Home in Chennai
+                Professional <span>Basic Nursing Care</span> Service at Home
               </h1>
               <p className="hero__subtitle">
                 Comprehensive Basic Nursing Care at Home — structured, safety-focused non-clinical support for adults recovering, living with chronic illness, or needing reliable home assistance.
@@ -71,7 +71,7 @@ export default function BasicNursingCarePage() {
                 <a href={BRAND.whatsapp} className="btn btn--outline btn--lg" target="_blank" rel="noopener"><SiteIcon name="WhatsApp" size={18} /> WhatsApp Us</a>
               </div>
             </div>
-            <CTAForm title="Book Your Free Basic Nursing Care Assessment" packageOptions={CARE_PACKAGE_NAMES} />
+            <CTAForm title="Book Your Basic Nursing Care Assessment" packageOptions={CARE_PACKAGE_NAMES} />
           </div>
         </div>
       </section>
@@ -92,7 +92,7 @@ export default function BasicNursingCarePage() {
                 Every plan is built to preserve independence, reduce readmissions and keep families informed in real time.
               </p>
               <Link href="/contact" className="btn btn--primary btn--lg" id="bnc-summary-cta">
-                Book Your Free Basic Nursing Care Assessment <SiteIcon name="Arrow" size={18} />
+                Book Your Basic Nursing Care Assessment <SiteIcon name="Arrow" size={18} />
               </Link>
             </div>
           </div>
@@ -175,7 +175,7 @@ export default function BasicNursingCarePage() {
           </div>
 
           <div className="text-center mt-4">
-            <Link href="/contact" className="btn btn--primary btn--lg">Book Now for a Free Consultation <SiteIcon name="Arrow" size={18} /></Link>
+            <Link href="/contact" className="btn btn--primary btn--lg">Book a Care Consultation <SiteIcon name="Arrow" size={18} /></Link>
           </div>
         </div>
       </section>
@@ -307,10 +307,10 @@ export default function BasicNursingCarePage() {
             </div>
             <div style={{ flex: 1, minWidth: '280px' }}>
               <h3 style={{ marginBottom: '0.75rem' }}>📥 Free Guide: How to Choose the Right Basic Nursing Care Plan</h3>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>A step-by-step guide to help you evaluate your loved one&apos;s needs, compare care plans, and choose a reliable service in Chennai.</p>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>A step-by-step guide to help you evaluate your loved one&apos;s needs, compare care plans, and choose a reliable service.</p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <Link href="/resources/how-to-choose-nursing-care-plan" className="btn btn--primary">Download Guide</Link>
-                <Link href="/contact" className="btn btn--outline">Book Free Consultation</Link>
+                <Link href="/contact" className="btn btn--outline">Book Care Consultation</Link>
               </div>
             </div>
           </div>
@@ -337,9 +337,9 @@ export default function BasicNursingCarePage() {
       <section className="cta-strip" id="bnc-cta-final">
         <div className="container">
           <h2>Ready to Start Safe, Reliable Basic Nursing Care at Home?</h2>
-          <p>Your recovery or daily care doesn&apos;t need to be complicated. Narpavi Homecare makes it easy to begin safe, personalized Basic Nursing Care in Chennai — with trained caregivers, nurse supervision, and real-time updates.</p>
+          <p>Your recovery or daily care doesn&apos;t need to be complicated. Narpavi Homecare makes it easy to begin safe, personalized Basic Nursing Care — with trained caregivers, nurse supervision, and real-time updates.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/contact" className="btn btn--white btn--lg">Book a Free Expert Assessment</Link>
+            <Link href="/contact" className="btn btn--white btn--lg">Book an Expert Care Assessment</Link>
             <a href={BRAND.phoneHref} className="btn btn--outline btn--lg" style={{ color: 'white', borderColor: 'white' }}><SiteIcon name="Phone" size={18} /> {BRAND.phone}</a>
           </div>
           <div className="cta-strip__badges">

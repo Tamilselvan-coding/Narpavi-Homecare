@@ -255,7 +255,7 @@ export const ELDER_CARE_DELIVERABLES: ElderCareCardItem[] = [
 
 export const ELDER_CARE_ONBOARDING_STEPS: ElderCareStep[] = [
   {
-    title: 'Free assessment',
+    title: 'Care assessment',
     timeline: 'Day 1',
     description: 'We understand the senior condition, family expectations, home setup, shift need, and risk points.',
   },
@@ -332,7 +332,7 @@ export const ELDER_CARE_FAQS = [
   },
   {
     id: 8,
-    question: 'How fast can care start in Chennai?',
+    question: 'How fast can care start?',
     answer: 'After the assessment, caregiver matching usually begins quickly. Many families can start care within 24 to 48 hours depending on location, shift type, and care complexity.',
   },
   {
@@ -352,7 +352,7 @@ export const ELDER_CARE_DOWNLOADS: ElderCareDownload[] = [
     fileUrl: '/downloads/elder-care/managing-chronic-conditions-safely-at-home.docx',
   },
   {
-    title: 'Preventing Falls at Home: Safety Tips for Seniors in Chennai',
+    title: 'Preventing Falls at Home: Safety Tips for Seniors',
     fileUrl: '/downloads/elder-care/preventing-falls-safety-tips-seniors-chennai.docx',
   },
   {
@@ -371,7 +371,7 @@ export const ELDER_CARE_RESOURCES: ElderCareResource[] = [
   },
   {
     title: 'Managing Chronic Conditions at Home',
-    excerpt: 'Diabetes, heart, and stroke care routines for seniors in Chennai.',
+    excerpt: 'Diabetes, heart, and stroke care routines for seniors.',
     image: '/images/elder-care/pik-13.png',
     href: '/blog/post-surgery-recovery-at-home',
     readTime: '7 min read',

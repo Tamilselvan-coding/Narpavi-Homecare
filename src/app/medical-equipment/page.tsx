@@ -7,8 +7,8 @@ import CTAForm from '@/components/ui/CTAForm';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'Medical Equipment Rental & Sales in Chennai — Narpavi Homecare',
-  description: 'Rent or buy hospital-grade medical equipment at home in Chennai. BiPAP, CPAP, oxygen cylinders, hospital beds, monitors, wheelchairs and more.',
+  title: 'Medical Equipment Rental & Sales — Narpavi Homecare',
+  description: 'Rent or buy hospital-grade medical equipment at home. BiPAP, CPAP, oxygen cylinders, hospital beds, monitors, wheelchairs and more.',
   keywords: ['medical equipment rental chennai', 'buy medical equipment home', 'bipap rental chennai', 'hospital bed rental'],
   alternates: { canonical: 'https://www.narpavihomecare.com/medical-equipment' },
 };
@@ -39,7 +39,7 @@ export default function MedicalEquipmentHub() {
               <SiteIcon name="Medical Equipment" size={17} /> Home Recovery Equipment
             </div>
             <h1 className="equipment-hero__title">
-              Medical Equipment <span>Rental & Sales</span> in Chennai
+              Medical Equipment <span>Rental & Sales</span>
             </h1>
             <p className="equipment-hero__copy">
               Rent or buy hospital-grade devices for safe home recovery. We help families arrange respiratory support, patient monitoring, hospital cots, mobility aids and bedside care equipment with clean delivery and setup guidance.

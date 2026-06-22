@@ -6,8 +6,8 @@ import CTAForm from '@/components/ui/CTAForm';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'Advance Nursing Care Services in Chennai — Narpavi Homecare',
-  description: 'Clinical home nursing services in Chennai. Doctor-overseen advanced care including IV infusions, wound dressing, post-op injections and catheterization.',
+  title: 'Advance Nursing Care Services — Narpavi Homecare',
+  description: 'Clinical home nursing services. Doctor-overseen advanced care including IV infusions, wound dressing, post-op injections and catheterization.',
   keywords: ['advance nursing care chennai', 'home clinical nurse', 'IV infusion at home', 'catheter care at home'],
   alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/advance-nursing-care' },
 };
@@ -22,7 +22,7 @@ export default function AdvanceNursingCarePage() {
             <div>
               <div className="hero__badge"><SiteIcon name="Advanced Clinical Nursing" size={16} /> Professional Clinical Nursing</div>
               <h1 className="hero__title">
-                Clinical <span>Advance Nursing Care</span> at Home in Chennai
+                Clinical <span>Advance Nursing Care</span> at Home
               </h1>
               <p className="hero__subtitle">
                 Qualified, registered home nurses providing specialized clinical procedures and post-operative management under doctor oversight.

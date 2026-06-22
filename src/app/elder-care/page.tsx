@@ -2,7 +2,6 @@ import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BRAND } from '@/lib/constants';
 import {
   ELDER_CARE_COMPONENTS,
   ELDER_CARE_DELIVERABLES,
@@ -24,8 +23,8 @@ import CTAForm from '@/components/ui/CTAForm';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'Elder Care Services in Chennai - Narpavi Homecare',
-  description: 'Professional elder care services in Chennai with senior companionship, post-hospital recovery, dementia support, bedridden care, nurse oversight, and daily family updates.',
+  title: 'Elder Care Services - Narpavi Homecare',
+  description: 'Professional elder care services with senior companionship, post-hospital recovery, dementia support, bedridden care, nurse oversight, and daily family updates.',
   keywords: ['elder care services chennai', 'senior care at home chennai', 'home care for elderly parents', 'dementia care at home chennai', 'NRI parent care chennai'],
   alternates: { canonical: 'https://www.narpavihomecare.com/elder-care' },
 };
@@ -42,13 +41,13 @@ const ELDER_CARE_PACKAGE_NAMES = ELDER_CARE_PACKAGES.map((pkg) => pkg.name);
 export default function ElderCarePage() {
   const pageSchemas = [
     getWebPageSchema({
-      title: 'Elder Care Services in Chennai',
-      description: 'Nurse-supervised elder care in Chennai for senior companionship, post-hospital recovery, dementia support, chronic illness routines, and bedridden comfort care.',
+      title: 'Elder Care Services',
+      description: 'Nurse-supervised elder care for senior companionship, post-hospital recovery, dementia support, chronic illness routines, and bedridden comfort care.',
       path: '/elder-care',
     }),
     getServiceSchema({
-      name: 'Elder Care Services in Chennai',
-      description: 'Safe, dignified, personalized elder care at home in Chennai with verified caregivers, nurse oversight, family updates, and package-based care plans.',
+      name: 'Elder Care Services',
+      description: 'Safe, dignified, personalized elder care at home with verified caregivers, nurse oversight, family updates, and package-based care plans.',
       path: '/elder-care',
       serviceType: 'Elder care at home',
     }),
@@ -61,31 +60,32 @@ export default function ElderCarePage() {
       <StructuredDataScript data={pageSchemas} />
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Elder Care' }]} />
 
-      <section className="hero elder-main-hero" id="elder-care-hero" style={{ marginTop: 0 }}>
+      <section className="elder-main-hero" id="elder-care-hero">
         <div className="container elder-main-hero__grid">
-          <div className="hero__content">
+          <div className="elder-main-hero__content">
             <div className="hero__badge">
-              <SiteIcon name="Elder Care" size={16} /> Trusted Elder Care in Chennai
+              <SiteIcon name="Elder Care" size={16} /> Trusted Elder Care
             </div>
             <h1 className="hero__title">
-              Professional <span>Elder Care Services</span> in Chennai
+              Professional <span>Elder Care Services</span> at Home
             </h1>
             <p className="hero__subtitle">
-              Safe, dignified, and personalized support for your loved ones - trusted by families and NRIs across Chennai.
+              Safe, dignified, and personalized support that helps seniors remain comfortable, connected, and cared for in familiar surroundings.
             </p>
-            <div className="elder-hero__proof">
-              <span><SiteIcon name="Verified Caregivers" size={16} /> Verified caregivers</span>
-              <span><SiteIcon name="Nurse Oversight" size={16} /> Nurse oversight</span>
-              <span><SiteIcon name="Family Updates" size={16} /> Daily updates</span>
-            </div>
-            <div className="hero__cta-group">
-              <a href={BRAND.phoneHref} className="btn btn--secondary btn--lg">
-                <SiteIcon name="Phone" size={18} /> Call {BRAND.phone}
-              </a>
-              <a href="#elder-care-booking" className="btn btn--primary btn--lg">
-                Book Assessment <SiteIcon name="Arrow" size={18} />
+            <div className="elder-main-hero__actions">
+              <a href="#elder-packages" className="btn btn--outline btn--lg">
+                View Packages <SiteIcon name="Arrow" size={18} />
               </a>
             </div>
+          </div>
+          <div className="elder-main-hero__visual">
+            <Image
+              src="/images/elder-care/pik-1.png"
+              alt="Professional elder care support at home"
+              fill
+              sizes="(max-width: 992px) 100vw, 34vw"
+              priority
+            />
           </div>
           <CTAForm title="Book Elder Care Assessment" packageOptions={ELDER_CARE_PACKAGE_NAMES} />
         </div>
@@ -95,7 +95,7 @@ export default function ElderCarePage() {
         <div className="container elder-summary-grid">
           <div className="elder-image-panel">
             <Image
-              src="/images/elder-care/pik-1.png"
+              src="/images/elder-care/pik-3.png"
               alt="Elder care from Narpavi Homecare"
               fill
               sizes="(max-width: 992px) 100vw, 42vw"
@@ -112,62 +112,97 @@ export default function ElderCarePage() {
               Our care model combines verified caregivers, nurse-led oversight, hygiene protocols, daily reporting, and clear emergency escalation for Chennai families and NRIs caring for parents from a distance.
             </p>
             <Link href="#elder-care-booking" className="btn btn--primary btn--lg">
-              Book Your Free Elder Care Assessment <SiteIcon name="Arrow" size={18} />
+              Book Your Elder Care Assessment <SiteIcon name="Arrow" size={18} />
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section section--alt" id="elder-safety">
-        <div className="container">
-          <div className="section__header">
+      <section className="section section--alt elder-trust-section" id="elder-safety">
+        <div className="container elder-orbit-shell">
+          <div className="section__header elder-orbit-header">
             <span className="section-kicker">Safety and trust</span>
             <h2>Your Parent&apos;s Safety Stays Visible Every Day</h2>
             <p>Every elder care plan is built around practical prevention, respectful support, and transparent family communication.</p>
           </div>
 
-          <div className="elder-safety-layout">
-            <div className="elder-safety-grid">
-              {ELDER_CARE_SAFETY_POINTS.map((item) => (
-                <div className="trust-card" key={item.title}>
-                  <div className="trust-card__icon"><SiteIcon name={item.icon} /></div>
-                  <div>
-                    <h4>{item.title}</h4>
-                    <p>{item.description}</p>
-                  </div>
-                </div>
-              ))}
+          <div className="elder-trust-orbit">
+            <div className="elder-orbit-visual elder-orbit-visual--trust">
+              <span className="elder-orbit-visual__ring" aria-hidden="true" />
+              <div className="elder-orbit-visual__image">
+                <Image
+                  src="/images/elder-care/pik-2.jpg"
+                  alt="Senior safety and nurse-led care oversight"
+                  fill
+                  sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 350px"
+                />
+              </div>
+              <div className="elder-orbit-visual__badge">
+                <SiteIcon name="Safety shield" size={19} />
+                <span>Visible safety and family updates</span>
+              </div>
             </div>
-            <div className="elder-image-panel elder-image-panel--compact">
-              <Image
-                src="/images/elder-care/pik-2.jpg"
-                alt="Senior safety and nurse-led care oversight"
-                fill
-                sizes="(max-width: 992px) 100vw, 34vw"
-              />
-            </div>
-          </div>
 
-          <div className="elder-who-block">
-            <div className="section__header">
-              <span className="section-kicker">Who needs elder care</span>
-              <h2>Support for Every Senior Care Situation</h2>
-            </div>
-            <div className="elder-who-grid">
-              {ELDER_CARE_WHO_NEEDS.map((item) => (
-                <div className="care-card" key={item.title}>
-                  <div className="care-card__icon"><SiteIcon name={item.icon} size={28} /></div>
-                  <div>
-                    <h4>{item.title}</h4>
-                    <p>{item.description}</p>
-                  </div>
+            {ELDER_CARE_SAFETY_POINTS.map((item, index) => (
+              <article
+                className={`elder-orbit-card elder-trust-card--${index + 1}`}
+                key={item.title}
+                style={{ '--elder-orbit-order': index } as CSSProperties}
+              >
+                <div className="elder-orbit-card__icon"><SiteIcon name={item.icon} size={22} /></div>
+                <div>
+                  <span className="elder-orbit-card__eyebrow">Safety {String(index + 1).padStart(2, '0')}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
                 </div>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
+      <section className="section elder-who-section" id="elder-who-needs">
+        <div className="container elder-orbit-shell">
+          <div className="section__header elder-orbit-header">
+            <span className="section-kicker">Who needs elder care</span>
+            <h2>Support for Every Senior Care Situation</h2>
+            <p>Care plans adapt to the senior&apos;s independence, recovery needs, health routines, cognition, mobility, and family support.</p>
+          </div>
+
+          <div className="elder-who-orbit">
+            <div className="elder-orbit-visual elder-orbit-visual--who">
+              <span className="elder-orbit-visual__ring" aria-hidden="true" />
+              <div className="elder-orbit-visual__image">
+                <Image
+                  src="/images/elder-care/pik-4.png"
+                  alt="Personalized support for different senior care situations"
+                  fill
+                  sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 350px"
+                />
+              </div>
+              <div className="elder-orbit-visual__badge">
+                <SiteIcon name="Elder companion" size={19} />
+                <span>Care matched to each senior</span>
+              </div>
+            </div>
+
+            {ELDER_CARE_WHO_NEEDS.map((item, index) => (
+              <article
+                className={`elder-orbit-card elder-who-card--${index + 1}`}
+                key={item.title}
+                style={{ '--elder-orbit-order': index } as CSSProperties}
+              >
+                <div className="elder-orbit-card__icon"><SiteIcon name={item.icon} size={22} /></div>
+                <div>
+                  <span className="elder-orbit-card__eyebrow">Support {String(index + 1).padStart(2, '0')}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
       <section className="section" id="elder-packages">
         <div className="container">
           <div className="section__header">
@@ -234,45 +269,79 @@ export default function ElderCarePage() {
         </div>
       </section>
 
-      <section className="section section--alt" id="elder-deliverables">
-        <div className="container">
-          <div className="section__header">
+      <section className="section section--alt elder-deliverables-section" id="elder-deliverables">
+        <div className="container elder-orbit-shell">
+          <div className="section__header elder-orbit-header">
             <span className="section-kicker">What is included</span>
             <h2>Comprehensive Elder Care Deliverables</h2>
             <p>Families receive practical support, visible reporting, and calm routines that protect dignity at home.</p>
           </div>
-          <div className="elder-deliverables-layout">
-            <div className="elder-image-panel elder-image-panel--wide">
-              <Image src="/images/elder-care/pik-5.png" alt="Elder care personal support at home" fill sizes="(max-width: 992px) 100vw, 38vw" />
+
+          <div className="elder-deliverables-orbit">
+            <div className="elder-orbit-visual elder-orbit-visual--deliverables">
+              <span className="elder-orbit-visual__ring" aria-hidden="true" />
+              <div className="elder-orbit-visual__image">
+                <Image
+                  src="/images/elder-care/pik-5.png"
+                  alt="Comprehensive elder care support at home"
+                  fill
+                  sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 350px"
+                />
+              </div>
+              <div className="elder-orbit-visual__badge">
+                <SiteIcon name="Family care report" size={19} />
+                <span>Complete daily care support</span>
+              </div>
             </div>
-            <div className="elder-deliverables-grid">
-              {ELDER_CARE_DELIVERABLES.map((item) => (
-                <div className="elder-deliverable-card" key={item.title}>
-                  <div><SiteIcon name={item.icon} size={22} /></div>
+
+            {ELDER_CARE_DELIVERABLES.map((item, index) => (
+              <article
+                className={`elder-orbit-card elder-deliverable-orbit-card--${index + 1}`}
+                key={item.title}
+                style={{ '--elder-orbit-order': index } as CSSProperties}
+              >
+                <div className="elder-orbit-card__icon"><SiteIcon name={item.icon} size={22} /></div>
+                <div>
+                  <span className="elder-orbit-card__eyebrow">Care {String(index + 1).padStart(2, '0')}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </div>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
-
-      <section className="section" id="elder-onboarding">
+      <section className="section elder-journey-section" id="elder-onboarding">
         <div className="container">
-          <div className="section__header">
+          <div className="section__header elder-journey__header">
             <span className="section-kicker">How it works</span>
-            <h2>Simple Onboarding for Families</h2>
-            <p>From first call to ongoing monitoring, the process is designed to be clear, fast, and family-friendly.</p>
+            <h2>A Clear Care Journey for Families</h2>
+            <p>From understanding the need to reviewing ongoing care, every stage stays practical, visible, and family-friendly.</p>
           </div>
-          <div className="elder-timeline">
+
+          <div className="elder-journey">
+            <div className="elder-journey__track" aria-hidden="true">
+              <span />
+            </div>
             {ELDER_CARE_ONBOARDING_STEPS.map((step, index) => (
-              <div className="elder-timeline__item" key={step.title}>
-                <div className="elder-timeline__number">{index + 1}</div>
-                <span>{step.timeline}</span>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </div>
+              <article
+                className={`elder-journey__step elder-journey__step--${index + 1}`}
+                key={step.title}
+                style={{ '--journey-order': index } as CSSProperties}
+              >
+                <div className="elder-journey__milestone">
+                  <div className="elder-journey__number">{String(index + 1).padStart(2, '0')}</div>
+                  <SiteIcon
+                    name={index === 0 ? 'Assessment report' : index === 1 ? 'Personalized care plan' : index === 2 ? 'Verified caregiver' : index === 3 ? 'Home care' : 'Monitoring report'}
+                    size={23}
+                  />
+                </div>
+                <div className="elder-journey__card">
+                  <span>{step.timeline}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </article>
             ))}
           </div>
         </div>
@@ -283,7 +352,7 @@ export default function ElderCarePage() {
           <div className="section__header">
             <span className="section-kicker">FAQs</span>
             <h2>Elder Care Questions Families Ask</h2>
-            <p>Clear answers for families arranging safe care for parents and grandparents in Chennai.</p>
+            <p>Clear answers for families arranging safe care for parents and grandparents.</p>
           </div>
           <FAQAccordion faqs={ELDER_CARE_FAQS} />
         </div>
@@ -301,21 +370,35 @@ export default function ElderCarePage() {
         </div>
       </section>
 
-      <section className="section section--alt" id="elder-components">
-        <div className="container">
-          <div className="section__header">
+      <section className="section elder-components-section" id="elder-components">
+        <div className="container elder-components-shell">
+          <div className="section__header elder-components-header">
             <span className="section-kicker">Complete care components</span>
             <h2>Everything Elder Care Can Cover</h2>
             <p>Each care plan is assembled from these practical components based on the senior&apos;s condition, dependency level, and family expectations.</p>
+            <div className="elder-components-summary">
+              <span><strong>{ELDER_CARE_COMPONENTS.length}</strong> essential care areas</span>
+              <span><SiteIcon name="Personalized care plan" size={18} /> One personalized plan</span>
+            </div>
           </div>
           <div className="elder-components-grid">
             {ELDER_CARE_COMPONENTS.map((item, index) => (
-              <div className="elder-component-card" key={item.title}>
-                <div className="elder-component-card__number">{String(index + 1).padStart(2, '0')}</div>
-                <SiteIcon name={item.icon} size={26} />
+              <article
+                className={`elder-component-card elder-component-card--${index + 1}`}
+                key={item.title}
+                style={{ '--component-order': index } as CSSProperties}
+              >
+                <div className="elder-component-card__top">
+                  <div className="elder-component-card__icon">
+                    <SiteIcon name={item.icon} size={30} />
+                  </div>
+                  <div className="elder-component-card__number">{String(index + 1).padStart(2, '0')}</div>
+                </div>
+                <span className="elder-component-card__label">Care area</span>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-              </div>
+                <div className="elder-component-card__line" aria-hidden="true" />
+              </article>
             ))}
           </div>
         </div>
@@ -327,7 +410,7 @@ export default function ElderCarePage() {
             <h2>Ready to Start Safe Elder Care at Home?</h2>
             <p>Tell us your parent&apos;s condition, location, shift need, and family expectations. We will help you choose the right elder care package.</p>
             <div className="cta-strip__badges">
-              <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Free assessment</span>
+              <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Professional assessment</span>
               <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Fast onboarding</span>
               <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> NRI family updates</span>
             </div>

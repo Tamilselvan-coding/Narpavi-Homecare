@@ -6,8 +6,8 @@ import CTAForm from '@/components/ui/CTAForm';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'Patient Assistant Care Services in Chennai — Narpavi Homecare',
-  description: 'Trained patient assistants and caregivers at home in Chennai. Safe ADL assistance, companionship, mobility aid, and recovery support for families.',
+  title: 'Patient Assistant Care Services — Narpavi Homecare',
+  description: 'Trained patient assistants and caregivers at home. Safe ADL assistance, companionship, mobility aid, and recovery support for families.',
   keywords: ['patient assistant care chennai', 'home caregiver chennai', 'elderly companion care', 'daily assistant care'],
   alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/patient-assistant-care' },
 };
@@ -22,7 +22,7 @@ export default function PatientAssistantCarePage() {
             <div>
               <div className="hero__badge"><SiteIcon name="Companion Care" size={16} /> Compassionate Companion Care</div>
               <h1 className="hero__title">
-                Professional <span>Patient Assistant Care</span> in Chennai
+                Professional <span>Patient Assistant Care</span>
               </h1>
               <p className="hero__subtitle">
                 Reliable non-clinical support for activities of daily living (ADLs), ensuring safety, comfort, and companionship.
@@ -64,7 +64,7 @@ export default function PatientAssistantCarePage() {
           <div style={{ background: 'var(--primary-light)', padding: '2rem', borderRadius: 'var(--radius-lg)', textAlign: 'center' }}>
             <h3 style={{ marginBottom: '0.5rem' }}>Need a Patient Assistant?</h3>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Our caregivers are background-checked and supervised. Get care started within 24-48 hours.</p>
-            <Link href="/contact" className="btn btn--primary">Book Free Assessment</Link>
+            <Link href="/contact" className="btn btn--primary">Book Care Assessment</Link>
           </div>
         </div>
       </section>

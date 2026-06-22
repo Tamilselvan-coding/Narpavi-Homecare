@@ -37,13 +37,6 @@ export interface BabyCareResource {
   href: string;
 }
 
-export const BABY_CARE_PACKAGE_NAMES = [
-  'Active Assist',
-  'Guided Living',
-  'Caring Hands',
-  'Comfort Plus',
-];
-
 export const BABY_CARE_BENEFITS = [
   {
     title: 'Benefits to the Mother',
@@ -121,8 +114,8 @@ export const BABY_CARE_WHO = [
 
 export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
   {
-    id: 'active-assist',
-    name: 'Active Assist',
+    id: 'nanny-angel-care',
+    name: 'Nanny Angel Care',
     tagline: 'Peaceful nights, productive days',
     summary: 'Gentle newborn and night routine support for families who already have some help but need reliable extra care.',
     image: '/images/baby-care/pik-7.png',
@@ -155,11 +148,11 @@ export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
       'Keeps newborn routines calm and consistent',
       'Supports twin night feeds and sleep schedules',
     ],
-    href: '/baby-care/active-assist',
+    href: '/baby-care/nanny-angel-care',
   },
   {
-    id: 'guided-living',
-    name: 'Guided Living',
+    id: 'newborn-starter-care',
+    name: 'Newborn Starter Care',
     tagline: 'Gentle beginning for your baby',
     summary: 'Structured guidance for first-time parents and working couples who need a steady baby care routine at home.',
     image: '/images/baby-care/pik-8.png',
@@ -192,11 +185,11 @@ export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
       'Creates predictable feeding and sleep routines',
       'Balances working-parent schedules with baby needs',
     ],
-    href: '/baby-care/guided-living',
+    href: '/baby-care/newborn-starter-care',
   },
   {
-    id: 'caring-hands',
-    name: 'Caring Hands',
+    id: 'mother-baby-wellness',
+    name: 'Mother & Baby Wellness',
     tagline: 'Care for two hearts, one bond',
     summary: 'Complete mother and baby wellness care for delivery recovery, C-section comfort, twin care, and family confidence.',
     image: '/images/baby-care/pik-9.png',
@@ -229,11 +222,11 @@ export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
       'Combines mother recovery and newborn care',
       'Gives families visible daily wellness updates',
     ],
-    href: '/baby-care/caring-hands',
+    href: '/baby-care/mother-baby-wellness',
   },
   {
-    id: 'comfort-plus',
-    name: 'Comfort Plus',
+    id: 'little-angels-advanced-care',
+    name: 'Little Angels Advanced Care',
     tagline: 'Expert care for delicate beginnings',
     summary: 'Advanced home support for premature, low birth weight, medically vulnerable, or post-NICU babies who need extra observation.',
     image: '/images/baby-care/pik-10.png',
@@ -266,9 +259,11 @@ export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
       'Keeps hygiene and monitoring routines stricter',
       'Helps parents feel supported through delicate care needs',
     ],
-    href: '/baby-care/comfort-plus',
+    href: '/baby-care/little-angels-advanced-care',
   },
 ];
+
+export const BABY_CARE_PACKAGE_NAMES = BABY_CARE_PACKAGES.map((pkg) => pkg.name);
 
 export function getBabyCarePackage(packageId: string) {
   return BABY_CARE_PACKAGES.find((pkg) => pkg.id === packageId);
@@ -385,7 +380,7 @@ export const BABY_CARE_DOWNLOADS: BabyCareDownload[] = [
 
 export const BABY_CARE_RESOURCES: BabyCareResource[] = [
   {
-    title: 'How to Choose the Right Baby Caregiver in Chennai',
+    title: 'How to Choose the Right Baby Caregiver',
     excerpt: 'Key checks for training, background verification, hygiene standards, and support backup.',
     image: '/images/baby-care/pik-12.jpeg',
     href: '/baby-care#baby-care-blogs',

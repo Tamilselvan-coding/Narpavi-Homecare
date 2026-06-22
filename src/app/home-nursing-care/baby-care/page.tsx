@@ -2,7 +2,6 @@ import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BRAND } from '@/lib/constants';
 import {
   BABY_CARE_BENEFITS,
   BABY_CARE_DELIVERABLES,
@@ -24,8 +23,8 @@ import CTAForm from '@/components/ui/CTAForm';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'Expert New Born Baby Care at Home in Chennai - Narpavi Homecare',
-  description: 'Professional baby care at home in Chennai for newborn routines, feeding, hygiene, night care, mother recovery, twin care and NICU-level support.',
+  title: 'Expert New Born Baby Care at Home - Narpavi Homecare',
+  description: 'Professional baby care at home for newborn routines, feeding, hygiene, night care, mother recovery, twin care and NICU-level support.',
   keywords: [
     'baby care at home chennai',
     'newborn baby care',
@@ -46,12 +45,12 @@ function packageStyle(pkg: BabyCarePackage) {
 export default function BabyCarePage() {
   const schemas = [
     getWebPageSchema({
-      title: 'Expert New Born Baby Care at Home in Chennai',
-      description: 'Professional newborn baby care at home in Chennai with feeding support, hygiene routines, night care, mother recovery and NICU-level support.',
+      title: 'Expert New Born Baby Care at Home',
+      description: 'Professional newborn baby care at home with feeding support, hygiene routines, night care, mother recovery and NICU-level support.',
       path: '/baby-care',
     }),
     getServiceSchema({
-      name: 'Baby Care at Home in Chennai',
+      name: 'Baby Care at Home',
       description: 'Safe, hygienic and compassionate baby care at home for newborns, infants, postnatal mothers, twins and premature babies.',
       path: '/baby-care',
       serviceType: 'Baby care at home',
@@ -73,22 +72,16 @@ export default function BabyCarePage() {
         <div className="container baby-hero__grid">
           <div className="baby-hero__content">
             <div className="hero__badge"><SiteIcon name="Baby Care" size={16} /> Newborn & Mother Postnatal Support</div>
-            <h1>Expert New Born <span>Baby Care</span> at Home in Chennai</h1>
+            <h1>Expert New Born <span>Baby Care</span> at Home</h1>
             <p>
-              Professional baby care at home in Chennai for newborn feeding, hygiene, sleep routines, mother recovery, twin care, and NICU-level support.
+              Professional baby care at home for newborn feeding, hygiene, sleep routines, mother recovery, twin care, and NICU-level support.
             </p>
             <div className="baby-hero__actions">
-              <a href={BRAND.phoneHref} className="btn btn--white btn--lg"><SiteIcon name="Phone" size={18} /> Call {BRAND.phone}</a>
               <a href="#baby-care-packages" className="btn btn--outline btn--lg">View Packages <SiteIcon name="Arrow" size={18} /></a>
-            </div>
-            <div className="baby-hero__proof">
-              <span><SiteIcon name="Check" size={16} /> Trained caregivers</span>
-              <span><SiteIcon name="Check" size={16} /> Same-day deployment</span>
-              <span><SiteIcon name="Check" size={16} /> 50+ Chennai families</span>
             </div>
           </div>
           <div className="baby-hero__visual">
-            <Image src="/images/baby-care/pik-1.png" alt="Newborn baby care at home in Chennai" fill sizes="(max-width: 992px) 100vw, 42vw" priority />
+            <Image src="/images/baby-care/pik-1.png" alt="Newborn baby care at home" fill sizes="(max-width: 992px) 100vw, 42vw" priority />
           </div>
           <CTAForm title="Book Baby Care Assessment" packageOptions={BABY_CARE_PACKAGE_NAMES} />
         </div>
@@ -101,14 +94,14 @@ export default function BabyCarePage() {
           </div>
           <div>
             <span className="section-kicker">Compassionate Baby Care</span>
-            <h2>Compassionate Baby Care at Home in Chennai</h2>
+            <h2>Compassionate Baby Care at Home</h2>
             <p>
-              Welcoming a newborn brings profound joy and equally profound adjustments. At Narpavi Homecare, we deliver professional baby care at home in Chennai, providing nurturing support for both infants and new mothers.
+              Welcoming a newborn brings profound joy and equally profound adjustments. At Narpavi Homecare, we deliver professional baby care at home, providing nurturing support for both infants and new mothers.
             </p>
             <p>
-              From newborn feeding and hygiene routines to postpartum recovery and NICU-level care, our specially trained caregivers and nurses help your family thrive in the comfort and safety of home.
+              From newborn feeding and hygiene routines to postpartum recovery and NICU-level care, our caregivers and nurses help your family thrive in the comfort and safety of home.
             </p>
-            <Link href="#baby-care-form" className="btn btn--primary btn--lg">Book a Free Baby Care Consultation <SiteIcon name="Arrow" size={18} /></Link>
+            <Link href="#baby-care-form" className="btn btn--primary btn--lg">Book a Baby Care Consultation <SiteIcon name="Arrow" size={18} /></Link>
           </div>
         </div>
       </section>
@@ -136,45 +129,91 @@ export default function BabyCarePage() {
         </div>
       </section>
 
-      <section className="section" id="baby-care-deliverables">
+      <section className="section baby-deliverables-section" id="baby-care-deliverables">
         <div className="container baby-deliverables">
-          <div>
+          <div className="section__header baby-deliverables__header">
             <span className="section-kicker">Deliverables</span>
             <h2>Comprehensive Baby Care Deliverables</h2>
             <p>Every care plan is built around baby safety, mother comfort, routine stability, and clear family communication.</p>
-            <div className="baby-deliverable-grid">
-              {BABY_CARE_DELIVERABLES.map((item) => (
-                <article className="baby-deliverable-card" key={item.title}>
-                  <SiteIcon name={item.icon} size={24} />
+          </div>
+
+          <div className="baby-deliverables-orbit">
+            <div className="baby-deliverables-visual">
+              <span className="baby-deliverables-visual__ring" aria-hidden="true" />
+              <div className="baby-deliverables-visual__image">
+                <Image
+                  src="/images/baby-care/pik-3.jpg"
+                  alt="Baby care deliverables by trained caregiver"
+                  fill
+                  sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 340px"
+                />
+              </div>
+              <div className="baby-deliverables-visual__badge">
+                <SiteIcon name="Newborn baby care" size={19} />
+                <span>Complete mother and baby support</span>
+              </div>
+            </div>
+
+            {BABY_CARE_DELIVERABLES.map((item, index) => (
+              <article
+                className={`baby-deliverable-card baby-deliverable-card--${index + 1}`}
+                key={item.title}
+                style={{ '--baby-deliverable-order': index } as CSSProperties}
+              >
+                <div className="baby-deliverable-card__icon">
+                  <SiteIcon name={item.icon} size={22} />
+                </div>
+                <div>
+                  <span className="baby-deliverable-card__eyebrow">Care {String(index + 1).padStart(2, '0')}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-          <div className="baby-image-panel baby-image-panel--tall">
-            <Image src="/images/baby-care/pik-3.jpg" alt="Baby care deliverables by trained caregiver" fill sizes="(max-width: 992px) 100vw, 34vw" />
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section section--alt" id="baby-care-who">
+      <section className="section section--alt baby-who-section" id="baby-care-who">
         <div className="container baby-who">
-          <div className="baby-image-panel">
-            <Image src="/images/baby-care/pik-4.jpeg" alt="Parents receiving newborn baby care support" fill sizes="(max-width: 992px) 100vw, 36vw" />
-          </div>
-          <div>
+          <div className="section__header baby-who__header">
             <span className="section-kicker">Who we care for</span>
             <h2>Support for Every Parent Stage</h2>
             <p>Every parent&apos;s needs are unique and change with their situation and stage of maternal life. These are the families we commonly support.</p>
-            <div className="baby-who-grid">
-              {BABY_CARE_WHO.map((item) => (
-                <div className="baby-who-card" key={item}>
-                  <SiteIcon name="Family baby care" size={18} />
-                  <span>{item}</span>
-                </div>
-              ))}
+          </div>
+
+          <div className="baby-who-orbit">
+            <div className="baby-who-visual">
+              <span className="baby-who-visual__ring" aria-hidden="true" />
+              <div className="baby-who-visual__image">
+                <Image
+                  src="/images/baby-care/pik-4.jpeg"
+                  alt="Parents receiving newborn baby care support"
+                  fill
+                  sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 340px"
+                />
+              </div>
+              <div className="baby-who-visual__badge">
+                <SiteIcon name="Family baby care" size={19} />
+                <span>Care that grows with your family</span>
+              </div>
             </div>
+
+            {BABY_CARE_WHO.map((item, index) => (
+              <article
+                className={`baby-who-card baby-who-card--${index + 1}`}
+                key={item}
+                style={{ '--baby-who-order': index } as CSSProperties}
+              >
+                <div className="baby-who-card__icon">
+                  <SiteIcon name="Family baby care" size={20} />
+                </div>
+                <div>
+                  <span className="baby-who-card__eyebrow">Support {String(index + 1).padStart(2, '0')}</span>
+                  <p>{item}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -247,26 +286,47 @@ export default function BabyCarePage() {
         </div>
       </section>
 
-      <section className="section section--alt" id="baby-care-trust">
+      <section className="section section--alt baby-trust-section" id="baby-care-trust">
         <div className="container baby-trust">
-          <div>
+          <div className="section__header baby-trust__header">
             <span className="section-kicker">Why families trust Narpavi</span>
             <h2>Your Baby&apos;s Safety Is Our Priority</h2>
             <p>Bringing someone into your home to care for your newborn is a big decision. Every Narpavi Homecare caregiver and nurse is vetted, trained, and supported by strict clinical standards.</p>
-            <div className="baby-trust-grid">
-              {BABY_CARE_TRUST_POINTS.map((item) => (
-                <article className="baby-trust-card" key={item.title}>
-                  <SiteIcon name={item.icon} size={22} />
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
           </div>
-          <div className="baby-image-panel baby-image-panel--tall">
-            <Image src="/images/baby-care/pik-5.png" alt="Trusted baby care safety protocols" fill sizes="(max-width: 992px) 100vw, 34vw" />
+
+          <div className="baby-trust-orbit">
+            <div className="baby-trust-visual">
+              <span className="baby-trust-visual__ring" aria-hidden="true" />
+              <div className="baby-trust-visual__image">
+                <Image
+                  src="/images/baby-care/pik-5.png"
+                  alt="Trusted baby care safety protocols"
+                  fill
+                  sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 350px"
+                />
+              </div>
+              <div className="baby-trust-visual__badge">
+                <SiteIcon name="Safety shield" size={19} />
+                <span>Safety-led care at every step</span>
+              </div>
+            </div>
+
+            {BABY_CARE_TRUST_POINTS.map((item, index) => (
+              <article
+                className={`baby-trust-card baby-trust-card--${index + 1}`}
+                key={item.title}
+                style={{ '--baby-trust-order': index } as CSSProperties}
+              >
+                <div className="baby-trust-card__icon">
+                  <SiteIcon name={item.icon} size={22} />
+                </div>
+                <div>
+                  <span className="baby-trust-card__eyebrow">Trust {String(index + 1).padStart(2, '0')}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -306,7 +366,7 @@ export default function BabyCarePage() {
         <div className="container baby-final-cta__grid">
           <div>
             <h2>Ready to Give Your Baby the Safest Start at Home?</h2>
-            <p>Professional baby care, trusted by 50+ Chennai families - from newborn essentials to advanced NICU-level support. Same-day caregiver deployment is available in most locations.</p>
+            <p>Professional baby care ranging from newborn essentials to advanced NICU-level support, planned around your baby&apos;s needs and family routine.</p>
             <div className="cta-strip__badges">
               <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Newborn routines</span>
               <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Night care</span>

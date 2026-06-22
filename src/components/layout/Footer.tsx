@@ -28,11 +28,11 @@ export default function Footer() {
         <div className="container premium-footer__cta-inner">
           <div className="premium-footer__cta-text">
             <h3>Need Home Healthcare Support?</h3>
-            <p>Get a free expert assessment and start care within 24{'\u2013'}48 hours.</p>
+            <p>Schedule an expert care assessment and start care within 24{'\u2013'}48 hours.</p>
           </div>
           <div className="premium-footer__cta-actions">
             <Link href="/contact" className="btn btn--white btn--lg">
-              Book Free Assessment <SiteIcon name="Arrow" size={18} />
+              Book Care Assessment <SiteIcon name="Arrow" size={18} />
             </Link>
             <a href={BRAND.phoneHref} className="premium-footer__phone-btn">
               <SiteIcon name="Phone" size={18} /> {BRAND.phoneFormatted}
@@ -51,7 +51,7 @@ export default function Footer() {
                 Narpavi <span>Homecare</span>
               </h3>
               <p className="premium-footer__tagline">
-                Professional home healthcare in Chennai. Nurse-supervised, doctor-overseen care for your loved ones {'\u2014'} safe, dignified and compassionate.
+                Professional home healthcare. Nurse-supervised, doctor-overseen care for your loved ones {'\u2014'} safe, dignified and compassionate.
               </p>
               <div className="premium-footer__social">
                 <a href={BRAND.whatsapp} target="_blank" rel="noopener" aria-label="WhatsApp" className="premium-footer__social-btn premium-footer__social-btn--wa">

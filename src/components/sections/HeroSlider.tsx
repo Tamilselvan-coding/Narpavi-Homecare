@@ -18,11 +18,11 @@ interface HeroSlide {
 const SLIDES: HeroSlide[] = [
   {
     image: '/images/pik-1.jpeg',
-    kicker: 'Trusted Home Healthcare in Chennai',
+    kicker: 'Trusted Home Healthcare',
     heading: 'Expert ',
     headingHighlight: 'Home Nursing Services',
     copy: 'Nurse-supervised, doctor-overseen care for your loved ones. From post-surgery recovery to palliative support — safe, dignified care at home.',
-    ctaLabel: 'Book Free Assessment',
+    ctaLabel: 'Book Care Assessment',
     ctaHref: '/contact',
   },
   {

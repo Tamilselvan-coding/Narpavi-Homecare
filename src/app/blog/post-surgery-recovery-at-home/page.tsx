@@ -116,9 +116,9 @@ export default function PostSurgeryRecovery() {
 
         <div className="cta-strip" style={{ borderRadius: 'var(--radius-lg)', marginTop: '2rem' }}>
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Planning Post-Surgery Recovery at Home?</h3>
-          <p style={{ opacity: 0.9 }}>Call {BRAND.phone} or request a free care assessment today to plan your post-surgery care at home.</p>
+          <p style={{ opacity: 0.9 }}>Call {BRAND.phone} or request a care assessment today to plan your post-surgery care at home.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/contact" className="btn btn--white">Book Free Assessment</Link>
+            <Link href="/contact" className="btn btn--white">Book Care Assessment</Link>
             <a href={BRAND.phoneHref} className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Call {BRAND.phone}</a>
           </div>
         </div>

@@ -8,7 +8,7 @@ const QUICK_REPLIES = [
   'I need home nursing care',
   'I need medical equipment',
   'I want elder care support',
-  'I want a free assessment',
+  'I want to book a care assessment',
 ];
 
 function whatsappUrl(message: string) {

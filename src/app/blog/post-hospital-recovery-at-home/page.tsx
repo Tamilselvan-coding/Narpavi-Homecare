@@ -81,9 +81,9 @@ export default function PostHospitalRecovery() {
 
         <div className="cta-strip" style={{ borderRadius: 'var(--radius-lg)', marginTop: '2rem' }}>
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Planning Post-Hospital Recovery?</h3>
-          <p style={{ opacity: 0.9 }}>Book a free assessment and get professional care started within 24-48 hours.</p>
+          <p style={{ opacity: 0.9 }}>Book a care assessment and get professional care started within 24-48 hours.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/contact" className="btn btn--white">Book Free Assessment</Link>
+            <Link href="/contact" className="btn btn--white">Book Care Assessment</Link>
             <a href={BRAND.phoneHref} className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Call {BRAND.phone}</a>
           </div>
         </div>

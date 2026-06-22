@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!pkg) return { title: 'Elder Care Package Not Found' };
 
   return {
-    title: `${pkg.name} Elder Care in Chennai - Narpavi Homecare`,
+    title: `${pkg.name} Elder Care - Narpavi Homecare`,
     description: `${pkg.tagline}. ${pkg.costCue}`,
     keywords: [
       `${pkg.name} elder care`,
@@ -59,7 +59,7 @@ export default async function ElderCarePackagePage({ params }: PageProps) {
   const otherPackages = getOtherElderCarePackages(packageId);
   const schemas = [
     getWebPageSchema({
-      title: `${pkg.name} Elder Care in Chennai`,
+      title: `${pkg.name} Elder Care`,
       description: `${pkg.tagline}. ${pkg.costCue}`,
       path: pkg.href,
     }),

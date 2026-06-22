@@ -6,8 +6,8 @@ import CTAForm from '@/components/ui/CTAForm';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'Specialty Nursing Care Services in Chennai — Narpavi Homecare',
-  description: 'Specialized home nursing for chronic conditions in Chennai. Expert care for stroke recovery, cancer care, dementia, and cardiac support.',
+  title: 'Specialty Nursing Care Services — Narpavi Homecare',
+  description: 'Specialized home nursing for chronic conditions. Expert care for stroke recovery, cancer care, dementia, and cardiac support.',
   keywords: ['specialty nursing care chennai', 'stroke rehab home care', 'dementia care chennai', 'home oncology care'],
   alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/specialty-nursing-care' },
 };
@@ -22,7 +22,7 @@ export default function SpecialtyNursingCarePage() {
             <div>
               <div className="hero__badge"><SiteIcon name="Neurological Specialty Care" size={16} /> Chronic & Neurological Rehabilitation</div>
               <h1 className="hero__title">
-                Condition-Specific <span>Specialty Care</span> in Chennai
+                Condition-Specific <span>Specialty Care</span>
               </h1>
               <p className="hero__subtitle">
                 Expert, continuous care customized for Parkinson&apos;s, dementia support, post-stroke recovery, and cancer therapy assistance at home.

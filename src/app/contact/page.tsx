@@ -1,12 +1,12 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import CTAForm from '@/components/ui/CTAForm';
 import { BRAND } from '@/lib/constants';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'Contact Us — Book Free Assessment',
-  description: `Book a free nursing care assessment. Get professional home healthcare started within 24-48 hours. Call ${BRAND.phone}.`,
+  title: 'Contact Us — Book Care Assessment',
+  description: `Book a professional nursing care assessment. Get professional home healthcare started within 24-48 hours. Call ${BRAND.phone}.`,
   alternates: { canonical: 'https://www.narpavihomecare.com/contact' },
 };
 
@@ -20,7 +20,7 @@ export default function ContactPage() {
             <div>
               <h1 style={{ marginBottom: '1.25rem' }}>Get in Touch</h1>
               <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '2rem' }}>
-                Ready to start safe, personalized Basic Nursing Care in Chennai? Fill out the form or reach us directly.
+                Ready to start safe, personalized Basic Nursing Care? Fill out the form or reach us directly.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div className="trust-card">
@@ -37,7 +37,7 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-            <CTAForm title="Book Your Free Nursing Care Assessment" />
+            <CTAForm title="Book Your Nursing Care Assessment" />
           </div>
         </div>
       </section>

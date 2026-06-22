@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!pkg) return { title: 'Baby Care Package Not Found' };
 
   return {
-    title: `${pkg.name} Baby Care in Chennai - Narpavi Homecare`,
+    title: `${pkg.name} Baby Care - Narpavi Homecare`,
     description: `${pkg.tagline}. ${pkg.summary}`,
     keywords: [
       `${pkg.name} baby care`,
@@ -58,7 +58,7 @@ export default async function BabyCarePackagePage({ params }: PageProps) {
   const otherPackages = getOtherBabyCarePackages(packageId);
   const schemas = [
     getWebPageSchema({
-      title: `${pkg.name} Baby Care in Chennai`,
+      title: `${pkg.name} Baby Care`,
       description: `${pkg.tagline}. ${pkg.summary}`,
       path: pkg.href,
     }),

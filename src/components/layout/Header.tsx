@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useState, useEffect, useMemo, type KeyboardEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -178,7 +178,7 @@ export default function Header() {
               ))}
             </nav>
             <Link href="/contact" className="btn btn--primary btn--sm header__cta-desktop" id="header-cta">
-              Book Free Assessment
+              Book Care Assessment
             </Link>
           </div>
         </div>
@@ -233,7 +233,7 @@ export default function Header() {
           ))}
           <div className="mobile-nav__cta">
             <Link href="/contact" className="btn btn--primary" onClick={closeMobileMenu}>
-              Book Free Assessment
+              Book Care Assessment
             </Link>
           </div>
         </div>

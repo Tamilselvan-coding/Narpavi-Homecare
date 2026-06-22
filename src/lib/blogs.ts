@@ -1,4 +1,4 @@
-﻿export interface BlogPost {
+export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
@@ -12,7 +12,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'palliative-care-at-home',
     title: 'Palliative Care at Home — Comfort & Dignity for Loved Ones',
-    excerpt: 'Professional palliative care at home in Chennai. Comfort-focused support with daily family updates.',
+    excerpt: 'Professional palliative care at home. Comfort-focused support with daily family updates.',
     image: '/images/pik-14.png',
     readTime: '6 min read',
     date: '2025-01-15',

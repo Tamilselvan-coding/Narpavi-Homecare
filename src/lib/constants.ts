@@ -1,6 +1,6 @@
-﻿export const BRAND = {
+export const BRAND = {
   name: 'Narpavi Homecare',
-  tagline: 'Professional Home Healthcare in Chennai',
+  tagline: 'Professional Home Healthcare',
   phone: '9600002303',
   phoneFormatted: '+91 96000 02303',
   phoneHref: 'tel:+919600002303',
@@ -18,7 +18,6 @@ export const NAV_ITEMS = [
     label: 'Home Nursing Care',
     href: '/home-nursing-care',
     children: [
-      { label: 'Baby Care', href: '/baby-care' },
       { label: 'Patient Assistant Care', href: '/home-nursing-care/patient-assistant-care' },
       { label: 'Basic Nursing Care', href: '/basic-nursing-care', highlight: true },
       { label: 'Advance Nursing Care', href: '/home-nursing-care/advance-nursing-care' },
@@ -26,6 +25,7 @@ export const NAV_ITEMS = [
       { label: 'ICU @ Home', href: '/home-nursing-care/icu-at-home' },
     ],
   },
+  { label: 'Baby Care', href: '/baby-care' },
   { label: 'Elder Care', href: '/elder-care' },
   {
     label: 'Medical Equipment',
@@ -43,9 +43,7 @@ export const NAV_ITEMS = [
       { label: 'Masks & Accessories', href: '/medical-equipment/masks-accessories' },
     ],
   },
-  { label: 'Baby Care', href: '/baby-care' },
   { label: 'Join Us', href: '/join-us' },
-  { label: 'About Us', href: '/about' },
 ] as const;
 
 export type NavItem = (typeof NAV_ITEMS)[number];

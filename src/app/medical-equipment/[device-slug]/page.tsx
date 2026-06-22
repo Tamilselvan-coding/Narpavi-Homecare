@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!data) return { title: 'Product Not Found' };
 
   return {
-    title: `${data.shortTitle} in Chennai — Narpavi Homecare`,
+    title: `${data.shortTitle} — Narpavi Homecare`,
     description: data.metaDesc,
     keywords: data.keywords,
     alternates: { canonical: `https://www.narpavihomecare.com/medical-equipment/${deviceSlug}` },

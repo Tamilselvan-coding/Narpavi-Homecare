@@ -98,10 +98,10 @@ export default function BlogArticleLayout({
 
             <div className="blog-sidebar__card blog-sidebar__card--cta">
               <div className="blog-sidebar__eyebrow">Need Help Fast?</div>
-              <h3>Talk to our care team in Chennai</h3>
+              <h3>Talk to our care team</h3>
               <p>Get the right home care plan, package advice, and fast onboarding support for your family.</p>
               <div className="blog-sidebar__actions">
-                <Link href="/contact" className="btn btn--primary btn--sm">Book Free Assessment</Link>
+                <Link href="/contact" className="btn btn--primary btn--sm">Book Care Assessment</Link>
                 <a href={BRAND.phoneHref} className="btn btn--outline btn--sm">Call {BRAND.phone}</a>
               </div>
             </div>

@@ -9,8 +9,8 @@ import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { getServiceSchema, getWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Home Nursing Care Services in Chennai — Narpavi Homecare',
-  description: 'Compassionate, professional home nursing care in Chennai. From basic patient care & elder care to ICU at home & baby care. Nurse-supervised and background-verified.',
+  title: 'Home Nursing Care Services — Narpavi Homecare',
+  description: 'Compassionate, professional home nursing care. From basic patient care & elder care to ICU at home & baby care. Nurse-supervised and background-verified.',
   keywords: ['home nursing care chennai', 'home nurse service', 'elder care chennai', 'icu care at home'],
   alternates: { canonical: '/home-nursing-care' },
 };
@@ -36,13 +36,13 @@ const SERVICES = [
 export default function HomeNursingCareHub() {
   const pageSchemas = [
     getWebPageSchema({
-      title: 'Home Nursing Care Services in Chennai',
-      description: 'Compassionate, professional home nursing care in Chennai with service options covering basic care, advanced nursing, elder care, ICU at home, and baby care.',
+      title: 'Home Nursing Care Services',
+      description: 'Compassionate, professional home nursing care with service options covering basic care, advanced nursing, elder care, ICU at home, and baby care.',
       path: '/home-nursing-care',
     }),
     getServiceSchema({
-      name: 'Home Nursing Care Services in Chennai',
-      description: 'Nurse-supervised home nursing care in Chennai for recovery, chronic illness support, advanced procedures, and ICU-level home care.',
+      name: 'Home Nursing Care Services',
+      description: 'Nurse-supervised home nursing care for recovery, chronic illness support, advanced procedures, and ICU-level home care.',
       path: '/home-nursing-care',
       serviceType: 'Home healthcare service',
     }),
@@ -60,7 +60,7 @@ export default function HomeNursingCareHub() {
             <div className="hero__content">
               <div className="hero__badge"><SiteIcon name="Nurse-Supervised Home Care" size={16} /> Nurse-Supervised Home Care</div>
               <h1 className="hero__title">
-                Professional <span>Home Nursing Care</span> in Chennai
+                Professional <span>Home Nursing Care</span>
               </h1>
               <p className="hero__subtitle">
                 Comprehensive healthcare services delivered in the safety and comfort of your home. From basic caregiver support to clinical and critical ICU services.
@@ -73,7 +73,7 @@ export default function HomeNursingCareHub() {
                 <a href={BRAND.whatsapp} className="btn btn--outline btn--lg" target="_blank" rel="noopener"><SiteIcon name="WhatsApp" size={18} /> WhatsApp Us</a>
               </div>
             </div>
-            <CTAForm title="Book Your Free Care Assessment" />
+            <CTAForm title="Book Your Care Assessment" />
           </div>
         </div>
       </section>
@@ -144,7 +144,7 @@ export default function HomeNursingCareHub() {
               { num: '01', title: 'Assess Mobility Needs', desc: 'Is the patient fully mobile, semi-mobile needing assistance, or completely bedbound?' },
               { num: '02', title: 'Define Care Level', desc: 'Identify if you require basic hygiene support (non-clinical) or skilled nursing procedures (clinical).' },
               { num: '03', title: 'Match Shift Timing', desc: 'Decide if you need 12-hour day/night shift coverage or continuous 24-hour live-in support.' },
-              { num: '04', title: 'Consult Our Supervisor', desc: 'Schedule a free assessment with our care coordinators to finalise the matching plan.' },
+              { num: '04', title: 'Consult Our Supervisor', desc: 'Schedule a care assessment with our care coordinators to finalise the matching plan.' },
             ].map((step, i) => (
               <div key={i} className="card" style={{ position: 'relative', paddingTop: '2.5rem' }}>
                 <div style={{ position: 'absolute', top: '1rem', left: '1.5rem', fontSize: '2.5rem', fontWeight: 800, color: 'rgba(10,143,143,0.15)', fontFamily: 'var(--font-display)' }}>
@@ -242,7 +242,7 @@ export default function HomeNursingCareHub() {
       <section className="section section--light" id="hnc-service-areas" style={{ borderTop: '1px solid var(--border)' }}>
         <div className="container">
           <div className="section__header" style={{ marginBottom: '2rem' }}>
-            <h2>Service Coverage in Chennai</h2>
+            <h2>Service Coverage</h2>
             <p>Providing trusted home nursing services across Chennai and surrounding suburbs.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', background: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)' }}>
@@ -273,7 +273,7 @@ export default function HomeNursingCareHub() {
       <section className="cta-strip">
         <div className="container">
           <h2>Find the Best Care Plan for Your Loved Ones</h2>
-          <p>Book a free expert nursing consultation and plan setup in Chennai within 24-48 hours.</p>
+          <p>Book a professional nursing consultation and plan setup within 24-48 hours.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/contact" className="btn btn--white btn--lg">Book Assessment Now</Link>
             <a href={BRAND.phoneHref} className="btn btn--outline btn--lg" style={{ color: 'white', borderColor: 'white' }}><SiteIcon name="Phone" size={18} /> Call {BRAND.phone}</a>

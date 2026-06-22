@@ -14,22 +14,14 @@ type VisualConfig = {
 };
 
 const visualRoutes: Array<{ match: (path: string) => boolean; config: VisualConfig }> = [
-  {
-    match: (path) => path === '/about',
-    config: {
-      image: '/images/pik-5.jpeg',
-      eyebrow: 'People-first home healthcare',
-      title: 'Care that feels clinical, clear and compassionate',
-      copy: 'Meet the standards, supervision and communication practices behind every Narpavi care plan.',
-    },
-  },
+
   {
     match: (path) => path === '/contact',
     config: {
       image: '/images/pik-2.jpg',
       eyebrow: 'Speak with a care coordinator',
       title: 'Tell us what support your family needs',
-      copy: 'A free assessment helps us recommend the right care level, shift and caregiver profile.',
+      copy: 'A care assessment helps us recommend the right care level, shift and caregiver profile.',
     },
   },
   {
@@ -144,6 +136,7 @@ const visualRoutes: Array<{ match: (path: string) => boolean; config: VisualConf
 
 const routesWithPrimaryVisuals = new Set([
   '/',
+  '/join-us',
   '/baby-care',
   '/basic-nursing-care',
   '/elder-care',
@@ -182,7 +175,7 @@ export default function RouteVisualBanner() {
           <h2>{visual.title}</h2>
           <p>{visual.copy}</p>
           <div className="route-visual__actions">
-            <Link href="/contact" className="btn btn--primary btn--sm">Book Free Assessment <ArrowRight size={16} /></Link>
+            <Link href="/contact" className="btn btn--primary btn--sm">Book Care Assessment <ArrowRight size={16} /></Link>
             <a href={BRAND.phoneHref} className="route-visual__phone"><Phone size={16} /> Call {BRAND.phoneFormatted}</a>
           </div>
         </div>

@@ -6,8 +6,8 @@ import CTAForm from '@/components/ui/CTAForm';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'End of Life Care Services in Chennai — Narpavi Homecare',
-  description: 'Compassionate hospice and end-of-life care at home in Chennai. We provide palliative comfort, bedside care, pain support and dignity-first family assistance.',
+  title: 'End of Life Care Services — Narpavi Homecare',
+  description: 'Compassionate hospice and end-of-life care at home. We provide palliative comfort, bedside care, pain support and dignity-first family assistance.',
   keywords: ['end of life care chennai', 'hospice care at home', 'palliative home care', 'comfort care seniors'],
   alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/end-of-life-care' },
 };
@@ -22,7 +22,7 @@ export default function EndOfLifeCarePage() {
             <div>
               <div className="hero__badge"><SiteIcon name="Palliative Dignity Care" size={16} /> Dignity-First Comfort Care</div>
               <h1 className="hero__title">
-                Compassionate <span>End of Life Care</span> at Home in Chennai
+                Compassionate <span>End of Life Care</span> at Home
               </h1>
               <p className="hero__subtitle">
                 Dedicated non-clinical comfort care and hospice presence to ensure peace, respect, and dignity for your loved ones at home.

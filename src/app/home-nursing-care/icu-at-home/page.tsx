@@ -6,8 +6,8 @@ import CTAForm from '@/components/ui/CTAForm';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 export const metadata: Metadata = {
-  title: 'ICU at Home Services in Chennai — Narpavi Homecare',
-  description: 'Critical care ICU setup at home in Chennai. Professional nurse-supervised management of ventilators, BIPAP, CPAP, tracheostomy and post-ICU recovery.',
+  title: 'ICU at Home Services — Narpavi Homecare',
+  description: 'Critical care ICU setup at home. Professional nurse-supervised management of ventilators, BIPAP, CPAP, tracheostomy and post-ICU recovery.',
   keywords: ['ICU at home chennai', 'critical care home nursing', 'tracheostomy care chennai', 'home ventilator nursing'],
   alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/icu-at-home' },
 };
@@ -22,7 +22,7 @@ export default function ICUAtHomePage() {
             <div>
               <div className="hero__badge"><SiteIcon name="Critical ICU Alert" size={16} /> 24x7 Critical Care Support</div>
               <h1 className="hero__title">
-                Professional <span>ICU at Home</span> Services in Chennai
+                Professional <span>ICU at Home</span> Services
               </h1>
               <p className="hero__subtitle">
                 Hospital-grade critical care, equipment coordination, and specialized nursing support for post-ICU discharged patients.

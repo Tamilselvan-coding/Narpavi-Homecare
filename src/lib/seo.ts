@@ -29,7 +29,7 @@ export function getOrganizationSchema() {
     telephone: BRAND.phoneHref.replace('tel:', ''),
     email: BRAND.email,
     foundingDate: `${BRAND.foundedYear}`,
-    description: 'Professional home healthcare services in Chennai including basic nursing care, elder care, ICU at home, baby care, and medical equipment support.',
+    description: 'Professional home healthcare services including basic nursing care, elder care, ICU at home, baby care, and medical equipment support.',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Chennai',
@@ -78,7 +78,7 @@ export function getWebSiteSchema() {
     '@id': `${BRAND.url}#website`,
     url: BRAND.url,
     name: BRAND.name,
-    description: 'Home healthcare and nursing care services in Chennai.',
+    description: 'Home healthcare and nursing care services.',
     publisher: {
       '@id': `${BRAND.url}#organization`,
     },
