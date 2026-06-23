@@ -1,355 +1,196 @@
+import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BRAND } from '@/lib/constants';
 import { FAQS } from '@/lib/faqs';
-import { CARE_PACKAGE_NAMES, CARE_PACKAGES } from '@/lib/packages';
+import { CARE_PACKAGE_NAMES, CARE_PACKAGES, type CarePackage } from '@/lib/packages';
 import { DELIVERABLES } from '@/lib/deliverables';
 import { WHO_WE_CARE_FOR } from '@/lib/whoWeCareFor';
 import { BLOG_POSTS } from '@/lib/blogs';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import FAQAccordion from '@/components/sections/FAQAccordion';
+import GatedDownloadResources from '@/components/sections/GatedDownloadResources';
 import CTAForm from '@/components/ui/CTAForm';
-import ImageSlider from '@/components/sections/ImageSlider';
 import SiteIcon from '@/components/ui/SiteIcon';
 import { getServiceSchema, getWebPageSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Basic Nursing Care at Home — Narpavi Homecare',
-  description: 'Expert basic nursing care services at home. ADL support, vital monitoring, mobility aid & medication reminders. Nurse-supervised. Starts within 24-48 hrs.',
+  title: 'Basic Nursing Care at Home - Narpavi Homecare',
+  description: 'Expert basic nursing care services at home. ADL support, vital monitoring, mobility aid and medication reminders with nurse supervision.',
   keywords: ['basic nursing care at home', 'home nursing care chennai', 'caregiver at home chennai', 'post surgery care'],
   alternates: { canonical: '/basic-nursing-care' },
 };
 
-const BNC_BANNERS = [
-  '/images/banner-1a.webp',
-  '/images/banner-1b.webp',
+const TRUST_POINTS = [
+  { title: 'Verified & Background-Checked Caregivers', detail: 'ID proof and health screening before deployment.', icon: 'Verified caregiver' },
+  { title: 'Doctor & Nurse-Led Overseeing', detail: 'Care plans reviewed and supervised by experienced clinicians.', icon: 'Doctor nurse care' },
+  { title: 'Hospital Grade Hygiene Protocols', detail: 'WHO hand hygiene, infection control practices and PPE when needed.', icon: 'Infection hygiene' },
+  { title: '24x7 Emergency Escalation', detail: 'On-call nurses and doctors to guide immediate action if health status changes.', icon: 'Emergency escalation' },
+  { title: 'Transparent Reporting', detail: 'Daily care logs and instant incident reports for families including NRIs.', icon: 'Digital family report' },
+  { title: 'Personalised Care Plan', detail: 'Care is matched to recovery needs, mobility level and the family routine.', icon: 'Personalized care plan' },
 ];
 
+function packageStyle(pkg: CarePackage) {
+  return { '--package-color': pkg.color, '--package-gradient': pkg.gradient } as CSSProperties;
+}
+
 export default function BasicNursingCarePage() {
-  const pageSchemas = [
-    getWebPageSchema({
-      title: 'Basic Nursing Care at Home',
-      description: 'Basic Nursing Care at home with ADL support, recovery supervision, hygiene support, vital monitoring, and family updates.',
-      path: '/basic-nursing-care',
-    }),
-    getServiceSchema({
-      name: 'Basic Nursing Care at Home',
-      description: 'Structured, nurse-supervised basic nursing care for post-surgery recovery, chronic illness support, hygiene, mobility, and monitoring at home.',
-      path: '/basic-nursing-care',
-      serviceType: 'Basic nursing care service',
-    }),
+  const schemas = [
+    getWebPageSchema({ title: 'Basic Nursing Care at Home', description: 'Basic Nursing Care at home with ADL support, recovery supervision, hygiene support, vital monitoring, and family updates.', path: '/basic-nursing-care' }),
+    getServiceSchema({ name: 'Basic Nursing Care at Home', description: 'Structured, nurse-supervised basic nursing care for post-surgery recovery, chronic illness support, hygiene, mobility, and monitoring at home.', path: '/basic-nursing-care', serviceType: 'Basic nursing care service' }),
   ];
 
   return (
     <>
-      <StructuredDataScript data={pageSchemas} />
-      <Breadcrumbs items={[
-        { label: 'Home', href: '/' },
-        { label: 'Home Nursing Care', href: '/home-nursing-care' },
-        { label: 'Basic Nursing Care' },
-      ]} />
+      <StructuredDataScript data={schemas} />
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Home Nursing Care', href: '/home-nursing-care' }, { label: 'Basic Nursing Care' }]} />
 
-      {/* SECTION 1: Hero + CTA Form */}
-      <section className="hero" id="bnc-hero" style={{ marginTop: 0 }}>
-        <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '3rem', alignItems: 'center' }}>
-            <div className="hero__content">
-              <div className="hero__badge"><SiteIcon name="Star Rating" size={16} /> #1 Basic Nursing Care</div>
-              <h1 className="hero__title">
-                Professional <span>Basic Nursing Care</span> Service at Home
-              </h1>
-              <p className="hero__subtitle">
-                Comprehensive Basic Nursing Care at Home — structured, safety-focused non-clinical support for adults recovering, living with chronic illness, or needing reliable home assistance.
-              </p>
-              <div style={{ display: 'flex', gap: '1.5rem', height: '240px', marginBottom: '2rem' }}>
-                <ImageSlider images={BNC_BANNERS} alt="Basic Nursing Care Banners" />
+      <main className="basic-care-v2">
+        <section className="baby-hero" id="basic-care-form">
+          <div className="container baby-hero__grid">
+            <div className="baby-hero__content">
+              <div className="hero__badge"><SiteIcon name="Basic Nursing Care" size={16} /> Professional Home Support</div>
+              <h1>Professional <span>Basic Nursing Care</span> at Home</h1>
+              <p>Structured, safety-focused non-clinical support for adults recovering from illness, living with chronic conditions, or needing reliable assistance with everyday life at home.</p>
+              <div className="baby-hero__proof">
+                <span><SiteIcon name="Check" size={16} /> Nurse-supervised</span>
+                <span><SiteIcon name="Check" size={16} /> Verified caregivers</span>
+                <span><SiteIcon name="Check" size={16} /> Daily family updates</span>
               </div>
-              <div className="hero__cta-group">
-                <a href={BRAND.phoneHref} className="btn btn--secondary btn--lg"><SiteIcon name="Phone" size={18} /> Call {BRAND.phone}</a>
-                <a href={BRAND.whatsapp} className="btn btn--outline btn--lg" target="_blank" rel="noopener"><SiteIcon name="WhatsApp" size={18} /> WhatsApp Us</a>
+              <div className="baby-hero__actions">
+                <a href="#basic-care-packages" className="btn btn--outline btn--lg">Explore care packages <SiteIcon name="Arrow" size={18} /></a>
               </div>
             </div>
+            <div className="baby-hero__visual"><Image src="/images/pik-1.jpeg" alt="Basic Nursing Care support at home" fill sizes="(max-width: 992px) 100vw, 42vw" priority /></div>
             <CTAForm title="Book Your Basic Nursing Care Assessment" packageOptions={CARE_PACKAGE_NAMES} />
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* SECTION 2: Executive Summary (Pik 1) */}
-      <section className="section" id="bnc-summary">
-        <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', alignItems: 'center' }}>
-            <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
-              <Image src="/images/pik-1.jpeg" alt="Basic Nursing Care from Narpavi Homecare" width={500} height={400} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
-            </div>
+        <section className="section">
+          <div className="container baby-summary">
+            <div className="baby-image-panel"><Image src="/images/pik-2.jpg" alt="Narpavi Basic Nursing Care support" fill sizes="(max-width: 992px) 100vw, 38vw" /></div>
             <div>
-              <h2 style={{ marginBottom: '1.25rem' }}>Basic Nursing Care from Narpavi Homecare</h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '1.5rem' }}>
-                Basic Nursing Care from Narpavi Homecare is more than just help with daily chores — it&apos;s a structured, safety-focused non-clinical support system for adults under 50 years of age, who are recovering, living with chronic illness, or need reliable home assistance without any invasive nursing procedures.
-              </p>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '2rem' }}>
-                Every plan is built to preserve independence, reduce readmissions and keep families informed in real time.
-              </p>
-              <Link href="/contact" className="btn btn--primary btn--lg" id="bnc-summary-cta">
-                Book Your Basic Nursing Care Assessment <SiteIcon name="Arrow" size={18} />
-              </Link>
+              <span className="section-kicker">Care that supports independence</span>
+              <h2>More than help with daily chores</h2>
+              <p>Basic Nursing Care from Narpavi Homecare is a structured, safety-focused non-clinical support system for adults who are recovering, living with chronic illness, or need reliable home assistance without invasive nursing procedures.</p>
+              <p>Every plan is built to preserve independence, reduce avoidable readmissions and keep families informed in real time.</p>
+              <Link href="#basic-care-form" className="btn btn--primary btn--lg">Book a Care Assessment <SiteIcon name="Arrow" size={18} /></Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* SECTION 3: Why Choose Us / Safety (Pik 2) */}
-      <section className="section section--alt" id="bnc-safety">
-        <div className="container">
-          <div className="section__header">
-            <h2>Your Loved One&apos;s Safety Is Our Priority</h2>
-            <p>At Narpavi Homecare, we understand that inviting a caregiver into your home requires complete trust, so we follow strict protocols to keep adults safe during recovery or long-term support.</p>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.8fr', gap: '3rem', alignItems: 'center' }}>
-            <div className="trust-grid" style={{ gridTemplateColumns: '1fr' }}>
-              {[
-                { icon: '✅', title: 'Verified & Background-Checked Caregivers', desc: 'ID proof and health screening before deployment.' },
-                { icon: '🩺', title: 'Doctor & Nurse-Led Overseeing', desc: 'Care plans reviewed and supervised by experienced clinicians.' },
-                { icon: '🧽', title: 'Hospital Grade Hygiene Protocols', desc: 'WHO hand hygiene, infection control practices and PPE when needed.' },
-                { icon: '🚨', title: '24x7 Emergency Escalation', desc: 'On-call nurses & doctors to guide immediate action if health status changes.' },
-                { icon: '📋', title: 'Transparent Reporting', desc: 'Daily care logs and instant incident reports for families including NRIs.' },
-              ].map((t, i) => (
-                <div key={i} className="trust-card">
-                  <div className="trust-card__icon"><SiteIcon name={t.title} /></div>
-                  <div>
-                    <h4>{t.title}</h4>
-                    <p>{t.desc}</p>
-                  </div>
-                </div>
-              ))}
+        <section className="section section--alt basic-care-v2__trust">
+          <div className="container">
+            <div className="section__header">
+              <span className="section-kicker">Safety first</span>
+              <h2>Your loved one&apos;s safety is our priority</h2>
+              <p>Inviting a caregiver into your home requires trust. Our care approach is built around screening, hygiene, clear communication and support when circumstances change.</p>
             </div>
-            <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-md)' }}>
-              <Image src="/images/pik-2.jpg" alt="Safety First Protocols at Narpavi" width={400} height={500} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 4: Who Needs BNC (Pik 3 & Pik 4) */}
-      <section className="section" id="bnc-who">
-        <div className="container">
-          <div className="section__header" style={{ marginBottom: '3rem' }}>
-            <h2>Who Needs Basic Nursing Care at Home?</h2>
-          </div>
-
-          {/* Group 1 (Pik 3) */}
-          <div style={{ display: 'grid', gridTemplateColumns: '0.8fr 1.2fr', gap: '3rem', alignItems: 'center', marginBottom: '4rem' }}>
-            <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-md)' }}>
-              <Image src="/images/pik-3.jpg" alt="Seniors and adults needing assistance" width={400} height={400} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
-            </div>
-            <div className="care-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              {WHO_WE_CARE_FOR.slice(0, 4).map((cat, i) => (
-                <div key={i} className="care-card" style={{ height: '100%' }}>
-                  <div className="care-card__icon"><SiteIcon name={cat.title} size={28} /></div>
-                  <div>
-                    <h4>{cat.title}</h4>
-                    <p>{cat.description}</p>
-                  </div>
-                </div>
+            <div className="baby-trust-orbit">
+              <div className="baby-trust-visual">
+                <span className="baby-trust-visual__ring" aria-hidden="true" />
+                <div className="baby-trust-visual__image"><Image src="/images/pik-3.jpg" alt="Safe and compassionate basic nursing care" fill sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 350px" /></div>
+                <div className="baby-trust-visual__badge"><SiteIcon name="Safety shield" size={19} /><span>Safety-led care at home</span></div>
+              </div>
+              {TRUST_POINTS.map((item, index) => (
+                <article className={`baby-trust-card baby-trust-card--${index + 1}`} key={item.title} style={{ '--baby-trust-order': index } as CSSProperties}>
+                  <div className="baby-trust-card__icon"><SiteIcon name={item.icon} size={22} /></div>
+                  <div><span className="baby-trust-card__eyebrow">Trust {String(index + 1).padStart(2, '0')}</span><h3>{item.title}</h3><p>{item.detail}</p></div>
+                </article>
               ))}
             </div>
           </div>
+        </section>
 
-          {/* Group 2 (Pik 4) */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '3rem', alignItems: 'center' }}>
-            <div className="care-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              {WHO_WE_CARE_FOR.slice(4).map((cat, i) => (
-                <div key={i} className="care-card" style={{ height: '100%' }}>
-                  <div className="care-card__icon"><SiteIcon name={cat.title} size={28} /></div>
-                  <div>
-                    <h4>{cat.title}</h4>
-                    <p>{cat.description}</p>
+        <section className="section basic-care-v2__who">
+          <div className="container">
+            <div className="section__header"><span className="section-kicker">Who we care for</span><h2>Support for recovery, routine & mobility needs</h2><p>Our caregivers help adults and families navigate everyday care needs with dignity and a dependable routine.</p></div>
+            <div className="basic-care-v2__who-grid">
+              {WHO_WE_CARE_FOR.map((person, index) => (
+                <article className="basic-care-v2__who-card" key={person.title} style={{ '--care-card-order': index } as CSSProperties}>
+                  <div className="basic-care-v2__who-top">
+                    <span className="basic-care-v2__who-icon"><SiteIcon name={person.title} size={24} /></span>
+                    <span className="basic-care-v2__who-number">{String(index + 1).padStart(2, '0')}</span>
                   </div>
-                </div>
+                  <span className="basic-care-v2__who-label">Care need</span>
+                  <h3>{person.title}</h3>
+                  <p>{person.description}</p>
+                </article>
               ))}
             </div>
-            <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-md)' }}>
-              <Image src="/images/pik-4.png" alt="Bedridden and limited mobility support" width={400} height={400} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+          </div>
+        </section>
+
+        <section className="section section--alt basic-care-v2__deliverables">
+          <div className="container baby-deliverables">
+            <div className="section__header baby-deliverables__header"><span className="section-kicker">Comprehensive support</span><h2>Basic Nursing Care deliverables</h2><p>From personal care and mobility support to vital checks and family communication, every visit follows a simple, visible care routine.</p></div>
+            <div className="basic-care-v2__deliverables-grid">
+              {DELIVERABLES.map((item, index) => (
+                <article className="basic-care-v2__deliverable" key={item.title} style={{ '--deliverable-order': index } as CSSProperties}>
+                  <div className="basic-care-v2__deliverable-top"><span className="basic-care-v2__deliverable-icon"><SiteIcon name={item.title} size={23} /></span><span className="basic-care-v2__deliverable-number">{String(index + 1).padStart(2, '0')}</span></div>
+                  <div><span className="basic-care-v2__deliverable-label">Care essential</span><h3>{item.title}</h3><p>{item.description}</p></div>
+                </article>
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="text-center mt-4">
-            <Link href="/contact" className="btn btn--primary btn--lg">Book a Care Consultation <SiteIcon name="Arrow" size={18} /></Link>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 5: Deliverables (Pik 5 & Pik 6) */}
-      <section className="section section--alt" id="bnc-deliverables">
-        <div className="container">
-          <div className="section__header" style={{ marginBottom: '3rem' }}>
-            <h2>Comprehensive Basic Nursing Care Deliverables</h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '2rem' }}>
-            {/* Left deliverables + Pik 5 */}
-            <div className="card" style={{ padding: '2rem' }}>
-              <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '1.5rem', height: '200px', position: 'relative' }}>
-                <Image src="/images/pik-5.jpeg" alt="Personal care and nutrition support" fill style={{ objectFit: 'cover' }} />
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                {DELIVERABLES.slice(0, 4).map((d, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '1rem', alignItems: 'start' }}>
-                    <div className="deliverable-inline__icon"><SiteIcon name={d.title} size={23} /></div>
-                    <div>
-                      <h4 style={{ fontSize: '1.05rem', marginBottom: '0.15rem' }}>{d.title}</h4>
-                      <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{d.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right deliverables + Pik 6 */}
-            <div className="card" style={{ padding: '2rem' }}>
-              <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '1.5rem', height: '200px', position: 'relative' }}>
-                <Image src="/images/pik-6.jpeg" alt="Companionship and hygiene support" fill style={{ objectFit: 'cover' }} />
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                {DELIVERABLES.slice(4).map((d, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '1rem', alignItems: 'start' }}>
-                    <div className="deliverable-inline__icon"><SiteIcon name={d.title} size={23} /></div>
-                    <div>
-                      <h4 style={{ fontSize: '1.05rem', marginBottom: '0.15rem' }}>{d.title}</h4>
-                      <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{d.description}</p>
-                    </div>
-                  </div>
+        <section className="section" id="basic-care-packages">
+          <div className="container">
+            <div className="section__header"><span className="section-kicker">Care packages</span><h2>Packages designed for every recovery & mobility need</h2><p>Choose the plan that best fits your loved one&apos;s health stage, mobility level and everyday support requirement.</p></div>
+            <div className="elder-packages-layout">
+              <aside className="elder-sidebar" aria-label="Basic Nursing Care package navigation">
+                <h3>Packages</h3>
+                {CARE_PACKAGES.map((pkg) => <a href={`#package-${pkg.id}`} className="elder-sidebar__link" key={pkg.id} style={packageStyle(pkg)}><span><SiteIcon name={pkg.icon} size={19} /></span><strong>{pkg.name}</strong><small>{pkg.tagline}</small></a>)}
+              </aside>
+              <div className="elder-package-list">
+                {CARE_PACKAGES.map((pkg) => (
+                  <article className="elder-package-card" id={`package-${pkg.id}`} key={pkg.id} style={packageStyle(pkg)}>
+                    <div className="elder-package-card__header"><div><div className="elder-package-card__icon"><SiteIcon name={pkg.icon} size={24} /></div><h3>{pkg.name}</h3><p>{pkg.tagline}</p></div><Link href={pkg.href} className="btn btn--white btn--sm">View Details <SiteIcon name="Arrow" size={16} /></Link></div>
+                    <div className="elder-package-card__body"><div className="elder-package-card__media"><Image src={pkg.image} alt={`${pkg.name} Basic Nursing Care package`} fill sizes="(max-width: 992px) 100vw, 28vw" /></div><div><h4>Best for</h4><div className="elder-tag-list">{pkg.bestFor.map((item) => <span key={item}>{item}</span>)}</div><div className="elder-highlight-list">{pkg.highlights.map((item) => <div className="elder-highlight-point" key={item.title}><SiteIcon name="Check" size={18} /><div><strong>{item.title}</strong><p>{item.description}</p></div></div>)}</div><p className="elder-package-card__cue"><strong>Care-plan note:</strong> {pkg.costCue}</p><div className="elder-package-card__actions"><Link href={pkg.href} className="btn btn--outline btn--sm">Explore Package</Link><Link href={`${pkg.href}#basic-package-form`} className="btn btn--primary btn--sm">Book Now</Link></div></div></div>
+                  </article>
                 ))}
               </div>
             </div>
           </div>
+        </section>
 
-          <div className="text-center mt-4" style={{ maxWidth: '700px', margin: '2rem auto 0' }}>
-            <p style={{ fontStyle: 'italic', color: 'var(--text-secondary)', lineHeight: '1.7' }}>
-              Peace of mind comes from knowing your loved one is cared for by trained professionals who follow proven healthcare safety standards — while keeping you informed every day.
-            </p>
-          </div>
-        </div>
-      </section>
+        <section className="section section--alt" id="basic-care-faq"><div className="container"><div className="section__header"><span className="section-kicker">FAQs</span><h2>Frequently asked questions</h2><p>Everything families need to know about arranging Basic Nursing Care at home.</p></div><FAQAccordion faqs={FAQS} /></div></section>
 
-      {/* SECTION 6: Care Packages (Pik 7, 8, 9, 10) */}
-      <section className="section" id="bnc-packages">
-        <div className="container">
-          <div className="section__header">
-            <h2>Packages Designed for Every Recovery & Mobility Need</h2>
-            <p>We offer four Basic Nursing Care plans to match each person&apos;s mobility level and support requirement. Choose the care plan that best fits your loved one&apos;s health stage and independence level.</p>
+        <section className="section basic-care-v2__blogs" id="basic-care-blogs">
+          <div className="container">
+            <GatedDownloadResources
+              heading="Blogs & Download Free Basic Nursing Care Guide"
+              intro={(
+                <>
+                  <p>We believe informed families make better care decisions. Our guide and expert articles help you compare care levels, understand safety standards, and prepare for dependable support at home.</p>
+                  <p>It&apos;s a <strong>must-have resource</strong> for families considering Basic Nursing Care.</p>
+                </>
+              )}
+              image="/images/pik-11.png"
+              imageAlt="Basic Nursing Care planning guide"
+              modalDescription="Fill these details to download the Basic Nursing Care guide."
+              downloadFallbackName="basic-nursing-care-guide.docx"
+              downloads={[
+                {
+                  title: 'How to Choose the Right Basic Nursing Care Plan',
+                  fileUrl: '/downloads/basic-nursing-care/how-to-choose-basic-nursing-care-plan.docx',
+                },
+              ]}
+              resources={BLOG_POSTS.map((post) => ({
+                title: post.title,
+                excerpt: post.excerpt,
+                image: post.image,
+                href: `/blog/${post.slug}`,
+              }))}
+            />
           </div>
-          <div className="packages-grid">
-            {CARE_PACKAGES.map(pkg => (
-              <div key={pkg.id} className="package-card" id={`package-${pkg.id}`} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <div className="package-card__header" style={{ background: pkg.gradient }}>
-                  <div className="package-card__name">{pkg.name}</div>
-                  <div className="package-card__tagline">{pkg.tagline}</div>
-                </div>
-                <div style={{ position: 'relative', width: '100%', height: '160px', overflow: 'hidden' }}>
-                  <Image src={pkg.image} alt={pkg.name} fill style={{ objectFit: 'cover' }} />
-                </div>
-                <div className="package-card__body" style={{ flexGrow: 1 }}>
-                  <div className="package-card__best-for">
-                    <h4>Best For</h4>
-                    <ul>
-                      {pkg.bestFor.map((b, i) => <li key={i}>{b}</li>)}
-                    </ul>
-                  </div>
-                  <details style={{ cursor: 'pointer' }}>
-                    <summary style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>View Scope of Service</summary>
-                    <ul style={{ marginTop: '0.5rem' }}>
-                      {pkg.scope.map((s, i) => (
-                        <li key={i} style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.35rem', paddingLeft: '0' }}>
-                          <strong style={{ color: 'var(--text-primary)' }}>{s.category}:</strong> {s.detail}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                </div>
-                <div className="package-card__footer">
-                  <p className="package-card__cost">{pkg.costCue}</p>
-                  <div className="package-card__actions">
-                    <Link href={pkg.href} className="btn btn--outline btn--sm">View Details</Link>
-                    <Link href={`${pkg.href}#basic-package-form`} className="btn btn--primary btn--sm">Book Now</Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* SECTION 7: FAQ */}
-      <section className="section section--alt" id="bnc-faq">
-        <div className="container">
-          <div className="section__header">
-            <h2>Frequently Asked Questions</h2>
-            <p>Everything you need to know about Basic Nursing Care at Home.</p>
-          </div>
-          <FAQAccordion faqs={FAQS} />
-        </div>
-      </section>
-
-      {/* SECTION 8: Blogs & Guide (Pik 11, 12, 13, 14, 15) */}
-      <section className="section" id="bnc-blogs">
-        <div className="container">
-          <div className="section__header">
-            <h2>Blogs & Download Free Basic Nursing Care Guide</h2>
-            <p>We believe informed families make better care decisions. Read, download, and share these resources to feel confident about arranging safe, comfortable home care.</p>
-          </div>
-
-          {/* Downloadable Guide Card (Pik 11) */}
-          <div style={{ background: 'var(--primary-light)', borderRadius: 'var(--radius-lg)', padding: '2rem', display: 'flex', gap: '2rem', alignItems: 'center', marginBottom: '3rem', border: '2px solid rgba(10,143,143,0.15)', flexWrap: 'wrap' }}>
-            <div style={{ position: 'relative', width: '150px', height: '200px', flexShrink: 0, borderRadius: 'var(--radius-sm)', overflow: 'hidden', boxShadow: 'var(--shadow-md)' }}>
-              <Image src="/images/pik-11.png" alt="How to Choose the Right Basic Nursing Care Plan Guide Cover" fill style={{ objectFit: 'cover' }} />
-            </div>
-            <div style={{ flex: 1, minWidth: '280px' }}>
-              <h3 style={{ marginBottom: '0.75rem' }}>📥 Free Guide: How to Choose the Right Basic Nursing Care Plan</h3>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>A step-by-step guide to help you evaluate your loved one&apos;s needs, compare care plans, and choose a reliable service.</p>
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                <Link href="/resources/how-to-choose-nursing-care-plan" className="btn btn--primary">Download Guide</Link>
-                <Link href="/contact" className="btn btn--outline">Book Care Consultation</Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Blog Cards */}
-          <div className="grid-4">
-            {BLOG_POSTS.map(post => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
-                <div className="blog-card__image">
-                  <Image src={post.image} alt={post.title} width={400} height={200} style={{ objectFit: 'cover' }} />
-                </div>
-                <div className="blog-card__body">
-                  <div className="blog-card__meta">{post.readTime}</div>
-                  <h3 className="blog-card__title">{post.title}</h3>
-                  <p className="blog-card__excerpt">{post.excerpt}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 9: Final CTA Strip */}
-      <section className="cta-strip" id="bnc-cta-final">
-        <div className="container">
-          <h2>Ready to Start Safe, Reliable Basic Nursing Care at Home?</h2>
-          <p>Your recovery or daily care doesn&apos;t need to be complicated. Narpavi Homecare makes it easy to begin safe, personalized Basic Nursing Care — with trained caregivers, nurse supervision, and real-time updates.</p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/contact" className="btn btn--white btn--lg">Book an Expert Care Assessment</Link>
-            <a href={BRAND.phoneHref} className="btn btn--outline btn--lg" style={{ color: 'white', borderColor: 'white' }}><SiteIcon name="Phone" size={18} /> {BRAND.phone}</a>
-          </div>
-          <div className="cta-strip__badges">
-            <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Fast Onboarding</span>
-            <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Verified Caregivers</span>
-            <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> 24x7 Emergency Support</span>
-            <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Transparent Pricing</span>
-          </div>
-        </div>
-      </section>
+        <section className="cta-strip baby-final-cta"><div className="container baby-final-cta__grid"><div><h2>Ready to start safe, reliable Basic Nursing Care at home?</h2><p>Tell us about the recovery, mobility or routine support your family needs. We will help you select an appropriate package and plan the next steps.</p><div className="cta-strip__badges"><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Fast onboarding</span><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Verified caregivers</span><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Family updates</span></div></div><CTAForm title="Book Basic Nursing Care Consultation" packageOptions={CARE_PACKAGE_NAMES} /></div></section>
+      </main>
     </>
   );
 }

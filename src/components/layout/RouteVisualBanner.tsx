@@ -70,15 +70,6 @@ const visualRoutes: Array<{ match: (path: string) => boolean; config: VisualConf
     },
   },
   {
-    match: (path) => path.includes('advance-nursing-care'),
-    config: {
-      image: '/images/pik-9.png',
-      eyebrow: 'Skilled clinical nursing at home',
-      title: 'Hospital-grade procedures with professional oversight',
-      copy: 'Clinical nursing support for wounds, infusions, tubes, vitals and post-operative recovery.',
-    },
-  },
-  {
     match: (path) => path.includes('specialty-nursing-care'),
     config: {
       image: '/images/pik-15.png',
