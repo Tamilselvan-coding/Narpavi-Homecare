@@ -2,7 +2,7 @@
 import { useState, useEffect, useMemo, type KeyboardEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, Menu, Phone, Search, ShoppingCart, X } from 'lucide-react';
+import { ChevronDown, Menu, Search, ShoppingCart, X } from 'lucide-react';
 import { BRAND, NAV_ITEMS } from '@/lib/constants';
 import { getSearchResults } from '@/lib/search';
 
@@ -84,8 +84,6 @@ export default function Header() {
                 priority
                 className="header__logo-img"
               />
-              <span className="header__logo-scan" aria-hidden="true" />
-              <span className="header__logo-pulse" aria-hidden="true" />
             </span>
           </Link>
           <form
@@ -143,10 +141,6 @@ export default function Header() {
             )}
           </form>
           <div className="header__actions">
-            <a href={BRAND.phoneHref} className="header__phone" aria-label={`Call ${BRAND.phoneFormatted}`}>
-              <Phone size={18} />
-              <span>{BRAND.phoneFormatted}</span>
-            </a>
             <Link href="/medical-equipment" className="header__cart" aria-label="Cart">
               <ShoppingCart size={21} />
               <span className="header__cart-count">0</span>
@@ -196,8 +190,6 @@ export default function Header() {
                 height={53}
                 className="mobile-nav__logo-img"
               />
-              <span className="header__logo-scan" aria-hidden="true" />
-              <span className="header__logo-pulse" aria-hidden="true" />
             </span>
           </Link>
           <button className="mobile-nav__close" onClick={closeMobileMenu} aria-label="Close menu"><X size={21} /></button>

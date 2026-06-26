@@ -11,7 +11,6 @@ import {
   Clock3,
   HeartHandshake,
   IndianRupee,
-  MapPin,
   Phone,
   ShieldCheck,
   Sparkles,
@@ -19,6 +18,7 @@ import {
   UsersRound,
 } from 'lucide-react';
 import HomeFAQAccordion from '@/components/sections/HomeFAQAccordion';
+import ScrollAnimator from '@/components/ui/ScrollAnimator';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { BRAND } from '@/lib/constants';
 import { getFaqSchema, getItemListSchema, getWebPageSchema } from '@/lib/seo';
@@ -445,13 +445,10 @@ const STATS = [
   { number: '24–48 hrs', label: 'Typical rapid setup window', icon: Clock3 },
 ];
 
-const CARE_SHORTCUTS = [
-  { label: 'Home Nursing', href: '#service-details', icon: HeartHandshake },
-  { label: 'Medical Equipment', href: '/medical-equipment', icon: Activity },
-  { label: 'Health Visits', href: '#service-details', icon: Stethoscope },
-  { label: 'Rehabilitation', href: '#service-details', icon: UsersRound },
-  { label: 'Wellness', href: '#service-details', icon: Sparkles },
-  { label: 'Why Narpavi', href: '#why-choose', icon: ShieldCheck },
+const HERO_PROOFS = [
+  { label: 'Nurse-led care plans', icon: Stethoscope },
+  { label: 'Safety-first protocols', icon: ShieldCheck },
+  { label: 'Clear cost guidance', icon: IndianRupee },
 ];
 
 export const metadata: Metadata = {
@@ -480,22 +477,18 @@ export const metadata: Metadata = {
 };
 
 function SectionHeading({
-  index,
-  eyebrow,
   title,
   copy,
   align = 'center',
 }: {
-  index: string;
-  eyebrow: string;
+  index?: string;
+  eyebrow?: string;
   title: string;
   copy: string;
   align?: 'center' | 'left';
 }) {
   return (
     <div className={`${styles.sectionHeading} ${align === 'left' ? styles.sectionHeadingLeft : ''}`}>
-      <span className={styles.sectionIndex}>{index}</span>
-      <span className={styles.eyebrow}>{eyebrow}</span>
       <h2>{title}</h2>
       <p>{copy}</p>
     </div>
@@ -525,10 +518,6 @@ export default function HomePage() {
           <div className={styles.heroGlow} aria-hidden="true" />
           <div className={`container ${styles.heroGrid}`}>
             <div className={styles.heroContent}>
-              <div className={styles.heroKicker}>
-                <MapPin size={16} />
-                Professional home healthcare across Chennai
-              </div>
               <h1>
                 Trusted Home Healthcare
                 <span>in Chennai</span>
@@ -545,17 +534,16 @@ export default function HomePage() {
                   <Phone size={18} /> Call {BRAND.phoneFormatted}
                 </a>
               </div>
-              <div className={styles.heroTrust}>
-                {[
-                  'Verified care professionals',
-                  '24/7 escalation support',
-                  'Transparent care planning',
-                  'NRI-friendly family updates',
-                ].map((item) => (
-                  <span key={item}>
-                    <CheckCircle2 size={16} /> {item}
-                  </span>
-                ))}
+              <div className={styles.heroProofs} aria-label="Narpavi care strengths">
+                {HERO_PROOFS.map((proof) => {
+                  const Icon = proof.icon;
+                  return (
+                    <span key={proof.label}>
+                      <Icon size={16} />
+                      {proof.label}
+                    </span>
+                  );
+                })}
               </div>
             </div>
 
@@ -586,84 +574,18 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className={`container ${styles.trustBar}`}>
-            {[
-              { value: '24/7', label: 'Care escalation' },
-              { value: 'Verified', label: 'Professionals' },
-              { value: 'Clear', label: 'Family updates' },
-              { value: 'Chennai', label: 'Local coordination' },
-            ].map((item) => (
-              <div key={item.label}>
-                <strong>{item.value}</strong>
-                <span>{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <nav className={styles.careRail} aria-label="Explore homepage care sections">
-          <div className={`container ${styles.careRailInner}`}>
-            {CARE_SHORTCUTS.map((shortcut) => {
-              const Icon = shortcut.icon;
-              return (
-                <Link href={shortcut.href} key={shortcut.label}>
-                  <span>
-                    <Icon size={20} />
-                  </span>
-                  {shortcut.label}
-                  <ArrowRight size={14} />
-                </Link>
-              );
-            })}
-          </div>
-        </nav>
-
-        <section className={styles.section} id="definition">
-          <div className={`container ${styles.introGrid}`}>
-            <div className={styles.introVisual}>
-              <Image
-                src="/images/homepage/pik-02.png"
-                alt="Home healthcare professional supporting a family"
-                fill
-                sizes="(max-width: 800px) 100vw, 45vw"
-              />
-            </div>
-            <div>
-              <SectionHeading
-                index="02"
-                eyebrow="What home healthcare means"
-                title="Passionate healthcare at your doorstep"
-                copy="Professional support designed around recovery, independence, safety and quality of life."
-                align="left"
-              />
-              <p className={styles.introLead}>
-                Narpavi Homecare brings skilled nurses, caregivers, clinical coordination and essential medical
-                equipment directly to the patient’s home in Chennai and nearby areas.
-              </p>
-              <p className={styles.bodyCopy}>
-                Our services support recovery after illness or surgery, ongoing daily needs, complex care,
-                rehabilitation and preventive wellbeing — helping families avoid the stress of prolonged hospital
-                stays while keeping care organised and accountable.
-              </p>
-              <div className={styles.promiseBox}>
-                <Sparkles size={22} />
-                <div>
-                  <strong>Our service promise</strong>
-                  <span>Compassionate care, transparent planning, prompt coordination and regular family updates.</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section className={`${styles.section} ${styles.sectionTint}`} id="solutions">
           <div className="container">
-            <SectionHeading
-              index="03"
-              eyebrow="Complete care ecosystem"
-              title="Explore Our Home Healthcare Solutions"
-              copy="Access essential nursing, equipment, recovery and wellbeing support through one trusted care partner."
-            />
+            <ScrollAnimator>
+              <SectionHeading
+                index="01"
+                eyebrow="Complete care ecosystem"
+                title="Explore Our Home Healthcare Solutions"
+                copy="Access essential nursing, equipment, recovery and wellbeing support through one trusted care partner."
+              />
+            </ScrollAnimator>
             <div className={styles.solutionGrid}>
               {SOLUTIONS.map((solution) => (
                 <Link href={solution.href ?? '/contact'} className={styles.solutionCard} key={solution.title}>
@@ -684,41 +606,49 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={styles.section} id="service-details">
+        <section className={`${styles.section} ${styles.serviceDetailsSection}`} id="service-details">
           <div className="container">
-            <SectionHeading
-              index="04"
-              eyebrow="Detailed service content"
-              title="The Right Support for Every Care Need"
-              copy="Understand each service before choosing the care path that fits your family."
-            />
-            <div className={styles.detailList}>
-              {SERVICE_DETAILS.map((service, index) => (
-                <article className={`${styles.detailRow} ${index % 2 ? styles.detailRowReverse : ''}`} key={service.title}>
-                  <div className={styles.detailImage}>
-                    <Image src={service.image} alt={service.alt} fill sizes="(max-width: 800px) 100vw, 42vw" />
-                  </div>
-                  <div className={styles.detailContent}>
-                    <span className={styles.detailNumber}>{String(index + 1).padStart(2, '0')}</span>
-                    {service.status && <span className={styles.softStatus}>{service.status}</span>}
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                    <Link href={service.href ?? '/contact'}>
-                      {service.action} <ArrowRight size={17} />
-                    </Link>
-                  </div>
-                </article>
-              ))}
+            <div className={styles.serviceDetailsHeader}>
+              <SectionHeading
+                index="02"
+                eyebrow="Care pathways"
+                title="One team for the care your family needs next"
+                copy="Choose the right starting point, then let Narpavi coordinate people, equipment and follow-through."
+                align="left"
+              />
+              <Link href="/contact" className={styles.serviceDetailsHeaderLink}>
+                Get care guidance <ArrowRight size={17} />
+              </Link>
+            </div>
+            <div className={styles.serviceOrbit}>
+              <div className={styles.serviceDetailGrid}>
+                {SERVICE_DETAILS.map((service, index) => (
+                  <article className={styles.serviceDetailCard} key={service.title}>
+                    <div className={styles.serviceDetailMedia}>
+                      <Image src={service.image} alt={service.alt} fill sizes="(max-width: 760px) 100vw, 28vw" />
+                      {service.status && <span className={styles.statusBadge}>{service.status}</span>}
+                    </div>
+                    <div className={styles.serviceDetailBody}>
+                      <span className={styles.serviceDetailNumber}>{String(index + 1).padStart(2, '0')}</span>
+                      <h3>{service.title}</h3>
+                      <p>{service.description}</p>
+                      <Link href={service.href ?? '/contact'}>
+                        {service.action} <ArrowRight size={16} />
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
+
         <section className={`${styles.section} ${styles.benefitsSection}`} id="benefits">
           <div className="container">
+            <ScrollAnimator>
             <div className={styles.benefitsHeader}>
               <div>
-                <span className={styles.benefitsIndex}>05</span>
-                <span className={styles.benefitsEyebrow}>Why care at home</span>
                 <h2>Better recovery feels closer to home.</h2>
               </div>
               <div className={styles.benefitsHeaderCopy}>
@@ -731,7 +661,9 @@ export default function HomePage() {
                 </span>
               </div>
             </div>
+            </ScrollAnimator>
 
+            <ScrollAnimator animation="fadeUp" delay={200}>
             <div className={styles.benefitsShowcase}>
               <article className={styles.featuredBenefit}>
                 <div className={styles.featuredBenefitImage}>
@@ -786,7 +718,9 @@ export default function HomePage() {
                 })}
               </div>
             </div>
+            </ScrollAnimator>
 
+            <ScrollAnimator animation="fadeUp" delay={100}>
             <div className={styles.benefitsFooter}>
               <div>
                 <ShieldCheck size={22} />
@@ -799,17 +733,21 @@ export default function HomePage() {
                 Find the right care plan <ArrowRight size={17} />
               </Link>
             </div>
+            </ScrollAnimator>
           </div>
         </section>
 
         <section className={styles.section} id="who-we-care-for">
           <div className="container">
+            <ScrollAnimator>
             <SectionHeading
-              index="06"
+              index="04"
               eyebrow="Care for every life stage"
               title="Who We Care For"
               copy="From newborns to seniors, short-term recovery to long-term support — our care starts with understanding the person."
             />
+            </ScrollAnimator>
+            <ScrollAnimator animation="fadeUp" delay={150}>
             <div className={styles.audienceGrid}>
               {AUDIENCES.map((audience) => (
                 <article className={styles.audienceCard} key={audience.title}>
@@ -823,6 +761,7 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
+            </ScrollAnimator>
             <div className={styles.centerAction}>
               <Link href="/contact" className={styles.primaryButton}>
                 Tell Us About Your Care Need <ArrowRight size={18} />
@@ -833,12 +772,15 @@ export default function HomePage() {
 
         <section className={`${styles.section} ${styles.sectionDark}`} id="why-choose">
           <div className="container">
+            <ScrollAnimator>
             <SectionHeading
-              index="07"
+              index="05"
               eyebrow="Why choose Narpavi"
               title="Care Built on Trust, Safety and Compassion"
               copy="Families need more than a service provider. They need a responsive care partner who communicates clearly."
             />
+            </ScrollAnimator>
+            <ScrollAnimator animation="fadeUp" delay={150}>
             <div className={styles.trustGrid}>
               {TRUST_PILLARS.map((pillar) => (
                 <article className={styles.trustCard} key={pillar.title}>
@@ -852,6 +794,7 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
+            </ScrollAnimator>
             <div className={styles.trustNote}>
               <Check size={18} />
               Real-time family updates
@@ -863,14 +806,17 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={styles.section} id="process">
+        <section className={`${styles.section} ${styles.processSection}`} id="process">
           <div className="container">
+            <ScrollAnimator>
             <SectionHeading
-              index="08"
+              index="06"
               eyebrow="Simple care journey"
               title="Our Comprehensive Home Healthcare Process"
               copy="A transparent path from your first conversation to monitored, coordinated care at home."
             />
+            </ScrollAnimator>
+            <ScrollAnimator animation="fadeUp" delay={150}>
             <div className={styles.processGrid}>
               {PROCESS.map((step, index) => {
                 const Icon = step.icon;
@@ -886,17 +832,21 @@ export default function HomePage() {
                 );
               })}
             </div>
+            </ScrollAnimator>
           </div>
         </section>
 
         <section className={`${styles.section} ${styles.proofSection}`} id="proof">
           <div className="container">
+            <ScrollAnimator>
             <SectionHeading
-              index="09"
+              index="07"
               eyebrow="Confidence through accountability"
               title="Trusted by Families Across Chennai"
               copy="Clear care plans, responsive coordination and measurable progress help families feel informed and supported."
             />
+            </ScrollAnimator>
+            <ScrollAnimator animation="fadeUp" delay={100}>
             <div className={styles.statsGrid}>
               {STATS.map((stat) => {
                 const Icon = stat.icon;
@@ -909,6 +859,8 @@ export default function HomePage() {
                 );
               })}
             </div>
+            </ScrollAnimator>
+            <ScrollAnimator animation="fadeUp" delay={200}>
             <div className={styles.reviewPlaceholder}>
               <div>
                 <BadgeCheck size={28} />
@@ -922,18 +874,47 @@ export default function HomePage() {
                 Speak to a Care Expert <ArrowRight size={18} />
               </Link>
             </div>
+            </ScrollAnimator>
           </div>
         </section>
 
-        <section className={styles.section} id="faqs">
+        <section className={`${styles.section} ${styles.faqSection}`} id="faqs">
           <div className="container">
+            <ScrollAnimator>
             <SectionHeading
-              index="10"
+              index="08"
               eyebrow="Frequently asked questions"
               title="Answers Before You Begin Care"
               copy="Practical information about services, safety, staffing, pricing, monitoring and getting started."
             />
-            <HomeFAQAccordion faqs={HOME_FAQS} />
+            </ScrollAnimator>
+            <div className={styles.faqShowcase}>
+              <aside className={styles.faqAssistCard}>
+                <span className={styles.faqAssistKicker}>Need clarity?</span>
+                <h3>Quick answers, then a real care expert.</h3>
+                <p>
+                  Start with these common questions. If your family situation is specific, our team can guide you
+                  through the safest next step.
+                </p>
+                <div className={styles.faqAssistList}>
+                  <span>
+                    <ShieldCheck size={17} /> Safety & supervision
+                  </span>
+                  <span>
+                    <Clock3 size={17} /> Setup timelines
+                  </span>
+                  <span>
+                    <IndianRupee size={17} /> Transparent estimates
+                  </span>
+                </div>
+                <a href={BRAND.phoneHref} className={styles.faqAssistCall}>
+                  <Phone size={18} /> Call {BRAND.phoneFormatted}
+                </a>
+              </aside>
+              <div className={styles.faqListPanel}>
+                <HomeFAQAccordion faqs={HOME_FAQS} />
+              </div>
+            </div>
           </div>
         </section>
 

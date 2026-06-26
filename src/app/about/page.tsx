@@ -13,34 +13,87 @@ export const metadata: Metadata = {
 
 const ABOUT_VALUES = [
   {
-    title: 'Dignity & Respect',
-    description: "We protect each person's privacy, independence, comfort, preferences, and right to be treated with patience and respect.",
-    icon: 'Dignity care',
-  },
-  {
-    title: 'Safety First',
-    description: 'Care routines are built around hygiene, risk prevention, clear escalation, responsible monitoring, and the right level of supervision.',
-    icon: 'Safety shield',
-  },
-  {
-    title: 'Compassion in Action',
-    description: 'We combine professional care with empathy, attentive listening, emotional reassurance, and genuine human connection.',
+    title: 'Compassion',
+    description: 'We care for every patient with empathy, dignity, and warmth, just like family.',
     icon: 'Compassion support',
   },
   {
-    title: 'Clear Communication',
-    description: 'Families receive understandable updates, care observations, and timely information so they can make decisions with confidence.',
-    icon: 'Family updates',
+    title: 'Transparency & Integrity',
+    description: 'We act with honesty, transparency, and accountability in every relationship, with clear communication about care plans, progress, and costs.',
+    icon: 'Transparent report',
   },
   {
-    title: 'Personalized Care',
-    description: "Every plan is shaped around the person's condition, mobility, daily routine, home environment, and family expectations.",
-    icon: 'Personalized care plan',
+    title: 'Affordability',
+    description: 'We are committed to transparent, reasonable pricing that makes advanced home healthcare accessible to more families.',
+    icon: 'Home support',
   },
   {
-    title: 'Accountability',
-    description: 'We value responsible caregiving, documented routines, supervisor involvement, feedback, and continuous improvement in service quality.',
-    icon: 'Verified caregiver',
+    title: 'Excellence & Standards',
+    description: 'We maintain high clinical protocols, quality benchmarks, safety practices, and professional standards.',
+    icon: 'Nurse clinical professional',
+  },
+  {
+    title: 'Evidence-Based Practice',
+    description: 'We deliver treatments and care plans based on scientific evidence and best clinical practices for safer, better outcomes.',
+    icon: 'Clinical report',
+  },
+  {
+    title: 'Inclusivity',
+    description: 'We believe quality healthcare is a right, not a privilege, and aim to reach people from every walk of life.',
+    icon: 'Family people involvement',
+  },
+  {
+    title: 'Respect',
+    description: 'We honor the dignity, privacy, and individual choices of every patient, family, and staff member.',
+    icon: 'Dignity care',
+  },
+  {
+    title: 'Innovation',
+    description: 'We embrace new technologies and approaches to deliver safer, more efficient home care, enhance patient experiences, and support caregivers.',
+    icon: 'Real-time smartphone',
+  },
+  {
+    title: 'Teamwork',
+    description: 'We believe strong collaboration among caregivers, patients, families, and medical professionals leads to the best outcomes.',
+    icon: 'Family involvement',
+  },
+  {
+    title: 'Caregiver Empowerment',
+    description: 'We support and uplift caregivers through fair compensation, skill development, and opportunities to grow.',
+    icon: 'Caregiver user',
+  },
+];
+
+const MISSION_VISION_DIFFERENCES = [
+  {
+    mission: 'Refers to the means of achieving the goal',
+    missionIcon: 'Mission goal',
+    vision: 'Denotes the overarching goal that the company wants to achieve in the future',
+    visionIcon: 'Vision future goal',
+  },
+  {
+    mission: 'Is focused on the how',
+    missionIcon: 'Innovation idea',
+    vision: 'Is the description of the why',
+    visionIcon: 'Question purpose',
+  },
+  {
+    mission: 'Is to inform the employees',
+    missionIcon: 'Employee report',
+    vision: 'Is to motivate the employees',
+    visionIcon: 'Motivate success',
+  },
+  {
+    mission: 'Is usually bigger than the vision',
+    missionIcon: 'Expand more',
+    vision: 'Is usually smaller',
+    visionIcon: 'Collapse focus',
+  },
+  {
+    mission: 'Is to be used as management tool',
+    missionIcon: 'Caregiver management',
+    vision: 'Not to be used for the daily operation',
+    visionIcon: 'Daily operation report',
   },
 ];
 
@@ -223,32 +276,66 @@ export default function AboutPage() {
           <div className="container">
             <div className="section__header about-v2-section-header">
               <span className="section-kicker">Our purpose</span>
-              <h2>A Clear Mission. A Human Vision.</h2>
-              <p>The purpose behind how we build care relationships with individuals and their families.</p>
+              <h2>Our Vision and Mission</h2>
+              <p>The purpose behind our home healthcare and wellness solutions for individuals, families, and caregivers.</p>
             </div>
             <div className="about-v2-purpose__grid">
-              <article className="about-v2-purpose__card about-v2-purpose__card--mission">
-                <div className="about-v2-purpose__top">
-                  <div className="about-v2-purpose__icon"><SiteIcon name="Mission care" size={32} /></div>
-                  <span>01 / Our Mission</span>
-                </div>
-                <h3>Make dependable home care accessible, personal, and dignified.</h3>
-                <p>
-                  We provide structured support that protects comfort, independence, health, and recovery while helping families feel informed and confident throughout the care journey.
-                </p>
-                <div className="about-v2-purpose__accent" aria-hidden="true" />
-              </article>
               <article className="about-v2-purpose__card about-v2-purpose__card--vision">
                 <div className="about-v2-purpose__top">
                   <div className="about-v2-purpose__icon"><SiteIcon name="Vision better outcome" size={32} /></div>
-                  <span>02 / Our Vision</span>
+                  <span>01 / Our Vision</span>
                 </div>
-                <h3>Build a trusted home healthcare experience centred on people.</h3>
+                <h3>Become a global leader in affordable home healthcare and wellness solutions.</h3>
                 <p>
-                  We envision a future where families confidently choose professional care at home without compromising safety, compassion, transparency, or personal dignity.
+                  To become a global leader in providing the best affordable home healthcare and wellness solutions to every individual in society.
                 </p>
                 <div className="about-v2-purpose__accent" aria-hidden="true" />
               </article>
+              <article className="about-v2-purpose__card about-v2-purpose__card--mission">
+                <div className="about-v2-purpose__top">
+                  <div className="about-v2-purpose__icon"><SiteIcon name="Mission care" size={32} /></div>
+                  <span>02 / Our Mission</span>
+                </div>
+                <h3>Deliver high-quality healthcare at home for every section of society.</h3>
+                <p>
+                  To deliver high-quality healthcare at home through a wide range of services, clinical excellence, advanced process and technology, and continuous innovation. We are committed to affordable, personalized services with compassion that help patients heal at home while uplifting our dedicated caregivers.
+                </p>
+                <div className="about-v2-purpose__accent" aria-hidden="true" />
+              </article>
+            </div>
+
+            <div className="about-v2-mission-vision" aria-label="Difference between mission and vision statement">
+              <div className="about-v2-mission-vision__intro">
+                <span className="section-kicker">Mission vs Vision</span>
+                <h3>Difference between Mission &amp; Vision Statement</h3>
+              </div>
+              <div className="about-v2-mission-vision__board">
+                <div className="about-v2-mission-vision__head about-v2-mission-vision__head--mission">
+                  <div><SiteIcon name="Mission target" size={42} /></div>
+                  <strong>Mission</strong>
+                </div>
+                <div className="about-v2-mission-vision__vs">vs</div>
+                <div className="about-v2-mission-vision__head about-v2-mission-vision__head--vision">
+                  <div><SiteIcon name="Vision eye" size={42} /></div>
+                  <strong>Vision</strong>
+                </div>
+
+                {MISSION_VISION_DIFFERENCES.map((item, index) => (
+                  <div className="about-v2-mission-vision__row" key={item.mission}>
+                    <div className="about-v2-mission-vision__cell about-v2-mission-vision__cell--mission">
+                      <SiteIcon name={item.missionIcon} size={31} />
+                      <p>{item.mission}</p>
+                    </div>
+                    <div className="about-v2-mission-vision__marker">
+                      <span>{index + 1}</span>
+                    </div>
+                    <div className="about-v2-mission-vision__cell about-v2-mission-vision__cell--vision">
+                      <SiteIcon name={item.visionIcon} size={31} />
+                      <p>{item.vision}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -284,9 +371,9 @@ export default function AboutPage() {
         <section className="section about-v2-values">
           <div className="container">
             <div className="section__header about-v2-section-header">
-              <span className="section-kicker">What guides us</span>
+              <span className="section-kicker">Core values</span>
               <h2>Values You Can Feel in Everyday Care</h2>
-              <p>These are not only words on a page. They shape each care plan, family conversation, and caregiving decision.</p>
+              <p>These core values shape every care plan, family conversation, caregiving decision, and service relationship.</p>
             </div>
             <div className="about-v2-values__grid">
               {ABOUT_VALUES.map((value, index) => (
