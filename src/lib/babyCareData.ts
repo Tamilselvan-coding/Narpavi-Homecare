@@ -362,19 +362,19 @@ export const BABY_CARE_FAQS: FAQ[] = [
 export const BABY_CARE_DOWNLOADS: BabyCareDownload[] = [
   {
     title: 'Preparing for Your Newborn First Days at Home',
-    fileUrl: '/downloads/baby-care/preparing-for-a-newborn-at-home.docx',
+    fileUrl: '/downloads/baby-care/preparing-for-a-newborn-at-home.pdf',
   },
   {
     title: 'Caring for a Premature Baby at Home',
-    fileUrl: '/downloads/baby-care/caring-for-premature-babies-safely-at-home.docx',
+    fileUrl: '/downloads/baby-care/caring-for-premature-babies-safely-at-home.pdf',
   },
   {
     title: 'Postnatal Recovery Tips for Indian Mothers',
-    fileUrl: '/downloads/baby-care/postnatal-recovery-tips-for-indian-mothers.docx',
+    fileUrl: '/downloads/baby-care/postnatal-recovery-tips-for-indian-mothers.pdf',
   },
   {
     title: 'Educative FAQs in Baby Care',
-    fileUrl: '/downloads/baby-care/educative-faqs-in-baby-care.docx',
+    fileUrl: '/downloads/baby-care/educative-faqs-in-baby-care.pdf',
   },
 ];
 

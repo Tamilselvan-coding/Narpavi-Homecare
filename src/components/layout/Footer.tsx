@@ -129,9 +129,9 @@ export default function Footer() {
             </div>
 
             <div className="premium-footer__actions" aria-label="Footer contact actions">
-              <Link href="/contact" className="premium-footer__action-btn">
-                Book Care Assessment
-              </Link>
+              <a href={`mailto:${BRAND.email}`} className="premium-footer__action-btn">
+                <SiteIcon name="Email" size={16} /> {BRAND.email}
+              </a>
               <Link href="/join-us" className="premium-footer__action-btn">
                 Join Our Care Team
               </Link>

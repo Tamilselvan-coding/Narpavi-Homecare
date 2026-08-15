@@ -13,12 +13,17 @@
 .page > :global(.section) > :global(.container) > h2 {
   color: var(--hnc-ink); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; line-height: 1.12; letter-spacing: -0.035em;
 }
-.page :global(.section__header h2)::after,
-.page > :global(.section) > :global(.container) > h2::after {
-  display: block; width: 76px; height: 5px; margin: 1rem auto 0; border-radius: 999px;
-  background: linear-gradient(90deg, var(--hnc-teal), #72d1c9, #ff784b); content: '';
-}
 .page :global(.section__header p) { max-width: 780px; margin: 1.1rem auto 0; color: var(--hnc-muted); font-size: 1.04rem; line-height: 1.8; }
+/* Kills the gradient underline bar under every section heading on this page.
+   The bar itself comes from a SITEWIDE rule in globals.css
+   (.section__header h2::after), used by many other pages too — it must stay
+   there. This override just outranks it (two classes vs. one) so it applies
+   only within .page, i.e. only on the Home Nursing Care page. */
+.page :global(.section__header) h2::after,
+.page > :global(.section) > :global(.container) > h2::after {
+  content: none;
+  display: none;
+}
 
 .page :global(.hnc-v2__def),
 .page :global(.hnc-v2__benefits-layout),

@@ -319,23 +319,23 @@ export const SPECIALTY_NURSING_SAFETY = [
 export const SPECIALTY_NURSING_DOWNLOADS: SpecialtyNursingDownload[] = [
   {
     title: 'BiPAP, CPAP & Oxygen Therapy Safety Guide',
-    fileUrl: '/downloads/specialty-nursing-care/bipap-cpap-oxygen-therapy-safety-guide.docx'
+    fileUrl: '/downloads/specialty-nursing-care/bipap-cpap-oxygen-therapy-safety-guide.pdf'
   },
   {
     title: 'Colostomy & Stoma Care Survival Guide',
-    fileUrl: '/downloads/specialty-nursing-care/colostomy-stoma-care-survival-guide.docx'
+    fileUrl: '/downloads/specialty-nursing-care/colostomy-stoma-care-survival-guide.pdf'
   },
   {
     title: 'Complete Guide to Safe Tracheostomy Care at Home',
-    fileUrl: '/downloads/specialty-nursing-care/complete-guide-to-safe-tracheostomy-care-at-home.docx'
+    fileUrl: '/downloads/specialty-nursing-care/complete-guide-to-safe-tracheostomy-care-at-home.pdf'
   },
   {
     title: 'Home Tube Feeding & PEG Care Handbook',
-    fileUrl: '/downloads/specialty-nursing-care/home-tube-feeding-peg-care-handbook.docx'
+    fileUrl: '/downloads/specialty-nursing-care/home-tube-feeding-peg-care-handbook.pdf'
   },
   {
     title: 'Wound & Bedsore Healing at Home — A Complete Family Guide',
-    fileUrl: '/downloads/specialty-nursing-care/wound-bedsore-healing-home-guide.docx'
+    fileUrl: '/downloads/specialty-nursing-care/wound-bedsore-healing-home-guide.pdf'
   }
 ];
 

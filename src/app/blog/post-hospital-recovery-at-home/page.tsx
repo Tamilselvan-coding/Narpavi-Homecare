@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout';
 import SiteIcon from '@/components/ui/SiteIcon';
+import CTAForm from '@/components/ui/CTAForm';
 
 export const metadata: Metadata = {
   title: 'Post-Hospital Recovery at Home â€” How a Caregiver Can Help',
@@ -82,8 +83,8 @@ export default function PostHospitalRecovery() {
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Planning Post-Hospital Recovery?</h3>
           <p style={{ opacity: 0.9 }}>Book a care assessment and get professional care started within 24-48 hours.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/contact" className="btn btn--white">Book Care Assessment</Link>
-            <Link href="/contact" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
+            <Link href="/home-nursing-care#hnc-cta" className="btn btn--white">Book Care Assessment</Link>
+            <Link href="/home-nursing-care#hnc-cta" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
           </div>
         </div>
       </BlogArticleLayout>

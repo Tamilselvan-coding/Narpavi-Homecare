@@ -173,11 +173,11 @@ export const ADVANCE_NURSING_SAFETY = ['Verified nursing professionals', 'Doctor
 export const ADVANCE_NURSING_DOWNLOADS: AdvanceNursingDownload[] = [
   {
     title: 'Complete Guide to Choosing Advanced Nursing Care at Home',
-    fileUrl: '/downloads/advance-nursing-care/complete-guide-to-choosing-advanced-nursing-care-at-home.docx',
+    fileUrl: '/downloads/advance-nursing-care/complete-guide-to-choosing-advanced-nursing-care-at-home.pdf',
   },
   {
     title: 'Safe IV Therapy at Home - Family Preparation Checklist',
-    fileUrl: '/downloads/advance-nursing-care/safe-iv-therapy-at-home-family-preparation-checklist.docx',
+    fileUrl: '/downloads/advance-nursing-care/safe-iv-therapy-at-home-family-preparation-checklist.pdf',
   },
 ];
 

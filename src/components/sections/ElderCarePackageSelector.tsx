@@ -18,7 +18,16 @@ export default function ElderCarePackageSelector() {
   const [selectedPackageId, setSelectedPackageId] = useState(ELDER_CARE_PACKAGES[0]?.id ?? '');
   const selectedPackage = ELDER_CARE_PACKAGES.find((pkg) => pkg.id === selectedPackageId) ?? ELDER_CARE_PACKAGES[0];
 
-  if (!selectedPackage) return null;
+  const handleBookNow = (packageName: string) => {
+    window.dispatchEvent(new CustomEvent('narpavi:select-package', { detail: { packageName } }));
+    const formEl = document.getElementById('elder-care-hero') || document.getElementById('hero-form');
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    window.setTimeout(() => {
+      document.querySelector<HTMLInputElement>('#elder-care-hero .cta-form input[name="name"], #hero-form .cta-form input[name="name"]')?.focus({ preventScroll: true });
+    }, 450);
+  };
 
   return (
     <div className="elder-packages-layout">
@@ -56,9 +65,6 @@ export default function ElderCarePackageSelector() {
               <h3>{selectedPackage.name}</h3>
               <p>{selectedPackage.tagline}</p>
             </div>
-            <Link href={selectedPackage.href} className="btn btn--white btn--sm">
-              View Full Details <SiteIcon name="Arrow" size={16} />
-            </Link>
           </div>
           <div className="elder-package-card__body">
             <div className="elder-package-card__media">
@@ -96,7 +102,9 @@ export default function ElderCarePackageSelector() {
                 </div>
               </div>
               <div className="elder-package-card__actions">
-                <Link href={`${selectedPackage.href}#elder-package-form`} className="btn btn--primary btn--sm">Book Now</Link>
+                <button type="button" className="btn btn--primary btn--sm" onClick={() => handleBookNow(selectedPackage.name)}>
+                  Book {selectedPackage.name}
+                </button>
               </div>
             </div>
           </div>

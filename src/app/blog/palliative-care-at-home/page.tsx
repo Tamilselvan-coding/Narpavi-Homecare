@@ -4,9 +4,10 @@ import Link from 'next/link';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout';
 import SiteIcon from '@/components/ui/SiteIcon';
+import CTAForm from '@/components/ui/CTAForm';
 
 export const metadata: Metadata = {
-  title: 'Palliative Care at Home â€” Comfort & Dignity for Loved Ones',
+  title: 'Palliative Care at Home — Comfort & Dignity for Loved Ones',
   description: 'Professional palliative care at home. Comfort-focused support with daily family updates. Dignity-first approach for your loved ones.',
   keywords: ['palliative care at home chennai', 'home palliative care', 'comfort care at home', 'dignified care at home'],
   alternates: { canonical: 'https://www.narpavihomecare.com/blog/palliative-care-at-home' },
@@ -106,8 +107,8 @@ export default function PalliativeCareAtHome() {
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Need Palliative Care at Home?</h3>
           <p style={{ opacity: 0.9 }}>Request a palliative care assessment to create a personalised home care plan.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/contact" className="btn btn--white">Book Care Assessment</Link>
-            <Link href="/contact" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
+            <Link href="/home-nursing-care#hnc-cta" className="btn btn--white">Book Care Assessment</Link>
+            <Link href="/home-nursing-care#hnc-cta" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
           </div>
         </div>
       </BlogArticleLayout>

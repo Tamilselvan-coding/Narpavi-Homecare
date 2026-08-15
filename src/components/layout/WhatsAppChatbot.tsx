@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { MessageCircle, Send, X } from 'lucide-react';
+import { BRAND } from '@/lib/constants';
 
 const QUICK_REPLIES = [
   'I need home nursing care',
@@ -30,14 +31,24 @@ export default function WhatsAppChatbot() {
             <p>Hi! Select what you need. We will open WhatsApp with the message ready.</p>
             <div className="whatsapp-chatbot__options">
               {QUICK_REPLIES.map((reply) => (
-                <a key={reply} href="/contact">
+                <a
+                  key={reply}
+                  href={`https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(`Hi Narpavi Homecare, ${reply}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {reply}
                 </a>
               ))}
             </div>
           </div>
-          <a className="whatsapp-chatbot__start" href="/contact">
-            Start Enquiry <Send size={16} />
+          <a
+            className="whatsapp-chatbot__start"
+            href={`https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent('Hi Narpavi Homecare, I would like to make an enquiry.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Start WhatsApp Chat <Send size={16} />
           </a>
         </div>
       )}

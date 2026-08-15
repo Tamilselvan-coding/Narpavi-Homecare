@@ -88,7 +88,7 @@ export default function BabyCarePage() {
             <Image src="/images/baby-care/pik-1.png" alt="Compassionate baby care at home" fill sizes="(max-width: 992px) 100vw, 38vw" />
           </div>
           <div>
-            <span className="section-kicker">Compassionate Baby Care</span>
+            {/* <span className="section-kicker">Compassionate Baby Care</span> */}
             <h2>Compassionate Baby Care at Home</h2>
             <p>
               Welcoming a newborn brings profound joy and equally profound adjustments. At Narpavi Homecare, we deliver professional baby care at home, providing nurturing support for both infants and new mothers.
@@ -159,7 +159,6 @@ export default function BabyCarePage() {
                   <SiteIcon name={item.icon} size={22} />
                 </div>
                 <div>
-                  <span className="baby-deliverable-card__eyebrow">Care {String(index + 1).padStart(2, '0')}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </div>
@@ -220,7 +219,7 @@ export default function BabyCarePage() {
         <div className="container">
           <div className="section__header baby-packages__header">
             {/* <span className="section-kicker">Packages</span> */}
-            <h2>Choose the suitable Package for Your Family</h2>
+            <h2>Choose the suitable Package </h2>
             <p>
               Every baby and mother has unique needs that change with time.
               <br />
@@ -303,7 +302,7 @@ export default function BabyCarePage() {
             image="/images/baby-care/pik-11.png"
             imageAlt="Baby care guides for new parents"
             modalDescription="Fill these details to download the baby care guide."
-            downloadFallbackName="baby-care-guide.docx"
+            downloadFallbackName="baby-care-guide.pdf"
             downloads={BABY_CARE_DOWNLOADS}
             resources={BABY_CARE_RESOURCES}
             blogCardVariant="imageOverlay"

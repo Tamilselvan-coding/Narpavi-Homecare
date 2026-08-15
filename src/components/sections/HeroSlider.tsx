@@ -21,8 +21,8 @@ const SLIDES: HeroSlide[] = [
     heading: 'Expert ',
     headingHighlight: 'Home Nursing Services',
     copy: 'Nurse-supervised, doctor-overseen care for your loved ones. From post-surgery recovery to palliative support — safe, dignified care at home.',
-    ctaLabel: 'Book Care Assessment',
-    ctaHref: '/contact',
+    ctaLabel: 'Email Us (service@nhlcare.com)',
+    ctaHref: 'mailto:service@nhlcare.com',
   },
   {
     image: '/images/pik-4.png',

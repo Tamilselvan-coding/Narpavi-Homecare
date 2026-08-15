@@ -172,12 +172,12 @@ export default function BasicNursingCarePage() {
               image="/images/pik-11.png"
               imageAlt="Basic Nursing Care planning guide"
               modalDescription="Fill these details to download the Basic Nursing Care guide."
-              downloadFallbackName="basic-nursing-care-guide.docx"
+              downloadFallbackName="basic-nursing-care-guide.pdf"
               downloadButtonLabel="Download Guide"
               downloads={[
                 {
                   title: 'Download Free Basic Nursing Care Guide',
-                  fileUrl: '/downloads/basic-nursing-care/how-to-choose-basic-nursing-care-plan.docx',
+                  fileUrl: '/downloads/basic-nursing-care/how-to-choose-basic-nursing-care-plan.pdf',
                 },
               ]}
               resources={BASIC_NURSING_CARE_BLOG_POSTS.map((post) => ({

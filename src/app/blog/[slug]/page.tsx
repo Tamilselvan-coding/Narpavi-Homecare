@@ -10,6 +10,8 @@ import { ADVANCE_NURSING_BLOG_ARTICLES, getAdvanceNursingBlogArticle } from '@/l
 import { SPECIALTY_NURSING_BLOG_ARTICLES, getSpecialtyNursingBlogArticle } from '@/lib/specialtyNursingCareBlogs';
 import { HOME_NURSING_BLOG_ARTICLES, getHomeNursingBlogArticle } from '@/lib/homeNursingCareBlogs';
 
+import CTAForm from '@/components/ui/CTAForm';
+
 type BlogSlugPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -108,7 +110,7 @@ export default async function BlogDetailPage({ params }: BlogSlugPageProps) {
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>{article.ctaTitle}</h3>
           <p style={{ opacity: 0.9 }}>{article.ctaText}</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/contact" className="btn btn--white">Book Care Assessment</Link>
+            <Link href={serviceHref.includes('#') ? serviceHref : `${serviceHref}#cta-form`} className="btn btn--white">Book Care Assessment</Link>
             <Link href={serviceHref} className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>{serviceLabel}</Link>
           </div>
         </div>

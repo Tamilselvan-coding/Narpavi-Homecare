@@ -456,7 +456,7 @@ export default function AdvanceNursingCarePage() {
               image="/images/advance-nursing-care/Pik 14.jpg"
               imageAlt="Advanced Nursing Care planning guide"
               modalDescription="Fill these details to download the Advanced Nursing Care guide."
-              downloadFallbackName="advanced-nursing-care-guide.docx"
+              downloadFallbackName="advanced-nursing-care-guide.pdf"
               downloadButtonLabel="Download Guide"
               downloads={ADVANCE_NURSING_DOWNLOADS}
               resources={ADVANCE_NURSING_RESOURCES}

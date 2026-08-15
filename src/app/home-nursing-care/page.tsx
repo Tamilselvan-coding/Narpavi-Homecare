@@ -361,7 +361,7 @@ export default function HomeNursingCareHub() {
           <div className="hnc-v2__steps-followup">
             <p>{HNC_STEPS_NOTE}</p>
             <div className="hnc-v2__steps-cta">
-              <Link href="/contact" className="btn btn--secondary btn--lg">Book for a Free Expert Consultation</Link>
+              <Link href="#hnc-cta" className="btn btn--secondary btn--lg">Book for a Free Expert Consultation</Link>
             </div>
           </div>
         </div>
@@ -393,7 +393,7 @@ export default function HomeNursingCareHub() {
             {HNC_TRUST_FOOTER}
           </p>
           <p className="hnc-v2__trust-cta">
-            <Link href="/contact" className="btn btn--secondary btn--lg">Book Now for a Free Consultation</Link>
+            <Link href="#hnc-cta" className="btn btn--secondary btn--lg">Book Now for a Free Consultation</Link>
           </p>
         </div>
       </section>
@@ -425,7 +425,7 @@ export default function HomeNursingCareHub() {
             {HNC_AUDIENCE_FOOTER}
           </p>
           <div className="hnc-v2__audience-cta">
-            <Link href="/contact" className="btn btn--primary btn--lg">Book Now for a Free Consultation</Link>
+            <Link href="#hnc-cta" className="btn btn--primary btn--lg">Book Now for a Free Consultation</Link>
           </div>
         </div>
       </section>
@@ -467,9 +467,9 @@ export default function HomeNursingCareHub() {
           ═══════════════════════════════════════════ */}
       <section className={`section ${processStyles.scope}`} id="hnc-enrollment">
         <div className="container">
-          <div className="section__header">
-            <h2>{HNC_ENROLLMENT_HEADING}</h2>
-            <p>{HNC_ENROLLMENT_INTRO}</p>
+          <div className="section__header" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <h2 style={{ textAlign: 'center', marginInline: 'auto' }}>{HNC_ENROLLMENT_HEADING}</h2>
+            <p style={{ maxWidth: '750px', margin: '0.6rem auto 0', textAlign: 'center', color: '#64748b', fontSize: '1.05rem', lineHeight: '1.6' }}>{HNC_ENROLLMENT_INTRO}</p>
           </div>
           <div className="hnc-v2__process-flow" aria-label="Narpavi ten-step enrollment process">
             <div className="hnc-v2__process-row hnc-v2__process-row--forward">
@@ -510,7 +510,7 @@ export default function HomeNursingCareHub() {
             {HNC_ENROLLMENT_FOOTER}
           </p>
           <p className="hnc-v2__process-cta">
-            <Link href="/contact" className="btn btn--secondary btn--lg">Book Your Free Home Nursing Assessment</Link>
+            <Link href="#hnc-cta" className="btn btn--secondary btn--lg">Book Your Free Home Nursing Assessment</Link>
           </p>
         </div>
       </section>
@@ -570,7 +570,7 @@ export default function HomeNursingCareHub() {
                 ))}
               </ul>
             </div>
-            <CTAForm title="Book Your Free Nursing Assessment" submitLabel="Book Now for Free Consultation" />
+            <CTAForm title="Book Your Free Consultation" submitLabel="Book Now for Free Consultation" />
           </div>
         </div>
       </section>

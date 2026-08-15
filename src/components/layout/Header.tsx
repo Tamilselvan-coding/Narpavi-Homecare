@@ -1,10 +1,10 @@
-'use client';
 import { useState, useEffect, useMemo, type KeyboardEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, Menu, Search, ShoppingCart, X } from 'lucide-react';
+import { ChevronDown, Menu, Search, ShoppingCart, User, X, Mail, ShieldCheck } from 'lucide-react';
 import { BRAND, NAV_ITEMS } from '@/lib/constants';
 import { getSearchResults } from '@/lib/search';
+import { getUserCartItems } from '@/lib/cart';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -13,6 +13,36 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
+  const [cartCount, setCartCount] = useState(0);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const updateCount = () => setCartCount(getUserCartItems().length);
+    const checkAdminSession = () => {
+      if (typeof window !== 'undefined') {
+        const session = localStorage.getItem('narpavi_admin_session');
+        setIsAdminLoggedIn(!!session);
+      }
+    };
+
+    updateCount();
+    checkAdminSession();
+
+    window.addEventListener('narpavi:cart-updated', updateCount);
+    window.addEventListener('narpavi:user-session-changed', updateCount);
+    window.addEventListener('narpavi:admin-session-changed', checkAdminSession);
+    window.addEventListener('storage', () => {
+      updateCount();
+      checkAdminSession();
+    });
+
+    return () => {
+      window.removeEventListener('narpavi:cart-updated', updateCount);
+      window.removeEventListener('narpavi:user-session-changed', updateCount);
+      window.removeEventListener('narpavi:admin-session-changed', checkAdminSession);
+      window.removeEventListener('storage', checkAdminSession);
+    };
+  }, []);
 
   const trimmedSearchQuery = searchQuery.trim();
   const searchSuggestions = useMemo(
@@ -79,8 +109,8 @@ export default function Header() {
               <Image
                 src="/images/logo-header.png"
                 alt={BRAND.name}
-                width={260}
-                height={62}
+                width={180}
+                height={43}
                 priority
                 className="header__logo-img"
               />
@@ -141,10 +171,21 @@ export default function Header() {
             )}
           </form>
           <div className="header__actions">
-            <Link href="/medical-equipment" className="header__cart" aria-label="Cart">
+            <Link href="/cart" className="header__cart" aria-label={`View Cart (${cartCount} saved items)`}>
               <ShoppingCart size={21} />
-              <span className="header__cart-count">0</span>
+              <span className="header__cart-count">{cartCount}</span>
             </Link>
+            {isAdminLoggedIn ? (
+              <Link href="/admin/dashboard" className="header__login-btn" aria-label="Admin Dashboard" style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}>
+                <ShieldCheck size={19} />
+                <span>Dashboard</span>
+              </Link>
+            ) : (
+              <Link href="/admin/login" className="header__login-btn" aria-label="Admin Login">
+                <User size={19} />
+                <span>Login</span>
+              </Link>
+            )}
             <button className="mobile-toggle" onClick={() => setMobileOpen(true)} aria-label="Open menu" id="mobile-menu-toggle">
               <Menu size={26} />
             </button>
@@ -171,9 +212,9 @@ export default function Header() {
                 </div>
               ))}
             </nav>
-            <Link href="/contact" className="btn btn--primary btn--sm header__cta-desktop" id="header-cta">
-              Book Care Assessment
-            </Link>
+            <a href={`mailto:${BRAND.email}`} className="btn--email-pill header__cta-desktop" id="header-cta" title={BRAND.email}>
+              <Mail size={18} /> Email
+            </a>
           </div>
         </div>
       </header>
@@ -186,8 +227,8 @@ export default function Header() {
               <Image
                 src="/images/logo-header.png"
                 alt={BRAND.name}
-                width={220}
-                height={53}
+                width={170}
+                height={40}
                 className="mobile-nav__logo-img"
               />
             </span>
@@ -224,9 +265,9 @@ export default function Header() {
             </div>
           ))}
           <div className="mobile-nav__cta">
-            <Link href="/contact" className="btn btn--primary" onClick={closeMobileMenu}>
-              Book Care Assessment
-            </Link>
+            <a href={`mailto:${BRAND.email}`} className="btn--email-pill" onClick={closeMobileMenu} title={BRAND.email}>
+              <Mail size={18} /> Email
+            </a>
           </div>
         </div>
       </div>

@@ -9,10 +9,19 @@
 }
 .scope > :global(.container) { position: relative; z-index: 1; }
 .scope :global(.section__header) {
-  width: min(100%,960px); margin-inline: auto; padding: clamp(1.4rem,3vw,2rem);
-  border: 1px solid rgba(0,154,159,.14); border-radius: 24px;
-  background: rgba(255,255,255,.86); box-shadow: 0 20px 55px rgba(14,55,75,.08);
-  backdrop-filter: blur(10px);
+  width: min(100%, 1200px); margin-inline: auto; padding: 0 0 1.5rem 0;
+  border: none; border-radius: 0;
+  background: transparent; box-shadow: none;
+  backdrop-filter: none;
+  text-align: center;
+}
+.scope :global(.section__header h2) {
+  white-space: normal;
+  text-align: center;
+  margin-inline: auto;
+  max-width: 900px;
+  line-height: 1.35;
+  font-size: clamp(1.4rem, 2.5vw, 2.4rem);
 }
 .scope :global(.hnc-v2__process-flow) {
   padding: clamp(1.5rem,3vw,2.5rem); border: 1px solid rgba(0,154,159,.13);
@@ -104,7 +113,7 @@
   .scope :global(.hnc-v2__process-item) { min-height: 112px; }
 }
 @media (max-width: 560px) {
-  .scope :global(.section__header) { padding: 1.2rem; border-radius: 20px; }
+  .scope :global(.section__header) { padding: 0 0 1rem 0; border-radius: 0; border: none; background: transparent; box-shadow: none; }
   .scope :global(.hnc-v2__process-flow) { padding: 1rem; }
   .scope :global(.hnc-v2__process-item) { min-height: 102px; padding-top: 1.55rem; border-radius: 17px; }
   .scope :global(.hnc-v2__process-footer), .scope :global(.hnc-v2__process-cta) { width: 100%; }

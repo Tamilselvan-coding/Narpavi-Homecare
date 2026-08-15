@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import FloatingActions from '@/components/layout/FloatingActions';
-import PageLoader from '@/components/layout/PageLoader';
-import ScrollEnhancements from '@/components/layout/ScrollEnhancements';
+import LayoutShell from '@/components/layout/LayoutShell';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { BRAND } from '@/lib/constants';
 import { getLocalBusinessSchema, getOrganizationSchema, getWebSiteSchema } from '@/lib/seo';
@@ -52,14 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <StructuredDataScript data={GLOBAL_SCHEMAS} />
       </head>
       <body suppressHydrationWarning>
-        <Header />
-        <main>
-          <PageLoader />
-          {children}
-        </main>
-        <Footer />
-        <ScrollEnhancements />
-        <FloatingActions />
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );

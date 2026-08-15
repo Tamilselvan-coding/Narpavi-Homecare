@@ -4,7 +4,7 @@ import { FormEvent, useState } from 'react';
 import type { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Download, X } from 'lucide-react';
+import { Download, Loader2, X } from 'lucide-react';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 interface DownloadResource {
@@ -47,25 +47,82 @@ export default function GatedDownloadResources({
   image = '/images/elder-care/pik-11.jpeg',
   imageAlt = 'Elder care educative guide',
   modalDescription = 'Fill these details to download the elder care guide.',
-  downloadFallbackName = 'care-guide.docx',
+  downloadFallbackName = 'care-guide.pdf',
   downloadButtonLabel = 'Download Now',
   blogCardVariant = 'imageOverlay',
 }: GatedDownloadResourcesProps) {
   const [activeDownload, setActiveDownload] = useState<DownloadResource | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const isImageOverlay = blogCardVariant === 'imageOverlay';
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!activeDownload) return;
 
-    const link = document.createElement('a');
-    link.href = activeDownload.fileUrl;
-    link.download = activeDownload.fileUrl.split('/').pop() ?? downloadFallbackName;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    event.currentTarget.reset();
-    setActiveDownload(null);
+    setIsSubmitting(true);
+    const formElement = event.currentTarget;
+    const formData = new FormData(formElement);
+
+    const payload = {
+      name: String(formData.get('name') ?? '').trim(),
+      mobile: String(formData.get('mobile') ?? '').trim(),
+      profession: String(formData.get('profession') ?? '').trim(),
+      downloadTitle: activeDownload.title,
+      downloadFileUrl: activeDownload.fileUrl,
+      sourcePath: typeof window !== 'undefined' ? window.location.pathname : '',
+      submittedAt: new Date().toISOString(),
+    };
+
+    let targetDownloadUrl = activeDownload.fileUrl;
+
+    try {
+      const response = await fetch('/api/download-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const resData = await response.json();
+        if (resData.ok && resData.downloadUrl) {
+          targetDownloadUrl = resData.downloadUrl;
+        }
+      }
+    } catch (err) {
+      console.warn('Unable to log download lead to API:', err);
+    } finally {
+      setIsSubmitting(false);
+
+      // Trigger the actual PDF file download reliably via Blob URL
+      try {
+        const fileRes = await fetch(targetDownloadUrl);
+        if (fileRes.ok) {
+          const blob = await fileRes.blob();
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          const fileName = targetDownloadUrl.split('/').pop() || downloadFallbackName;
+          link.download = fileName;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+        } else {
+          throw new Error('File fetch failed');
+        }
+      } catch (err) {
+        console.warn('Fallback direct link download:', err);
+        const link = document.createElement('a');
+        link.href = targetDownloadUrl;
+        link.download = targetDownloadUrl.split('/').pop() ?? downloadFallbackName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }
+
+      formElement.reset();
+      setActiveDownload(null);
+    }
   };
 
   return (
@@ -121,8 +178,12 @@ export default function GatedDownloadResources({
               <input name="name" type="text" placeholder="Name" aria-label="Name" required />
               <input name="mobile" type="tel" placeholder="Mobile Number" aria-label="Mobile number" required />
               <input name="profession" type="text" placeholder="Profession" aria-label="Profession" required />
-              <button type="submit" className="btn btn--primary">
-                Submit & Download <Download size={16} />
+              <button type="submit" className="btn btn--primary" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>Submitting... <Loader2 className="animate-spin" size={16} /></>
+                ) : (
+                  <>Submit & Download <Download size={16} /></>
+                )}
               </button>
             </form>
           </div>

@@ -15,7 +15,7 @@ export default function PatientAssistantCarePage() {
   return (
     <>
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Home Nursing Care', href: '/home-nursing-care' }, { label: 'Patient Assistant Care' }]} />
-      <section className="hero" style={{ marginTop: 0 }}>
+      <section className="hero" id="hero-form" style={{ marginTop: 0 }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '3rem', alignItems: 'center' }}>
             <div>
@@ -27,7 +27,7 @@ export default function PatientAssistantCarePage() {
                 Reliable non-clinical support for activities of daily living (ADLs), ensuring safety, comfort, and companionship.
               </p>
               <div className="hero__cta-group">
-                <Link href="/contact" className="btn btn--secondary btn--lg">Book Assessment</Link>
+                <Link href="#hero-form" className="btn btn--secondary btn--lg">Book Assessment</Link>
                 <Link href="/home-nursing-care" className="btn btn--primary btn--lg">Explore Services</Link>
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function PatientAssistantCarePage() {
           <div style={{ background: 'var(--primary-light)', padding: '2rem', borderRadius: 'var(--radius-lg)', textAlign: 'center' }}>
             <h3 style={{ marginBottom: '0.5rem' }}>Need a Patient Assistant?</h3>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Our caregivers are background-checked and supervised. Get care started within 24-48 hours.</p>
-            <Link href="/contact" className="btn btn--primary">Book Care Assessment</Link>
+            <Link href="#hero-form" className="btn btn--primary">Book Care Assessment</Link>
           </div>
         </div>
       </section>

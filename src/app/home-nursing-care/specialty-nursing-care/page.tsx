@@ -516,7 +516,7 @@ export default function SpecialtyNursingCarePage() {
               image="/images/specialty-nursing-care/Pik 14.jpeg"
               imageAlt="Specialty Nursing Care educational guides"
               modalDescription="Fill out these details to download your copy of the Specialty Care Guide."
-              downloadFallbackName="specialty-nursing-care-guide.docx"
+              downloadFallbackName="specialty-nursing-care-guide.pdf"
               downloadButtonLabel="Download Guide"
               downloads={SPECIALTY_NURSING_DOWNLOADS}
               resources={SPECIALTY_NURSING_RESOURCES}

@@ -384,19 +384,19 @@ export const ELDER_CARE_FAQS = [
 export const ELDER_CARE_DOWNLOADS: ElderCareDownload[] = [
   {
     title: 'Caring for a Parent With Dementia or Alzheimer\'s - A Family Guide',
-    fileUrl: '/downloads/elder-care/caring-for-parent-dementia-family-guide.docx',
+    fileUrl: '/downloads/elder-care/caring-for-parent-dementia-family-guide.pdf',
   },
   {
     title: 'Managing Chronic Conditions Safely at Home',
-    fileUrl: '/downloads/elder-care/managing-chronic-conditions-safely-at-home.docx',
+    fileUrl: '/downloads/elder-care/managing-chronic-conditions-safely-at-home.pdf',
   },
   {
     title: 'Preventing Falls at Home: Safety Tips for Seniors',
-    fileUrl: '/downloads/elder-care/preventing-falls-safety-tips-seniors-chennai.docx',
+    fileUrl: '/downloads/elder-care/preventing-falls-safety-tips-seniors-chennai.pdf',
   },
   {
     title: 'Staying Happy & Connected - Tips for Seniors Living Alone',
-    fileUrl: '/downloads/elder-care/staying-happy-connected-seniors-living-alone.docx',
+    fileUrl: '/downloads/elder-care/staying-happy-connected-seniors-living-alone.pdf',
   },
 ];
 

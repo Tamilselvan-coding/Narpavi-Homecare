@@ -3,6 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { BLOG_POSTS } from '@/lib/blogs';
+import { BABY_CARE_BLOG_POSTS } from '@/lib/babyCareBlogs';
+import { ADVANCE_NURSING_BLOG_POSTS } from '@/lib/advanceNursingCareBlogs';
+import { SPECIALTY_NURSING_BLOG_ARTICLES } from '@/lib/specialtyNursingCareBlogs';
 
 interface TocItem {
   id: string;
@@ -19,6 +22,22 @@ interface BlogArticleLayoutProps {
   toc: TocItem[];
 }
 
+function getBlogParentCtaHref(slug: string): string {
+  if (BABY_CARE_BLOG_POSTS.some((p) => p.slug === slug) || slug.includes('baby')) {
+    return '/baby-care#baby-care-form';
+  }
+  if (slug.includes('elder')) {
+    return '/elder-care#elder-care-hero';
+  }
+  if (ADVANCE_NURSING_BLOG_POSTS.some((p) => p.slug === slug) || slug.includes('advance') || slug.includes('post-operative') || slug.includes('tracheostomy') || slug.includes('iv-infusion')) {
+    return '/home-nursing-care/advance-nursing-care#cta';
+  }
+  if (SPECIALTY_NURSING_BLOG_ARTICLES.some((p) => p.slug === slug) || slug.includes('specialty') || slug.includes('stroke') || slug.includes('cardiac') || slug.includes('chemotherapy')) {
+    return '/home-nursing-care/specialty-nursing-care#cta';
+  }
+  return '/home-nursing-care#hnc-cta';
+}
+
 export default function BlogArticleLayout({
   slug,
   title,
@@ -30,6 +49,7 @@ export default function BlogArticleLayout({
 }: BlogArticleLayoutProps) {
   const currentPost = BLOG_POSTS.find((post) => post.slug === slug);
   const relatedPosts = BLOG_POSTS.filter((post) => post.slug !== slug).slice(0, 3);
+  const parentCtaHref = getBlogParentCtaHref(slug);
   const publishedDate = currentPost
     ? new Date(currentPost.date).toLocaleDateString('en-IN', {
       day: 'numeric',
@@ -100,7 +120,7 @@ export default function BlogArticleLayout({
               <h3>Talk to our care team</h3>
               <p>Get the right home care plan, package advice, and fast onboarding support for your family.</p>
               <div className="blog-sidebar__actions">
-                <Link href="/contact" className="btn btn--primary btn--sm">Book Care Assessment</Link>
+                <Link href={parentCtaHref} className="btn btn--primary btn--sm">Book Care Assessment</Link>
                 <Link href="/faq" className="btn btn--outline btn--sm">View FAQs</Link>
               </div>
             </div>

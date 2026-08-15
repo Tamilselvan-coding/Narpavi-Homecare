@@ -96,7 +96,7 @@ export default function ElderCarePage() {
                 priority
               />
             </div>
-            <Link href="#elder-care-booking" className="btn btn--primary btn--lg elder-summary-media__cta">
+            <Link href="#elder-care-hero" className="btn btn--primary btn--lg elder-summary-media__cta">
               Book Your Elder Care Package<SiteIcon name="Arrow" size={18} />
             </Link>
           </div>
@@ -117,7 +117,7 @@ export default function ElderCarePage() {
       <section className="section section--alt elder-trust-section" id="elder-safety">
         <div className="container elder-orbit-shell">
           <div className="section__header elder-orbit-header">
-            <span className="section-kicker">Safety and trust</span>
+            {/* <span className="section-kicker">Safety and trust</span> */}
             <h2>Your Parent&apos;s Safety Stays Visible Every Day</h2>
             <p>Every elder care plan is built around practical prevention, respectful support, and transparent family communication.</p>
           </div>
@@ -147,7 +147,6 @@ export default function ElderCarePage() {
               >
                 <div className="elder-orbit-card__icon"><SiteIcon name={item.icon} size={22} /></div>
                 <div>
-                  <span className="elder-orbit-card__eyebrow">Safety {String(index + 1).padStart(2, '0')}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </div>
@@ -202,9 +201,10 @@ export default function ElderCarePage() {
           <div className="section__header">
             {/* <span className="section-kicker">Elder care packages</span> */}
             <h2>Elder Care Packages</h2>
-            <p className="elder-packages-intro">
-              <span>Every senior’s needs are unique — that’s why we’ve designed flexible, medically guided care packages to match different stages of aging and health.</span>
-              <span>Select a care package that fits your loved one’s lifestyle, mobility, and care requirements.</span>
+            <p className="elder-packages-intro" style={{ textAlign: 'center', maxWidth: '850px', margin: '0 auto' }}>
+              Every senior&apos;s needs are unique — that&apos;s why we&apos;ve designed flexible, medically guided care packages to match different stages of aging and health.
+              <br />
+              Select a care package that fits your loved one&apos;s lifestyle, mobility, and care requirements.
             </p>
           </div>
 

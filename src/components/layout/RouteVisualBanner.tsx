@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
+import { BRAND } from '@/lib/constants';
 
 type VisualConfig = {
   image: string;
@@ -158,7 +159,7 @@ export default function RouteVisualBanner() {
           <h2>{visual.title}</h2>
           <p>{visual.copy}</p>
           <div className="route-visual__actions">
-            <Link href="/contact" className="btn btn--primary btn--sm">Book Care Assessment <ArrowRight size={16} /></Link>
+            <a href={`mailto:${BRAND.email}`} className="btn btn--primary btn--sm"><Mail size={16} /> {BRAND.email} <ArrowRight size={16} /></a>
             <Link href="/faq" className="route-visual__phone">View Care FAQs</Link>
           </div>
         </div>

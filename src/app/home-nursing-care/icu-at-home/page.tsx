@@ -243,7 +243,7 @@ export default function ICUAtHomePage() {
               image="/images/icu-at-home/pik-10.png"
               imageAlt="ICU at home guidebooks and setup checklists"
               modalDescription="Fill out these details to download your copy of the ICU at Home Guide."
-              downloadFallbackName="icu-at-home-guide.docx"
+              downloadFallbackName="icu-at-home-guide.pdf"
               downloadButtonLabel="Download Guide"
               downloads={ICU_AT_HOME_DOWNLOADS}
               resources={ICU_AT_HOME_RESOURCES}

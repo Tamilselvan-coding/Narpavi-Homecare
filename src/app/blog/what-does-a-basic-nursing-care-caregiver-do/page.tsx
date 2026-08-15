@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout';
 import SiteIcon from '@/components/ui/SiteIcon';
+import CTAForm from '@/components/ui/CTAForm';
 
 export const metadata: Metadata = {
   title: 'What Does a Basic Nursing Care Caregiver Do? A Complete Guide for Families',
@@ -82,8 +83,8 @@ export default function CaregiverGuide() {
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Need a Professional Caregiver at Home?</h3>
           <p style={{ opacity: 0.9 }}>Book a care assessment and get matched with a trained caregiver within 24-48 hours.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/contact" className="btn btn--white">Book Care Assessment</Link>
-            <Link href="/contact" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
+            <Link href="/home-nursing-care#hnc-cta" className="btn btn--white">Book Care Assessment</Link>
+            <Link href="/home-nursing-care#hnc-cta" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
           </div>
         </div>
       </BlogArticleLayout>

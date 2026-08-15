@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import { getSearchResults } from '@/lib/search';
+import { getSearchResults, type SearchResult } from '@/lib/search';
+
+const BACKEND_API_BASE_URL = process.env.BACKEND_API_BASE_URL || 'http://localhost:8085';
 
 export const metadata: Metadata = {
   title: 'Search',
@@ -14,10 +16,35 @@ interface SearchPageProps {
   searchParams?: Promise<{ q?: string }>;
 }
 
+async function fetchSearchResults(query: string, limit: number): Promise<SearchResult[]> {
+  try {
+    const response = await fetch(
+      `${BACKEND_API_BASE_URL}/api/search?q=${encodeURIComponent(query)}&limit=${limit}`,
+      { cache: 'no-store' }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      if (data && Array.isArray(data.results) && data.results.length > 0) {
+        return data.results.map((r: { title: string; excerpt: string; href: string; type: string }) => ({
+          title: r.title,
+          excerpt: r.excerpt,
+          href: r.href,
+          type: r.type,
+          keywords: '',
+        }));
+      }
+    }
+  } catch (err) {
+    console.warn('Backend search API unreachable, using local index fallback:', err);
+  }
+
+  return getSearchResults(query, limit);
+}
+
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const params = await searchParams;
   const query = params?.q?.trim() ?? '';
-  const results = getSearchResults(query, query ? 12 : 8);
+  const results = await fetchSearchResults(query, query ? 12 : 8);
 
   return (
     <>

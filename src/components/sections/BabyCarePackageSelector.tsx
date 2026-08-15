@@ -18,7 +18,16 @@ export default function BabyCarePackageSelector() {
   const [selectedPackageId, setSelectedPackageId] = useState(BABY_CARE_PACKAGES[0]?.id ?? '');
   const selectedPackage = BABY_CARE_PACKAGES.find((pkg) => pkg.id === selectedPackageId) ?? BABY_CARE_PACKAGES[0];
 
-  if (!selectedPackage) return null;
+  const handleBookNow = (packageName: string) => {
+    window.dispatchEvent(new CustomEvent('narpavi:select-package', { detail: { packageName } }));
+    const formEl = document.getElementById('baby-care-form') || document.getElementById('hero-form');
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    window.setTimeout(() => {
+      document.querySelector<HTMLInputElement>('#baby-care-form .cta-form input[name="name"], #hero-form .cta-form input[name="name"]')?.focus({ preventScroll: true });
+    }, 450);
+  };
 
   return (
     <div className="elder-packages-layout">
@@ -82,9 +91,13 @@ export default function BabyCarePackageSelector() {
                 ))}
               </div>
               <div className="elder-package-card__actions">
-                <Link href={`${selectedPackage.href}#baby-package-form`} className="btn btn--primary btn--sm">
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => handleBookNow(selectedPackage.name)}
+                >
                   Book {selectedPackage.name}
-                </Link>
+                </button>
               </div>
             </div>
           </div>

@@ -398,7 +398,7 @@ const HOME_FAQS = [
 ];
 
 const STATS = [
-  { number: '500+', label: 'Chennai families served', icon: UsersRound },
+  { number: '100+', label: 'Chennai families served', icon: UsersRound },
   { number: '98%', label: 'Reported satisfaction', icon: BadgeCheck },
   { number: '24/7', label: 'Support availability', icon: ShieldCheck },
   { number: '24–48 hrs', label: 'Typical rapid setup window', icon: Clock3 },

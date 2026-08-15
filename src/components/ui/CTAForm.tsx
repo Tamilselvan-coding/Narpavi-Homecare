@@ -1,8 +1,9 @@
 'use client';
 
 import { type FormEvent, useEffect, useId, useMemo, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { ArrowRight, CalendarClock } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { AlertCircle, ArrowRight, CalendarClock, CheckCircle2, ShoppingCart, X } from 'lucide-react';
+import { addToCart } from '@/lib/cart';
 
 const COUNTRY_CODES = [
   { country: 'India', code: '+91' },
@@ -248,6 +249,8 @@ interface CTAFormProps {
   packageName?: string;
   packageOptions?: string[];
   enquiryFor?: string;
+  defaultConsultationType?: string;
+  showCartButton?: boolean;
 }
 
 const PATH_ENQUIRY_LABELS: Array<[RegExp, string]> = [
@@ -328,14 +331,18 @@ function getMonthDays(date: Date) {
 }
 
 export default function CTAForm({
-  title = 'Book Your Care Assessment',
+  title = 'Book Your Free Consultation',
   submitLabel = 'Book Now',
   packageName,
   packageOptions,
   enquiryFor,
+  defaultConsultationType,
+  showCartButton,
 }: CTAFormProps) {
   const formId = useId().replace(/:/g, '');
   const pathname = usePathname();
+  const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
   const datePickerRef = useRef<HTMLDivElement>(null);
   const [selectedPackage, setSelectedPackage] = useState(packageName ?? '');
   const [serviceStartDate, setServiceStartDate] = useState('');
@@ -419,6 +426,9 @@ export default function CTAForm({
     const formData = new FormData(form);
     const countryCode = String(formData.get('countryCode') ?? '').trim();
     const phone = String(formData.get('phone') ?? '').trim();
+    const consultationType = String(formData.get('consultationType') ?? 'Free Expert Consultation').trim();
+    const rawPackage = String(formData.get('packageName') ?? '').trim();
+
     const payload = {
       name: String(formData.get('name') ?? '').trim(),
       countryCode,
@@ -426,8 +436,9 @@ export default function CTAForm({
       phoneFull: `${countryCode} ${phone}`.trim(),
       city: String(formData.get('city') ?? '').trim(),
       serviceStartDate: String(formData.get('serviceStartDate') ?? '').trim(),
-      packageName: String(formData.get('packageName') ?? '').trim(),
-      enquiryFor: activeEnquiryLabel,
+      packageName: rawPackage || consultationType,
+      consultationType,
+      enquiryFor: `${activeEnquiryLabel} (${consultationType})`,
       sourcePath: pathname ?? '',
       submittedAt: new Date().toISOString(),
     };
@@ -458,14 +469,59 @@ export default function CTAForm({
     }
   };
 
+  const handleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const form = formRef.current;
+    if (!form) return;
+    if (!form.reportValidity()) return;
+
+    const formData = new FormData(form);
+    const countryCode = String(formData.get('countryCode') ?? '').trim();
+    const phone = String(formData.get('phone') ?? '').trim();
+
+    addToCart({
+      title: activeEnquiryLabel,
+      name: String(formData.get('name') ?? '').trim(),
+      phoneFull: `${countryCode} ${phone}`.trim(),
+      city: String(formData.get('city') ?? '').trim(),
+      serviceStartDate: String(formData.get('serviceStartDate') ?? '').trim(),
+      packageName: String(formData.get('packageName') ?? '').trim(),
+      enquiryFor: activeEnquiryLabel,
+      sourcePath: pathname ?? '',
+    });
+
+    router.push('/cart');
+  };
+
+  const initialConsultationType = defaultConsultationType || (pathname === '/home-nursing-care' ? 'Free Expert Consultation' : 'Care Assessment');
+  const shouldShowCartButton = showCartButton ?? (pathname !== '/home-nursing-care');
+
   return (
-    <form className="cta-form" id={`cta-form-${formId}`} onSubmit={handleSubmit}>
-      <h3>{title}</h3>
-      <input type="hidden" name="enquiryFor" value={activeEnquiryLabel} />
-      <input type="hidden" name="sourcePath" value={pathname ?? ''} />
-      <div className="cta-form__field">
-        <input type="text" placeholder="Your Name" id={`form-name-${formId}`} name="name" aria-label="Your name" required />
-      </div>
+      <form className="cta-form" id={`cta-form-${formId}`} ref={formRef} onSubmit={handleSubmit}>
+        <h3>{title}</h3>
+        <input type="hidden" name="enquiryFor" value={activeEnquiryLabel} />
+        <input type="hidden" name="sourcePath" value={pathname ?? ''} />
+        {pathname === '/home-nursing-care' && (
+          <div className="cta-form__field">
+            <select
+              id={`form-consultation-type-${formId}`}
+              name="consultationType"
+              aria-label="Select consultation type"
+              defaultValue="Free Expert Consultation"
+              style={{
+                fontWeight: 700,
+                color: '#0a8f8f',
+                borderColor: 'rgba(10, 143, 143, 0.4)',
+                background: '#f0fdfa',
+              }}
+            >
+              <option value="Free Expert Consultation">Free Expert Consultation</option>
+            </select>
+          </div>
+        )}
+        <div className="cta-form__field">
+          <input type="text" placeholder="Your Name" id={`form-name-${formId}`} name="name" aria-label="Your name" required />
+        </div>
       <div className="cta-form__field">
         <div className="cta-form__phone">
           <select
@@ -563,18 +619,76 @@ export default function CTAForm({
       ) : (
         packageName && <input type="hidden" name="packageName" value={packageName} />
       )}
-      <button type="submit" className="btn btn--primary" id={`form-submit-${formId}`} disabled={isSubmitting}>
-        {isSubmitting ? 'Submitting...' : submitLabel} <ArrowRight size={17} />
-      </button>
+      <div className="cta-form__actions">
+        <button type="submit" className="btn btn--primary" id={`form-submit-${formId}`} disabled={isSubmitting} style={shouldShowCartButton ? {} : { width: '100%', justifyContent: 'center' }}>
+          {isSubmitting ? 'Submitting...' : (submitLabel.length > 12 ? 'Book Now' : submitLabel)} <ArrowRight size={16} />
+        </button>
+        {shouldShowCartButton && (
+          <button type="button" className="btn btn--secondary cta-form__cart-btn" onClick={handleAddToCart}>
+            <ShoppingCart size={16} /> Add to Cart
+          </button>
+        )}
+      </div>
       {submittedEnquiry && (
-        <p className="cta-form__status" role="status" aria-live="polite">
-          Enquiry for <strong>{submittedEnquiry}</strong> submitted. Our team will contact you shortly.
-        </p>
+        <div className="cta-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="cta-popup-title">
+          <div className="cta-popup-backdrop" onClick={() => setSubmittedEnquiry(null)} />
+          <div className="cta-popup-card">
+            <button
+              type="button"
+              className="cta-popup-close"
+              aria-label="Close message"
+              onClick={() => setSubmittedEnquiry(null)}
+            >
+              <X size={20} />
+            </button>
+            <div className="cta-popup-icon">
+              <CheckCircle2 size={44} />
+            </div>
+            <h3 id="cta-popup-title">Enquiry Submitted!</h3>
+            <p className="cta-popup-message">
+              Thank you for choosing Narpavi Homecare. Your enquiry for{' '}
+              <strong>{submittedEnquiry}</strong> has been received. Our expert care team will contact you shortly.
+            </p>
+            <div className="cta-popup-actions">
+              <button
+                type="button"
+                className="btn btn--primary"
+                onClick={() => setSubmittedEnquiry(null)}
+              >
+                Okay, Got it
+              </button>
+            </div>
+          </div>
+        </div>
       )}
       {submitError && (
-        <p className="cta-form__status cta-form__status--error" role="alert">
-          {submitError}
-        </p>
+        <div className="cta-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="cta-popup-error-title">
+          <div className="cta-popup-backdrop" onClick={() => setSubmitError('')} />
+          <div className="cta-popup-card cta-popup-card--error">
+            <button
+              type="button"
+              className="cta-popup-close"
+              aria-label="Close error message"
+              onClick={() => setSubmitError('')}
+            >
+              <X size={20} />
+            </button>
+            <div className="cta-popup-icon cta-popup-icon--error">
+              <AlertCircle size={44} />
+            </div>
+            <h3 id="cta-popup-error-title">Submission Issue</h3>
+            <p className="cta-popup-message">{submitError}</p>
+            <div className="cta-popup-actions">
+              <button
+                type="button"
+                className="btn btn--secondary"
+                onClick={() => setSubmitError('')}
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </form>
   );

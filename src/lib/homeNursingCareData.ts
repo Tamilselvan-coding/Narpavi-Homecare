@@ -156,7 +156,7 @@ export const HNC_COMPREHENSIVE_IMAGES = [
 /* ────────────────────────────────────────────
    SECTION 10 — ENROLLMENT PROCESS
    ──────────────────────────────────────────── */
-export const HNC_ENROLLMENT_HEADING = 'Our Proven Process to Enroll Patients in Home Nursing Care';
+export const HNC_ENROLLMENT_HEADING = 'Proven Process to Enroll Patients in Home Nursing Care';
 export const HNC_ENROLLMENT_INTRO =
   'Our 10-step process keeps families informed and ensures safe, personalized care for every patient \u2014 from the first phone call to ongoing reviews.';
 export const HNC_ENROLLMENT_FOOTER =

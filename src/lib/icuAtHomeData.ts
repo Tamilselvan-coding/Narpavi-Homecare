@@ -243,19 +243,19 @@ export const ICU_AT_HOME_RESOURCE_COPY = 'Learn & Prepare Setting up an ICU at h
 export const ICU_AT_HOME_DOWNLOADS: ICUAtHomeDownload[] = [
   {
     title: 'ICU at Home Setup Checklist',
-    fileUrl: '/downloads/icu-at-home/icu-at-home-setup-checklist.docx',
+    fileUrl: '/downloads/icu-at-home/icu-at-home-setup-checklist.pdf',
   },
   {
     title: 'Cost Planning for ICU Care at Home vs Hospital ICU',
-    fileUrl: '/downloads/icu-at-home/cost-planning-icu-care-home-vs-hospital.docx',
+    fileUrl: '/downloads/icu-at-home/cost-planning-icu-care-home-vs-hospital.pdf',
   },
   {
     title: 'Emergency Preparedness Guide for Home ICU Patients',
-    fileUrl: '/downloads/icu-at-home/emergency-preparedness-home-icu-patients.docx',
+    fileUrl: '/downloads/icu-at-home/emergency-preparedness-home-icu-patients.pdf',
   },
   {
     title: 'Ventilator Weaning at Home — Family Handbook',
-    fileUrl: '/downloads/icu-at-home/ventilator-weaning-at-home-family-handbook.docx',
+    fileUrl: '/downloads/icu-at-home/ventilator-weaning-at-home-family-handbook.pdf',
   },
 ];
 

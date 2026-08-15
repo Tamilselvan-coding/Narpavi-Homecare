@@ -1,7 +1,9 @@
 export const BRAND = {
   name: 'Narpavi Homecare',
   tagline: 'Professional Home Healthcare',
-  email: 'info@narpavihomecare.com',
+  email: 'service@nhlcare.com',
+  phone: '+91 97900 16067',
+  whatsapp: '919790016067',
   address: 'Chennai, Tamil Nadu, India',
   url: 'https://www.narpavihomecare.com',
   foundedYear: 2024,

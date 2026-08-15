@@ -8,9 +8,11 @@ import {
   BriefcaseBusiness,
   Building2,
   Check,
+  CheckCircle2,
   GraduationCap,
   Handshake,
   HeartHandshake,
+  Loader2,
   MapPin,
   ShieldCheck,
   Sparkles,
@@ -35,9 +37,100 @@ const candidateBenefits = [
 
 export default function JoinUsExperience() {
   const [activeTrack, setActiveTrack] = useState<JoinTrack>('candidate');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string>('');
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handlePartnerSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    const formData = new FormData(event.currentTarget);
+    const payload = {
+      contactName: String(formData.get('contactName') ?? '').trim(),
+      organization: String(formData.get('organization') ?? '').trim(),
+      partnerType: String(formData.get('partnerType') ?? '').trim(),
+      countryCode: String(formData.get('countryCode') ?? '+91').trim(),
+      phone: String(formData.get('phone') ?? '').trim(),
+      email: String(formData.get('email') ?? '').trim(),
+      location: String(formData.get('location') ?? '').trim(),
+      message: String(formData.get('message') ?? '').trim(),
+      sourcePath: typeof window !== 'undefined' ? window.location.pathname : '/join-us',
+      submittedAt: new Date().toISOString(),
+    };
+
+    try {
+      const response = await fetch('/api/join-us/partner', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.ok !== false) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Thank you! Your partner enquiry has been submitted successfully. Our team will contact you shortly.',
+        });
+        (event.target as HTMLFormElement).reset();
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.message || 'Unable to submit partner enquiry. Please check required fields.',
+        });
+      }
+    } catch {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCandidateSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    const formElement = event.currentTarget;
+    const formData = new FormData(formElement);
+
+    formData.append('sourcePath', typeof window !== 'undefined' ? window.location.pathname : '/join-us');
+    formData.append('submittedAt', new Date().toISOString());
+
+    try {
+      const response = await fetch('/api/join-us/candidate', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.ok !== false) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Application received! Thank you for applying to Narpavi Homecare. Our recruitment team will review your profile.',
+        });
+        formElement.reset();
+        setSelectedFileName('');
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.message || 'Unable to submit candidate application. Please verify your entries.',
+        });
+      }
+    } catch {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -59,6 +152,7 @@ export default function JoinUsExperience() {
                 className="btn btn--secondary btn--lg"
                 onClick={() => {
                   setActiveTrack('partner');
+                  setSubmitStatus(null);
                   document.getElementById('join-application')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
@@ -69,6 +163,7 @@ export default function JoinUsExperience() {
                 className="btn btn--primary btn--lg"
                 onClick={() => {
                   setActiveTrack('candidate');
+                  setSubmitStatus(null);
                   document.getElementById('join-application')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
@@ -98,75 +193,76 @@ export default function JoinUsExperience() {
             </div>
             <div className="join-hero__floating join-hero__floating--candidate">
               <span><Stethoscope size={19} /></span>
-              <div><strong>Care Careers</strong><small>Learn, serve and grow</small></div>
+              <div><strong>Healthcare Careers</strong><small>Structured home nursing roles</small></div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section join-paths" aria-labelledby="join-paths-title">
+      <section className="join-tracks">
         <div className="container">
-          <div className="join-section-heading">
-            <span className="join-eyebrow">Choose your path</span>
-            <h2 id="join-paths-title">How would you like to join us?</h2>
-            <p>Select the option that best matches your goal. You can switch at any time.</p>
+          <div className="join-tracks__header">
+            <h2>Select your engagement path</h2>
+            <p>Whether you represent an institution or are looking for your next clinical or caregiving role, we welcome your application.</p>
           </div>
 
-          <div className="join-path-grid">
-            <button
-              type="button"
-              className={`join-path-card join-path-card--partner ${activeTrack === 'partner' ? 'join-path-card--active' : ''}`}
-              onClick={() => setActiveTrack('partner')}
-              aria-pressed={activeTrack === 'partner'}
-            >
-              <div className="join-path-card__top">
-                <span className="join-path-card__icon"><Handshake size={29} /></span>
-                <span className="join-path-card__number">01</span>
+          <div className="join-tracks__grid">
+            <article className={`join-track-card ${activeTrack === 'partner' ? 'join-track-card--active' : ''}`}>
+              <div className="join-track-card__icon"><Building2 size={26} /></div>
+              <div className="join-track-card__content">
+                <span className="join-track-card__tag">Institutional & Professional</span>
+                <h3>Partner with Narpavi</h3>
+                <p>Hospitals, clinics, corporates, insurance providers, NGOs, and referral partners looking to expand patient care continuity.</p>
+                <ul>
+                  {partnerBenefits.map((item) => (
+                    <li key={item}><Check size={16} /> {item}</li>
+                  ))}
+                </ul>
               </div>
-              <span className="join-path-card__label">For organizations & professionals</span>
-              <h3>Become a Partner</h3>
-              <p>
-                Collaborate through referrals, healthcare services, institutional
-                support, community outreach, or employee care programs.
-              </p>
-              <ul>
-                {partnerBenefits.map((benefit) => (
-                  <li key={benefit}><Check size={16} /> {benefit}</li>
-                ))}
-              </ul>
-              <span className="join-path-card__link">Choose Partner Path <ArrowRight size={17} /></span>
-            </button>
+              <button
+                type="button"
+                className={`btn ${activeTrack === 'partner' ? 'btn--secondary' : 'btn--outline'}`}
+                onClick={() => {
+                  setActiveTrack('partner');
+                  setSubmitStatus(null);
+                  document.getElementById('join-application')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                {activeTrack === 'partner' ? 'Selected' : 'Choose Partner Track'}
+              </button>
+            </article>
 
-            <button
-              type="button"
-              className={`join-path-card join-path-card--candidate ${activeTrack === 'candidate' ? 'join-path-card--active' : ''}`}
-              onClick={() => setActiveTrack('candidate')}
-              aria-pressed={activeTrack === 'candidate'}
-            >
-              <div className="join-path-card__top">
-                <span className="join-path-card__icon"><Stethoscope size={29} /></span>
-                <span className="join-path-card__number">02</span>
+            <article className={`join-track-card ${activeTrack === 'candidate' ? 'join-track-card--active' : ''}`}>
+              <div className="join-track-card__icon"><GraduationCap size={26} /></div>
+              <div className="join-track-card__content">
+                <span className="join-track-card__tag">Nurses & Caregivers</span>
+                <h3>Work as Care Professional</h3>
+                <p>Nurses (ANM / GNM / B.Sc), patient care assistants, trained caregivers, and physiotherapists seeking structured home nursing opportunities.</p>
+                <ul>
+                  {candidateBenefits.map((item) => (
+                    <li key={item}><Check size={16} /> {item}</li>
+                  ))}
+                </ul>
               </div>
-              <span className="join-path-card__label">For nurses & care professionals</span>
-              <h3>Apply as a Candidate</h3>
-              <p>
-                Join as a nurse, trained caregiver, patient assistant, nursing
-                graduate, or motivated fresher ready for care training.
-              </p>
-              <ul>
-                {candidateBenefits.map((benefit) => (
-                  <li key={benefit}><Check size={16} /> {benefit}</li>
-                ))}
-              </ul>
-              <span className="join-path-card__link">Choose Candidate Path <ArrowRight size={17} /></span>
-            </button>
+              <button
+                type="button"
+                className={`btn ${activeTrack === 'candidate' ? 'btn--primary' : 'btn--outline'}`}
+                onClick={() => {
+                  setActiveTrack('candidate');
+                  setSubmitStatus(null);
+                  document.getElementById('join-application')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                {activeTrack === 'candidate' ? 'Selected' : 'Choose Candidate Track'}
+              </button>
+            </article>
           </div>
         </div>
       </section>
 
-      <section className="section join-application-section" id="join-application">
-        <div className="container join-application-layout">
-          <div className={`join-application-intro join-application-intro--${activeTrack}`}>
+      <section className="join-application" id="join-application">
+        <div className="container join-application__grid">
+          <div className="join-application-intro">
             <span className="join-application-intro__icon">
               {activeTrack === 'partner' ? <Building2 size={30} /> : <GraduationCap size={30} />}
             </span>
@@ -199,8 +295,27 @@ export default function JoinUsExperience() {
               </div>
             </div>
 
+            {submitStatus && (
+              <div
+                style={{
+                  padding: '1rem 1.25rem',
+                  borderRadius: '0.5rem',
+                  marginBottom: '1.25rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  backgroundColor: submitStatus.type === 'success' ? '#ECFDF5' : '#FEF2F2',
+                  color: submitStatus.type === 'success' ? '#065F46' : '#991B1B',
+                  border: `1px solid ${submitStatus.type === 'success' ? '#A7F3D0' : '#FCA5A5'}`,
+                }}
+              >
+                {submitStatus.type === 'success' ? <CheckCircle2 size={20} /> : <ShieldCheck size={20} />}
+                <span style={{ fontSize: '0.925rem', fontWeight: 500 }}>{submitStatus.message}</span>
+              </div>
+            )}
+
             {activeTrack === 'partner' ? (
-              <form className="join-form" onSubmit={handleSubmit}>
+              <form className="join-form" onSubmit={handlePartnerSubmit}>
                 <div className="join-form__grid">
                   <label>
                     <span>Contact Person</span>
@@ -246,12 +361,16 @@ export default function JoinUsExperience() {
                   <span>How would you like to partner?</span>
                   <textarea name="message" rows={4} placeholder="Briefly describe your partnership idea or requirement" />
                 </label>
-                <button type="submit" className="btn btn--secondary">
-                  Submit Partner Enquiry <ArrowRight size={17} />
+                <button type="submit" className="btn btn--secondary" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>Submitting... <Loader2 className="animate-spin" size={17} /></>
+                  ) : (
+                    <>Submit Partner Enquiry <ArrowRight size={17} /></>
+                  )}
                 </button>
               </form>
             ) : (
-              <form className="join-form" onSubmit={handleSubmit}>
+              <form className="join-form" onSubmit={handleCandidateSubmit}>
                 <div className="join-form__grid">
                   <label>
                     <span>Full Name</span>
@@ -313,8 +432,17 @@ export default function JoinUsExperience() {
                   <label className="join-form__upload">
                     <span>Resume / CV <small>(optional)</small></span>
                     <span className="join-form__upload-control">
-                      <Upload size={18} /> Choose file
-                      <input name="resume" type="file" accept=".pdf,.doc,.docx" />
+                      <Upload size={18} /> {selectedFileName || 'Choose file'}
+                      <input
+                        name="resume"
+                        type="file"
+                        accept=".pdf,.doc,.pdf"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            setSelectedFileName(e.target.files[0].name);
+                          }
+                        }}
+                      />
                     </span>
                   </label>
                 </div>
@@ -322,8 +450,12 @@ export default function JoinUsExperience() {
                   <span>Tell us briefly about yourself</span>
                   <textarea name="message" rows={4} placeholder="Your skills, availability, or preferred work area" />
                 </label>
-                <button type="submit" className="btn btn--primary">
-                  Submit Candidate Application <ArrowRight size={17} />
+                <button type="submit" className="btn btn--primary" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>Submitting... <Loader2 className="animate-spin" size={17} /></>
+                  ) : (
+                    <>Submit Candidate Application <ArrowRight size={17} /></>
+                  )}
                 </button>
               </form>
             )}

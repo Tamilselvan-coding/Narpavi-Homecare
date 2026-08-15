@@ -15,7 +15,7 @@ export default function EndOfLifeCarePage() {
   return (
     <>
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Home Nursing Care', href: '/home-nursing-care' }, { label: 'End of Life Care' }]} />
-      <section className="hero" style={{ marginTop: 0 }}>
+      <section className="hero" id="hero-form" style={{ marginTop: 0 }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '3rem', alignItems: 'center' }}>
             <div>
@@ -27,7 +27,7 @@ export default function EndOfLifeCarePage() {
                 Dedicated non-clinical comfort care and hospice presence to ensure peace, respect, and dignity for your loved ones at home.
               </p>
               <div className="hero__cta-group">
-                <Link href="/contact" className="btn btn--secondary btn--lg">Book Assessment</Link>
+                <Link href="#hero-form" className="btn btn--secondary btn--lg">Book Assessment</Link>
                 <Link href="/home-nursing-care" className="btn btn--primary btn--lg">Explore Services</Link>
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function EndOfLifeCarePage() {
           <div style={{ background: 'var(--primary-light)', padding: '2rem', borderRadius: 'var(--radius-lg)', textAlign: 'center' }}>
             <h3 style={{ marginBottom: '0.5rem' }}>Arrange Comfort Care?</h3>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>Our Comfort Plus plan is optimized for end-of-life care. Contact our nurse coordinator.</p>
-            <Link href="/contact" className="btn btn--primary">Get Comfort Assessment</Link>
+            <Link href="#hero-form" className="btn btn--primary">Get Comfort Assessment</Link>
           </div>
         </div>
       </section>

@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+const BACKEND_API_BASE_URL = process.env.BACKEND_API_BASE_URL || 'http://127.0.0.1:8085';
+
 type CareAssessmentPayload = {
   name?: string;
   countryCode?: string;
@@ -45,32 +47,28 @@ export async function POST(request: Request) {
       );
     }
 
-    const upstreamUrl = process.env.CARE_ASSESSMENT_API_URL;
+    const backendUrl = `${BACKEND_API_BASE_URL}/api/care-assessment`;
+    const backendResponse = await fetch(backendUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
 
-    if (upstreamUrl) {
-      const upstreamResponse = await fetch(upstreamUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+    const resData = await backendResponse.json();
 
-      if (!upstreamResponse.ok) {
-        return NextResponse.json(
-          { ok: false, message: 'Unable to forward enquiry' },
-          { status: 502 },
-        );
-      }
+    if (!backendResponse.ok) {
+      return NextResponse.json(
+        { ok: false, message: resData.message || 'Unable to process care assessment enquiry' },
+        { status: backendResponse.status },
+      );
     }
 
-    return NextResponse.json({
-      ok: true,
-      enquiryFor: payload.enquiryFor,
-      forwarded: Boolean(upstreamUrl),
-    });
-  } catch {
+    return NextResponse.json(resData);
+  } catch (error) {
+    console.error('Care assessment proxy error:', error);
     return NextResponse.json(
-      { ok: false, message: 'Invalid enquiry payload' },
-      { status: 400 },
+      { ok: false, message: 'Invalid enquiry payload or backend unreachable' },
+      { status: 500 },
     );
   }
 }
