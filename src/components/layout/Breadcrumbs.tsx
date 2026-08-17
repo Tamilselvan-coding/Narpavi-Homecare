@@ -23,16 +23,18 @@ export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="breadcrumbs">
-        <div className="container">
-          <ol className="breadcrumbs__list">
-            {items.map((item, i) => (
-              <li key={i} className="breadcrumbs__item">
-                {i > 0 && <span className="breadcrumbs__sep"><ChevronRight size={14} /></span>}
-                {item.href ? <Link href={item.href}>{item.label}</Link> : <span>{item.label}</span>}
-              </li>
-            ))}
-          </ol>
+      <div className="breadcrumbs-anchor">
+        <div className="breadcrumbs">
+          <div className="container">
+            <ol className="breadcrumbs__list">
+              {items.map((item, i) => (
+                <li key={i} className="breadcrumbs__item">
+                  {i > 0 && <span className="breadcrumbs__sep"><ChevronRight size={14} /></span>}
+                  {item.href ? <Link href={item.href}>{item.label}</Link> : <span>{item.label}</span>}
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
       <RouteVisualBanner />

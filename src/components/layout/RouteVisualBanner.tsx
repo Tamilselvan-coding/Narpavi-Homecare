@@ -52,15 +52,6 @@ const visualRoutes: Array<{ match: (path: string) => boolean; config: VisualConf
     },
   },
   {
-    match: (path) => path.includes('patient-assistant-care') || path.includes('/services/active-assist'),
-    config: {
-      image: '/images/pik-4.png',
-      eyebrow: 'Recovery and daily living support',
-      title: 'A dependable helping hand for every routine',
-      copy: 'Personal care, mobility, feeding assistance and companionship tailored to the patient.',
-    },
-  },
-  {
     match: (path) => path.includes('baby-care'),
     config: {
       image: '/images/pik-11.png',
