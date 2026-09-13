@@ -48,7 +48,7 @@ export default function BasicNursingCarePage() {
         <section className="baby-hero" id="basic-care-form">
           <div className="container baby-hero__grid">
             <div className="baby-hero__content">
-              <h1>Professional <span>Basic Nursing Care Service</span> at Home in Chennai</h1>
+              <h1>Professional <span>Basic Nursing Care </span> at Home</h1>
               <div className="baby-hero__actions">
                 {/* <a href="#basic-care-form" className="btn btn--outline btn--lg">Book Basic Nursing Care <SiteIcon name="Arrow" size={18} /></a> */}
                 <a href="#basic-care-packages" className="btn btn--outline btn--lg">View Packages <SiteIcon name="Arrow" size={18} /></a>
@@ -63,7 +63,7 @@ export default function BasicNursingCarePage() {
           <div className="container baby-summary">
             <div className="baby-image-panel"><Image src="/images/pik-1.jpeg" alt="Narpavi Basic Nursing Care support" fill sizes="(max-width: 992px) 100vw, 38vw" /></div>
             <div>
-              <h2>Comprehensive Basic Nursing Care at Home</h2>
+              <h2>Basic Nursing Care at Home</h2>
               <p>Basic Nursing Care from Narpavi Homecare is more than just help with daily chores, it&apos;s a structured, safety-focused non clinical support system for adults under 50 years of age, who are recovering, living with chronic illness, or need reliable home assistance without any invasive nursing procedures.</p>
               <p>Every plan is built to preserve independence, reduce readmissions and keep families informed in real time.</p>
               <Link href="#basic-care-form" className="btn btn--primary btn--lg">Book Basic Nursing Care <SiteIcon name="Arrow" size={18} /></Link>
@@ -101,7 +101,7 @@ export default function BasicNursingCarePage() {
         <section className="section section--alt basic-care-v2__deliverables basic-care-v2__deliverables-model">
           <div className="container">
             <div className="basic-care-v2__deliverables-model-shell">
-              <div className="basic-care-v2__deliverables-model-title"><h2>Comprehensive Basic Nursing Care Deliverables</h2></div>
+              <div className="basic-care-v2__deliverables-model-title"><h2>Basic Nursing Care Deliverables</h2></div>
               <div className="basic-care-v2__deliverables-model-grid">
                 {DELIVERABLES.map((item) => (
                   <article className="basic-care-v2__deliverables-model-card" key={item.title}>
@@ -123,10 +123,10 @@ export default function BasicNursingCarePage() {
           <div className="container">
             <div className="section__header basic-care-v2__trust-header">
               <h2>Your Loved One&apos;s Safety Is Our Priority</h2>
-              <p>
+              {/* <p>
                 At Narpavi Homecare, We understand that inviting a caregiver into your home requires complete trust,<br />
                 so we follow strict protocols to keep adults safe during recovery or long-term support.
-              </p>
+              </p> */}
             </div>
             <div className="baby-trust-orbit">
               <div className="baby-trust-visual">
@@ -137,7 +137,7 @@ export default function BasicNursingCarePage() {
               {TRUST_POINTS.map((item, index) => (
                 <article className={`baby-trust-card baby-trust-card--${index + 1}`} key={item.title} style={{ '--baby-trust-order': index } as CSSProperties}>
                   <div className="baby-trust-card__icon"><SiteIcon name={item.icon} size={22} /></div>
-                  <div><h3>{item.title}</h3><p>{item.detail}</p></div>
+                  <div><h3>{item.title}</h3></div>
                 </article>
               ))}
             </div>
@@ -148,10 +148,10 @@ export default function BasicNursingCarePage() {
           <div className="container">
             <div className="section__header basic-care-v2__packages-header">
               <h2>Packages Designed for Every Recovery & Mobility Need</h2>
-              <p>
+              {/* <p>
                 We offer four Basic Nursing Care plans to match each person&apos;s mobility level and support requirement.<br />
                 Choose the care plan that best fits your loved one&apos;s health stage and independence level or ask our team to help you select the right option.
-              </p>
+              </p> */}
             </div>
             <BasicCarePackageSelector />
           </div>
@@ -163,14 +163,6 @@ export default function BasicNursingCarePage() {
           <div className="container">
             <GatedDownloadResources
               heading="Blogs & Download Free Basic Nursing Care Guide"
-              intro={(
-                <>
-                  <p>We believe informed families make better care decisions. That&apos;s why Narpavi Homecare provides guides, expert tips and practical advice for anyone considering Basic Patient Care at home.</p>
-                  <p>Read, download, and share these resources to feel confident about arranging safe, comfortable home care.</p>
-                </>
-              )}
-              image="/images/pik-11.png"
-              imageAlt="Basic Nursing Care planning guide"
               modalDescription="Fill these details to download the Basic Nursing Care guide."
               downloadFallbackName="basic-nursing-care-guide.pdf"
               downloadButtonLabel="Download Guide"
@@ -190,7 +182,7 @@ export default function BasicNursingCarePage() {
           </div>
         </section>
 
-        <section className="cta-strip baby-final-cta"><div className="container baby-final-cta__grid"><div><h2>Ready to Start Safe, Reliable Basic Nursing Care at Home?</h2><p>Your recovery or daily care doesn&apos;t need to be complicated. Narpavi Homecare makes it easy to begin safe, personalized Basic Nursing Care in Chennai — with trained caregivers, nurse supervision, and real-time updates.</p><p>Book a free expert assessment for Fast onboarding | Verified caregivers | 24×7 emergency support | Transparent pricing</p><div className="cta-strip__badges"><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Fast onboarding</span><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Verified caregivers</span><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> 24×7 emergency support</span><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Transparent pricing</span></div></div><CTAForm title="Book a free expert assessment" packageOptions={CARE_PACKAGE_NAMES} /></div></section>
+        <section className="cta-strip baby-final-cta"><div className="container baby-final-cta__grid"><div><h2>Ready to Start Safe, Reliable Basic Nursing Care at Home?</h2><p>Your recovery or daily care doesn&apos;t need to be complicated. Narpavi Homecare makes it easy to begin safe, personalized Basic Nursing Care in Chennai — with trained caregivers, nurse supervision, and real-time updates.</p><div className="cta-strip__badges"><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Fast onboarding</span><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Verified caregivers</span><span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Transparent pricing</span></div></div><CTAForm title="Book a free expert assessment" packageOptions={CARE_PACKAGE_NAMES} /></div></section>
       </main>
     </>
   );

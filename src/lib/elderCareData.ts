@@ -53,8 +53,8 @@ export const ELDER_CARE_PACKAGES: ElderCarePackage[] = [
     name: 'Golden Companion',
     tagline: 'Daily companionship and ADL support for independent seniors',
     icon: 'Elder Companion',
-    color: '#FF6B35',
-    gradient: 'linear-gradient(135deg, #E55A2B 0%, #FF6B35 52%, #FFF3ED 100%)',
+    color: '#FB0055',
+    gradient: 'linear-gradient(135deg, #D2003F 0%, #FB0055 52%, #FFE3EC 100%)',
     image: '/images/elder-care/pik-7.png',
     bestFor: [
       'Daily Living Support (Light ADL)',
@@ -97,8 +97,8 @@ export const ELDER_CARE_PACKAGES: ElderCarePackage[] = [
     name: 'Graceful Recovery',
     tagline: 'Post-hospital and post-surgery recovery support for elders',
     icon: 'Hospital Recovery',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 52%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 52%, #0175BF 100%)',
     image: '/images/elder-care/pik-8.png',
     bestFor: [
       'With mobility limitations such as post-stroke weakness, advanced arthritis, or frailty who need hands-on help for safe transfers and full daily living support.',
@@ -140,8 +140,8 @@ export const ELDER_CARE_PACKAGES: ElderCarePackage[] = [
     name: 'Health & Mind Guardian',
     tagline: 'Chronic illness management with cognitive and dementia companion care',
     icon: 'Brain Health',
-    color: '#0CB3B3',
-    gradient: 'linear-gradient(135deg, #0A8F8F 0%, #0CB3B3 52%, #0CB3B3 100%)',
+    color: '#0175BF',
+    gradient: 'linear-gradient(135deg, #004CA0 0%, #0175BF 52%, #0175BF 100%)',
     image: '/images/elder-care/pik-9.png',
     bestFor: [
       'With long-term health conditions such as diabetes, hypertension, COPD, heart failure, or kidney disease needing consistent monitoring and lifestyle support.',
@@ -183,8 +183,8 @@ export const ELDER_CARE_PACKAGES: ElderCarePackage[] = [
     name: 'Comfort Care',
     tagline: 'Complete bedridden elder care and palliative comfort support',
     icon: 'Comfort Palliative',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 54%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 54%, #0175BF 100%)',
     image: '/images/elder-care/pik-10.png',
     bestFor: [
       'In advanced illness or end-of-life stage, requiring round-the-clock comfort care and family support.',

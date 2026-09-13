@@ -35,18 +35,11 @@ interface GatedDownloadResourcesProps {
 export default function GatedDownloadResources({
   downloads,
   resources,
-  heading = 'Blog & Educative Guide on Elder Care',
-  intro = (
-    <>
-      <p>
-        Not sure which care plan is right for your loved one? Our <strong>expert-written guide</strong> helps you understand <strong>care levels, safety standards, and questions to ask before hiring a caregiver or nurse.</strong>
-      </p>
-      <p>It&apos;s a <strong>must-have resource</strong> for families looking for safe and reliable Elder Care.</p>
-    </>
-  ),
-  image = '/images/elder-care/pik-11.jpeg',
-  imageAlt = 'Elder care educative guide',
-  modalDescription = 'Fill these details to download the elder care guide.',
+  heading = 'Blogs & Download Free Guide',
+  intro,
+  image,
+  imageAlt = 'Educative guide',
+  modalDescription = 'Fill these details to download the guide.',
   downloadFallbackName = 'care-guide.pdf',
   downloadButtonLabel = 'Download Now',
   blogCardVariant = 'imageOverlay',
@@ -129,14 +122,18 @@ export default function GatedDownloadResources({
     <>
       <div className="elder-resource-board">
         <h3>{heading}</h3>
-        <div className="elder-resource-board__intro">
-          <div className="elder-resource-board__copy">
-            {intro}
+        {intro && (
+          <div className="elder-resource-board__intro">
+            <div className="elder-resource-board__copy">
+              {intro}
+            </div>
+            {image && (
+              <div className="elder-resource-board__image">
+                <Image src={image} alt={imageAlt} fill sizes="(max-width: 768px) 100vw, 260px" />
+              </div>
+            )}
           </div>
-          <div className="elder-resource-board__image">
-            <Image src={image} alt={imageAlt} fill sizes="(max-width: 768px) 100vw, 260px" />
-          </div>
-        </div>
+        )}
 
         <div className="elder-download-list">
           {downloads.map((item) => (

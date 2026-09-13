@@ -30,7 +30,7 @@ export default function AdvanceCarePackageSelector() {
   return (
     <div className="elder-packages-layout">
       <aside className="elder-sidebar" aria-label="Advanced Nursing Care package navigation">
-        <h3>Packages</h3>
+        <h3>Advance  Nursing Care Packages</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {ADVANCE_NURSING_PACKAGES.map((pkg) => {
             const isSelected = pkg.id === selectedPackage.id;

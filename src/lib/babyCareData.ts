@@ -119,8 +119,8 @@ export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
     tagline: 'Peaceful nights, Productive days',
     summary: 'Gentle newborn and night routine support for families who already have some help but need reliable extra care.',
     image: '/images/baby-care/pik-7.png',
-    color: '#0CB3B3',
-    gradient: 'linear-gradient(135deg, #0A8F8F 0%, #0CB3B3 52%, #0CB3B3 100%)',
+    color: '#0175BF',
+    gradient: 'linear-gradient(135deg, #004CA0 0%, #0175BF 52%, #0175BF 100%)',
     icon: 'Night newborn care',
     facts: ['Night care', 'Feeding help', 'Parent rest'],
     idealFor: [
@@ -156,8 +156,8 @@ export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
     tagline: 'Gentle beginning for your baby',
     summary: 'Structured guidance for first-time parents and working couples who need a steady baby care routine at home.',
     image: '/images/baby-care/pik-8.png',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 52%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 52%, #0175BF 100%)',
     icon: 'Newborn routine guidance',
     facts: ['First-time parents', 'Routine guidance', 'Safe hygiene'],
     idealFor: [
@@ -193,8 +193,8 @@ export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
     tagline: 'Care for two hearts, one bond',
     summary: 'Complete mother and baby wellness care for delivery recovery, C-section comfort, twin care, and family confidence.',
     image: '/images/baby-care/pik-9.png',
-    color: '#FF6B35',
-    gradient: 'linear-gradient(135deg, #E55A2B 0%, #FF6B35 54%, #FFF3ED 100%)',
+    color: '#FB0055',
+    gradient: 'linear-gradient(135deg, #D2003F 0%, #FB0055 54%, #FFE3EC 100%)',
     icon: 'Mother baby wellness',
     facts: ['Mother recovery', 'Baby care', 'Wellness logs'],
     idealFor: [
@@ -230,8 +230,8 @@ export const BABY_CARE_PACKAGES: BabyCarePackage[] = [
     tagline: 'Expert care for delicate beginnings',
     summary: 'Advanced home support for premature, low birth weight, medically vulnerable, or post-NICU babies who need extra observation.',
     image: '/images/baby-care/pik-10.png',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 54%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 54%, #0175BF 100%)',
     icon: 'NICU level baby care',
     facts: ['Preterm care', 'Kangaroo care', 'Close monitoring'],
     idealFor: [

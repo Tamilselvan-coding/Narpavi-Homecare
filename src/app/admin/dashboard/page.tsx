@@ -46,12 +46,18 @@ interface DownloadLead {
 interface PartnerEnquiry {
   id: number;
   contact_name: string;
-  organization: string;
-  partner_type: string;
+  profession?: string;
+  organization?: string;
+  partner_type?: string;
+  experience?: string;
   phone: string;
-  email: string;
-  location: string;
-  message: string;
+  email?: string;
+  location?: string;
+  message?: string;
+  job_position?: string;
+  job_category?: string;
+  resume_file_name?: string;
+  resume_file_path?: string;
   submitted_at: string;
   created_at: string;
 }
@@ -59,12 +65,18 @@ interface PartnerEnquiry {
 interface CandidateApplication {
   id: number;
   name: string;
+  profession?: string;
   phone: string;
-  email: string;
-  role: string;
+  email?: string;
+  education?: string;
+  role?: string;
   experience: string;
-  location: string;
-  message: string;
+  location?: string;
+  message?: string;
+  job_position?: string;
+  job_category?: string;
+  resume_file_name?: string;
+  resume_file_path?: string;
   submitted_at: string;
   created_at: string;
 }
@@ -110,7 +122,7 @@ function detectCareCategory(item: { source_path?: string; package_name?: string;
   return { label: 'Home Nursing Care', bg: '#ccfbf1', color: '#0f766e' };
 }
 
-function exportToCSV(filename: string, headers: string[], rows: (string | number)[][]) {
+function exportToCSV(filename: string, headers: string[], rows: (string | number | undefined | null)[][]) {
   const csvContent = [
     headers.map((h) => `"${String(h).replace(/"/g, '""')}"`).join(','),
     ...rows.map((row) => row.map((cell) => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(',')),
@@ -139,6 +151,7 @@ export default function AdminDashboardPage() {
   // User session permissions
   const [userAllowedTabs, setUserAllowedTabs] = useState<string[]>(['packages', 'downloads', 'partners', 'candidates', 'users']);
   const [currentUserRole, setCurrentUserRole] = useState<string>('ADMIN');
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
 
   // Data states
   const [careAssessments, setCareAssessments] = useState<CareAssessment[]>([]);
@@ -175,10 +188,15 @@ export default function AdminDashboardPage() {
       }
       try {
         const session = JSON.parse(rawSession);
+        if (session.role !== 'ADMIN' && session.role !== 'MANAGER') {
+          router.replace('/sales/dashboard');
+          return;
+        }
         setCurrentUserRole(session.role || 'ADMIN');
+        setCurrentUserId(typeof session.id === 'number' ? session.id : null);
         
         let tabs = ['packages', 'downloads', 'partners', 'candidates', 'users'];
-        if (session.role === 'ADMIN' || session.username === 'admin' || !session.allowedTabs) {
+        if (session.role === 'ADMIN' || session.role === 'MANAGER' || session.username === 'admin' || !session.allowedTabs) {
           tabs = ['packages', 'downloads', 'partners', 'candidates', 'users'];
         } else if (typeof session.allowedTabs === 'string') {
           const parsed = session.allowedTabs.split(',').map((t: string) => t.trim()).filter(Boolean);
@@ -197,16 +215,13 @@ export default function AdminDashboardPage() {
       }
       setIsAdminLoggedIn(true);
     }
-    fetchLeadsData();
+    fetchLeadsData({ silent: true });
   }, [router]);
 
-  const fetchLeadsData = async () => {
+  const fetchLeadsData = async (opts?: { silent?: boolean }) => {
     setIsLoading(true);
     try {
-      let res = await fetch('/api/admin/leads');
-      if (!res.ok) {
-        res = await fetch('http://127.0.0.1:8085/api/admin/leads');
-      }
+      const res = await fetch('/api/admin/leads');
       if (res.ok) {
         const data = await res.json();
         setCareAssessments(data.careAssessments || []);
@@ -214,20 +229,21 @@ export default function AdminDashboardPage() {
         setPartnerEnquiries(data.partnerEnquiries || []);
         setCandidateApplications(data.candidateApplications || []);
         setUserAccounts(data.userAccounts || []);
+      } else if (!opts?.silent) {
+        setNotificationModal({
+          show: true,
+          title: '❌ Could Not Load Data',
+          message: 'The dashboard could not reach the backend server. Please try "Refresh Data" again in a moment.',
+        });
       }
     } catch (err) {
-      try {
-        const directRes = await fetch('http://127.0.0.1:8085/api/admin/leads');
-        if (directRes.ok) {
-          const data = await directRes.json();
-          setCareAssessments(data.careAssessments || []);
-          setDownloadLeads(data.downloadLeads || []);
-          setPartnerEnquiries(data.partnerEnquiries || []);
-          setCandidateApplications(data.candidateApplications || []);
-          setUserAccounts(data.userAccounts || []);
-        }
-      } catch (e) {
-        console.error('Failed to fetch leads data:', e);
+      console.error('Failed to fetch leads data:', err);
+      if (!opts?.silent) {
+        setNotificationModal({
+          show: true,
+          title: '❌ Could Not Load Data',
+          message: 'The dashboard could not reach the backend server. Please try "Refresh Data" again in a moment.',
+        });
       }
     } finally {
       setIsLoading(false);
@@ -322,28 +338,19 @@ export default function AdminDashboardPage() {
 
       const targetRole = userRoleSelections[userId] || currentRole || 'EXECUTIVE';
 
-      let res = await fetch(`/api/admin/users/${userId}/approve`, {
+      const res = await fetch(`/api/admin/users/${userId}/approve`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          actorId: currentUserId,
           allowedTabs: selectedList.join(','),
           role: targetRole,
         }),
       });
-
-      if (!res.ok) {
-        res = await fetch(`http://127.0.0.1:8085/api/admin/users/${userId}/approve`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            allowedTabs: selectedList.join(','),
-            role: targetRole,
-          }),
-        });
-      }
+      const data = await res.json().catch(() => ({}));
 
       if (res.ok) {
-        fetchLeadsData();
+        fetchLeadsData({ silent: true });
         setNotificationModal({
           show: true,
           title: '🎉 Permissions & Approval Updated!',
@@ -351,28 +358,54 @@ export default function AdminDashboardPage() {
           username: username || String(userId),
           permissions: selectedList.join(', '),
         });
+      } else {
+        setNotificationModal({
+          show: true,
+          title: '❌ Could Not Approve User',
+          message: (data.message || 'Approval failed.') + ' If this user has not been assigned a role and Team Lead yet, configure them first from the Sales Dashboard → Team Approvals section.',
+        });
       }
     } catch (err) {
       console.error('Failed to approve user:', err);
+      setNotificationModal({
+        show: true,
+        title: '❌ Could Not Approve User',
+        message: 'Could not reach the backend server. Please try again.',
+      });
     }
   };
 
   const handleRejectUser = async (userId: number, username?: string) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8085/api/admin/users/${userId}/reject`, {
+      const res = await fetch(`/api/admin/users/${userId}/reject`, {
         method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ actorId: currentUserId }),
       });
+      const data = await res.json().catch(() => ({}));
+
       if (res.ok) {
-        fetchLeadsData();
+        fetchLeadsData({ silent: true });
         setNotificationModal({
           show: true,
           title: '❌ Account Status Updated',
           message: `User account @${username || userId} has been rejected.`,
           username: username || String(userId),
         });
+      } else {
+        setNotificationModal({
+          show: true,
+          title: '❌ Could Not Reject User',
+          message: data.message || 'Rejection failed. Please try again.',
+        });
       }
     } catch (err) {
       console.error('Failed to reject user:', err);
+      setNotificationModal({
+        show: true,
+        title: '❌ Could Not Reject User',
+        message: 'Could not reach the backend server. Please try again.',
+      });
     }
   };
 
@@ -410,15 +443,18 @@ export default function AdminDashboardPage() {
   };
 
   const handleExportPartners = () => {
-    const headers = ['ID', 'Contact Name', 'Organization', 'Partner Type', 'Phone Number', 'Email', 'Location', 'Message', 'Submitted At'];
+    const headers = ['ID', 'Contact Name', 'Profession', 'Organization / Position', 'Partner Type', 'Experience', 'Phone Number', 'Email', 'Location', 'Resume Attached', 'Message', 'Submitted At'];
     const rows = filteredPartners.map((item) => [
       item.id,
-      item.contact_name,
-      item.organization,
-      item.partner_type,
-      item.phone,
-      item.email,
-      item.location,
+      item.contact_name || '',
+      item.profession || '',
+      item.organization || item.job_position || '',
+      item.partner_type || '',
+      item.experience || '',
+      item.phone || '',
+      item.email || '',
+      item.location || '',
+      item.resume_file_name || 'No',
       item.message || '-',
       item.created_at ? new Date(item.created_at).toLocaleString() : item.submitted_at,
     ]);
@@ -426,15 +462,18 @@ export default function AdminDashboardPage() {
   };
 
   const handleExportCandidates = () => {
-    const headers = ['ID', 'Candidate Name', 'Role Applied', 'Experience', 'Phone Number', 'Email', 'Location', 'Message', 'Submitted At'];
+    const headers = ['ID', 'Candidate Name', 'Profession', 'Position Applied', 'Education', 'Experience', 'Phone Number', 'Email', 'Location', 'Resume Attached', 'Message', 'Submitted At'];
     const rows = filteredCandidates.map((item) => [
       item.id,
-      item.name,
-      item.role,
-      item.experience,
-      item.phone,
-      item.email,
-      item.location,
+      item.name || '',
+      item.profession || '',
+      item.job_position || item.role || 'Care Provider',
+      item.education || '',
+      item.experience || '',
+      item.phone || '',
+      item.email || '',
+      item.location || '',
+      item.resume_file_name || 'No',
       item.message || '-',
       item.created_at ? new Date(item.created_at).toLocaleString() : item.submitted_at,
     ]);
@@ -470,7 +509,7 @@ export default function AdminDashboardPage() {
             >
               <FileSpreadsheet size={16} /> Export Section to Excel (.csv)
             </button>
-            <button type="button" onClick={fetchLeadsData} className="btn btn--outline btn--sm" disabled={isLoading}>
+            <button type="button" onClick={() => fetchLeadsData()} className="btn btn--outline btn--sm" disabled={isLoading}>
               <RefreshCw size={16} className={isLoading ? 'animate-spin' : ''} /> Refresh Data
             </button>
             <button type="button" onClick={handleLogout} className="btn btn--secondary btn--sm" style={{ background: '#ef4444', borderColor: '#ef4444', color: '#fff' }}>
@@ -482,8 +521,8 @@ export default function AdminDashboardPage() {
         {/* METRICS */}
         <div className="admin-dash-metrics">
           {userAllowedTabs.includes('packages') && (
-            <div className="admin-metric-card" onClick={() => setActiveTab('packages')} style={{ cursor: 'pointer' }}>
-              <div className="admin-metric-icon"><FileText size={24} /></div>
+            <div className="admin-metric-card" onClick={() => setActiveTab('packages')} style={{ cursor: 'pointer', ['--metric-accent' as any]: '#0cb3b3' }}>
+              <div className="admin-metric-icon" style={{ background: 'linear-gradient(135deg, #0cb3b3 0%, #0a8f8f 100%)', color: '#ffffff', boxShadow: '0 10px 22px rgba(10, 143, 143, 0.35)' }}><FileText size={24} /></div>
               <div className="admin-metric-info">
                 <span>Package Bookings</span>
                 <strong>{careAssessments.length}</strong>
@@ -492,8 +531,8 @@ export default function AdminDashboardPage() {
           )}
 
           {userAllowedTabs.includes('downloads') && (
-            <div className="admin-metric-card" onClick={() => setActiveTab('downloads')} style={{ cursor: 'pointer' }}>
-              <div className="admin-metric-icon" style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6' }}><Download size={24} /></div>
+            <div className="admin-metric-card" onClick={() => setActiveTab('downloads')} style={{ cursor: 'pointer', ['--metric-accent' as any]: '#3b82f6' }}>
+              <div className="admin-metric-icon" style={{ background: 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)', color: '#ffffff', boxShadow: '0 10px 22px rgba(59, 130, 246, 0.35)' }}><Download size={24} /></div>
               <div className="admin-metric-info">
                 <span>Blog Download Leads</span>
                 <strong>{downloadLeads.length}</strong>
@@ -502,8 +541,8 @@ export default function AdminDashboardPage() {
           )}
 
           {userAllowedTabs.includes('partners') && (
-            <div className="admin-metric-card" onClick={() => setActiveTab('partners')} style={{ cursor: 'pointer' }}>
-              <div className="admin-metric-icon" style={{ background: 'rgba(249, 115, 22, 0.1)', color: '#f97316' }}><Users size={24} /></div>
+            <div className="admin-metric-card" onClick={() => setActiveTab('partners')} style={{ cursor: 'pointer', ['--metric-accent' as any]: '#f97316' }}>
+              <div className="admin-metric-icon" style={{ background: 'linear-gradient(135deg, #fb923c 0%, #f97316 100%)', color: '#ffffff', boxShadow: '0 10px 22px rgba(249, 115, 22, 0.35)' }}><Users size={24} /></div>
               <div className="admin-metric-info">
                 <span>Partner Enquiries</span>
                 <strong>{partnerEnquiries.length}</strong>
@@ -512,8 +551,8 @@ export default function AdminDashboardPage() {
           )}
 
           {userAllowedTabs.includes('candidates') && (
-            <div className="admin-metric-card" onClick={() => setActiveTab('candidates')} style={{ cursor: 'pointer' }}>
-              <div className="admin-metric-icon" style={{ background: 'rgba(168, 85, 247, 0.1)', color: '#a855f7' }}><Briefcase size={24} /></div>
+            <div className="admin-metric-card" onClick={() => setActiveTab('candidates')} style={{ cursor: 'pointer', ['--metric-accent' as any]: '#a855f7' }}>
+              <div className="admin-metric-icon" style={{ background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#ffffff', boxShadow: '0 10px 22px rgba(168, 85, 247, 0.35)' }}><Briefcase size={24} /></div>
               <div className="admin-metric-info">
                 <span>Candidate Applicants</span>
                 <strong>{candidateApplications.length}</strong>
@@ -521,9 +560,9 @@ export default function AdminDashboardPage() {
             </div>
           )}
 
-          {(userAllowedTabs.includes('users') || currentUserRole === 'ADMIN') && (
-            <div className="admin-metric-card" onClick={() => setActiveTab('users')} style={{ cursor: 'pointer' }}>
-              <div className="admin-metric-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}><ShieldCheck size={24} /></div>
+          {(userAllowedTabs.includes('users') || currentUserRole === 'ADMIN' || currentUserRole === 'MANAGER') && (
+            <div className="admin-metric-card" onClick={() => setActiveTab('users')} style={{ cursor: 'pointer', ['--metric-accent' as any]: '#10b981' }}>
+              <div className="admin-metric-icon" style={{ background: 'linear-gradient(135deg, #34d399 0%, #10b981 100%)', color: '#ffffff', boxShadow: '0 10px 22px rgba(16, 185, 129, 0.35)' }}><ShieldCheck size={24} /></div>
               <div className="admin-metric-info">
                 <span>User Approvals</span>
                 <strong>{userAccounts.filter((u) => u.status === 'PENDING').length} Pending</strong>
@@ -575,7 +614,7 @@ export default function AdminDashboardPage() {
               </button>
             )}
 
-            {(userAllowedTabs.includes('users') || currentUserRole === 'ADMIN') && (
+            {(userAllowedTabs.includes('users') || currentUserRole === 'ADMIN' || currentUserRole === 'MANAGER') && (
               <button
                 type="button"
                 className={`admin-tab-btn ${activeTab === 'users' ? 'admin-tab-btn--active' : ''}`}

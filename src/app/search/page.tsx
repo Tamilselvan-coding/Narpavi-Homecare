@@ -9,7 +9,7 @@ const BACKEND_API_BASE_URL = process.env.BACKEND_API_BASE_URL || 'http://localho
 export const metadata: Metadata = {
   title: 'Search',
   description: 'Search Narpavi Homecare services, care packages, equipment and care guides.',
-  alternates: { canonical: 'https://www.narpavihomecare.com/search' },
+  alternates: { canonical: 'https://www.nhlcare.com/search' },
 };
 
 interface SearchPageProps {

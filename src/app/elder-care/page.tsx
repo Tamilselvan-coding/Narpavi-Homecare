@@ -3,11 +3,9 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  ELDER_CARE_COMPONENTS,
   ELDER_CARE_DELIVERABLES,
   ELDER_CARE_DOWNLOADS,
   ELDER_CARE_FAQS,
-  ELDER_CARE_ONBOARDING_STEPS,
   ELDER_CARE_PACKAGES,
   ELDER_CARE_RESOURCES,
   ELDER_CARE_SAFETY_POINTS,
@@ -26,7 +24,7 @@ export const metadata: Metadata = {
   title: 'Elder Care Services - Narpavi Homecare',
   description: 'Professional elder care services with senior companionship, post-hospital recovery, dementia support, bedridden care, nurse oversight, and daily family updates.',
   keywords: ['elder care services chennai', 'senior care at home chennai', 'home care for elderly parents', 'dementia care at home chennai', 'NRI parent care chennai'],
-  alternates: { canonical: 'https://www.narpavihomecare.com/elder-care' },
+  alternates: { canonical: 'https://www.nhlcare.com/elder-care' },
 };
 
 const ELDER_CARE_PACKAGE_NAMES = ELDER_CARE_PACKAGES.map((pkg) => pkg.name);
@@ -119,7 +117,7 @@ export default function ElderCarePage() {
           <div className="section__header elder-orbit-header">
             {/* <span className="section-kicker">Safety and trust</span> */}
             <h2>Your Parent&apos;s Safety Stays Visible Every Day</h2>
-            <p>Every elder care plan is built around practical prevention, respectful support, and transparent family communication.</p>
+            {/* <p>Every elder care plan is built around practical prevention, respectful support, and transparent family communication.</p> */}
           </div>
 
           <div className="elder-trust-orbit">
@@ -148,7 +146,7 @@ export default function ElderCarePage() {
                 <div className="elder-orbit-card__icon"><SiteIcon name={item.icon} size={22} /></div>
                 <div>
                   <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+                  {/* <p>{item.description}</p> */}
                 </div>
               </article>
             ))}
@@ -202,8 +200,8 @@ export default function ElderCarePage() {
             {/* <span className="section-kicker">Elder care packages</span> */}
             <h2>Elder Care Packages</h2>
             <p className="elder-packages-intro" style={{ textAlign: 'center', maxWidth: '850px', margin: '0 auto' }}>
-              Every senior&apos;s needs are unique — that&apos;s why we&apos;ve designed flexible, medically guided care packages to match different stages of aging and health.
-              <br />
+              {/* Every senior&apos;s needs are unique — that&apos;s why we&apos;ve designed flexible, medically guided care packages to match different stages of aging and health.
+              <br /> */}
               Select a care package that fits your loved one&apos;s lifestyle, mobility, and care requirements.
             </p>
           </div>
@@ -259,48 +257,12 @@ export default function ElderCarePage() {
           </div>
         </div>
       </section>
-      <section className="section elder-journey-section" id="elder-onboarding">
-        <div className="container">
-          <div className="section__header elder-journey__header">
-            <span className="section-kicker">How it works</span>
-            <h2>A Clear Care Journey for Families</h2>
-            <p>From understanding the need to reviewing ongoing care, every stage stays practical, visible, and family-friendly.</p>
-          </div>
-
-          <div className="elder-journey">
-            <div className="elder-journey__track" aria-hidden="true">
-              <span />
-            </div>
-            {ELDER_CARE_ONBOARDING_STEPS.map((step, index) => (
-              <article
-                className={`elder-journey__step elder-journey__step--${index + 1}`}
-                key={step.title}
-                style={{ '--journey-order': index } as CSSProperties}
-              >
-                <div className="elder-journey__milestone">
-                  <div className="elder-journey__number">{String(index + 1).padStart(2, '0')}</div>
-                  <SiteIcon
-                    name={index === 0 ? 'Assessment report' : index === 1 ? 'Personalized care plan' : index === 2 ? 'Verified caregiver' : index === 3 ? 'Home care' : 'Monitoring report'}
-                    size={23}
-                  />
-                </div>
-                <div className="elder-journey__card">
-                  <span>{step.timeline}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="section section--alt" id="elder-faq">
         <div className="container">
           <div className="section__header">
             <span className="section-kicker">FAQs</span>
             <h2>Elder Care Questions Families Ask</h2>
-            <p>Clear answers for families arranging safe care for parents and grandparents.</p>
+            {/* <p>Clear answers for families arranging safe care for parents and grandparents.</p> */}
           </div>
           <FAQAccordion faqs={ELDER_CARE_FAQS} />
         </div>
@@ -308,47 +270,22 @@ export default function ElderCarePage() {
 
       <section className="section" id="elder-resources">
         <div className="container">
-          <div className="section__header">
-            <span className="section-kicker">Resources</span>
-            <h2>Blogs and Educative Materials</h2>
-            <p>Helpful guides for families planning elder care, recovery support, chronic illness routines, and palliative comfort at home.</p>
-          </div>
-
-          <GatedDownloadResources downloads={ELDER_CARE_DOWNLOADS} resources={ELDER_CARE_RESOURCES} />
-        </div>
-      </section>
-
-      <section className="section elder-components-section" id="elder-components">
-        <div className="container elder-components-shell">
-          <div className="section__header elder-components-header">
-            <span className="section-kicker">Complete care components</span>
-            <h2>Everything Elder Care Can Cover</h2>
-            <p>Each care plan is assembled from these practical components based on the senior&apos;s condition, dependency level, and family expectations.</p>
-            <div className="elder-components-summary">
-              <span><strong>{ELDER_CARE_COMPONENTS.length}</strong> essential care areas</span>
-              <span><SiteIcon name="Personalized care plan" size={18} /> One personalized plan</span>
-            </div>
-          </div>
-          <div className="elder-components-grid">
-            {ELDER_CARE_COMPONENTS.map((item, index) => (
-              <article
-                className={`elder-component-card elder-component-card--${index + 1}`}
-                key={item.title}
-                style={{ '--component-order': index } as CSSProperties}
-              >
-                <div className="elder-component-card__top">
-                  <div className="elder-component-card__icon">
-                    <SiteIcon name={item.icon} size={30} />
-                  </div>
-                  <div className="elder-component-card__number">{String(index + 1).padStart(2, '0')}</div>
-                </div>
-                <span className="elder-component-card__label">Care area</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <div className="elder-component-card__line" aria-hidden="true" />
-              </article>
-            ))}
-          </div>
+     
+          <GatedDownloadResources
+            downloads={ELDER_CARE_DOWNLOADS}
+            resources={ELDER_CARE_RESOURCES}
+            intro={(
+              <>
+                <p>
+                  Not sure which care plan is right for your loved one? Our <strong>expert-written guide</strong> helps you understand <strong>care levels, safety standards, and questions to ask before hiring a caregiver or nurse.</strong>
+                </p>
+                <p>It&apos;s a <strong>must-have resource</strong> for families looking for safe and reliable Elder Care.</p>
+              </>
+            )}
+            image="/images/elder-care/pik-11.jpeg"
+            imageAlt="Elder care educative guide"
+            modalDescription="Fill these details to download the elder care guide."
+          />
         </div>
       </section>
 

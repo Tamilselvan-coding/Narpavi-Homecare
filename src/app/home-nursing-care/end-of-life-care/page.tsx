@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'End of Life Care Services — Narpavi Homecare',
   description: 'Compassionate hospice and end-of-life care at home. We provide palliative comfort, bedside care, pain support and dignity-first family assistance.',
   keywords: ['end of life care chennai', 'hospice care at home', 'palliative home care', 'comfort care seniors'],
-  alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/end-of-life-care' },
+  alternates: { canonical: 'https://www.nhlcare.com/home-nursing-care/end-of-life-care' },
 };
 
 export default function EndOfLifeCarePage() {

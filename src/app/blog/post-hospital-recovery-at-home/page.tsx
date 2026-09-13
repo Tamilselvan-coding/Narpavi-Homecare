@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Post-Hospital Recovery at Home â€” How a Caregiver Can Help',
   description: 'Learn how a trained caregiver supports wound care, medication management, mobility and nutrition during post-hospital recovery at home.',
   keywords: ['post hospital recovery at home', 'home recovery care', 'caregiver after hospital', 'home care after hospital discharge'],
-  alternates: { canonical: 'https://www.narpavihomecare.com/blog/post-hospital-recovery-at-home' },
+  alternates: { canonical: 'https://www.nhlcare.com/blog/post-hospital-recovery-at-home' },
 };
 
 const TOC_ITEMS = [
@@ -83,8 +83,8 @@ export default function PostHospitalRecovery() {
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Planning Post-Hospital Recovery?</h3>
           <p style={{ opacity: 0.9 }}>Book a care assessment and get professional care started within 24-48 hours.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/home-nursing-care#hnc-cta" className="btn btn--white">Book Care Assessment</Link>
-            <Link href="/home-nursing-care#hnc-cta" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
+            <Link href="/basic-nursing-care#basic-care-form" className="btn btn--white">Book Care Assessment</Link>
+            <Link href="/basic-nursing-care" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Explore Basic Nursing Care</Link>
           </div>
         </div>
       </BlogArticleLayout>

@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${pkg.name} | Advanced Nursing Care - Narpavi Homecare`,
     description: `${pkg.tagline}. ${pkg.costCue}`,
-    alternates: { canonical: `https://www.narpavihomecare.com${packagePath(pkg.id)}` },
+    alternates: { canonical: `https://www.nhlcare.com${packagePath(pkg.id)}` },
   };
 }
 

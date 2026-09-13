@@ -35,8 +35,8 @@ export const SPECIALTY_NURSING_PACKAGES: SpecialtyNursingPackage[] = [
     name: 'Tracheostomy Plus Care',
     tagline: 'Safer airway care at home — sterile, supervised and responsive',
     image: '/images/specialty-nursing-care/Pik 7.jpeg',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 56%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 56%, #0175BF 100%)',
     icon: 'Airway & Respiratory',
     bestFor: [
       'Post-ICU tracheostomy patients',

@@ -6,6 +6,7 @@ import { BadgeCheck, CheckCircle2, Sparkles } from 'lucide-react';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import CTAForm from '@/components/ui/CTAForm';
 import FAQAccordion from '@/components/sections/FAQAccordion';
+import HNCHeroCarousel from '@/components/sections/HNCHeroCarousel';
 import SiteIcon from '@/components/ui/SiteIcon';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import homeStyles from '../home.module.css';
@@ -79,9 +80,9 @@ const HNC_CAROUSEL_BANNERS = [
     alt: 'Home nurse checking an elderly patient with family support',
     usps: ['Vital Monitoring', 'Medication Support', 'One-to-One Attention'],
     metric: 'Reliable nursing for everyday care needs',
-    accent: '#009a9f',
+    accent: '#004CA0',
     accentRgb: '0, 154, 159',
-    accentSoft: '#e6f8f8',
+    accentSoft: '#EBF3FC',
   },
   {
     kicker: 'Advanced recovery beyond hospital',
@@ -187,38 +188,7 @@ export default function HomeNursingCareHub() {
       <main className={`basic-care-v2 ${polishStyles.page}`}>
       <section className={homeStyles.hero} id="hnc-hero" style={{ marginTop: 0 }}>
         <div className={homeStyles.heroGlow} aria-hidden="true" />
-        <div className={`container ${homeStyles.heroCarousel}`} aria-label="Home nursing care service banners">
-          {HNC_CAROUSEL_BANNERS.map((banner, index) => (
-            <article
-              className={`${homeStyles.heroSlide} hnc-carousel-slide`}
-              key={banner.heading}
-              style={{
-                '--slide-delay': `${(index - HNC_CAROUSEL_BANNERS.length) * 5}s`,
-                '--banner-accent': banner.accent,
-                '--banner-accent-rgb': banner.accentRgb,
-                '--banner-soft': banner.accentSoft,
-                animationDuration: `${HNC_CAROUSEL_BANNERS.length * 5}s`,
-              } as CSSProperties}
-            >
-              <div className={homeStyles.heroContent}>
-                <span className={homeStyles.heroEyebrow}><Sparkles size={16} />{banner.kicker}</span>
-                <h1>{banner.heading} <span>{banner.highlight}</span></h1>
-                <p className={homeStyles.heroLead}>{banner.copy}</p>
-                <ul className={homeStyles.heroUsps} aria-label={`${banner.heading} benefits`}>
-                  {banner.usps.map((usp) => (
-                    <li key={usp}><span className={homeStyles.heroUspIcon}><CheckCircle2 size={18} /></span><span>{usp}</span></li>
-                  ))}
-                </ul>
-              </div>
-              <div className={homeStyles.heroVisual}>
-                <div className={homeStyles.heroImage}>
-                  <Image src={banner.image} alt={banner.alt} fill priority={index === 0} sizes="(max-width: 900px) 100vw, 50vw" />
-                  <div className={homeStyles.heroImageBadge}><BadgeCheck size={18} /><span>{banner.metric}</span></div>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        <HNCHeroCarousel banners={HNC_CAROUSEL_BANNERS} />
       </section>
 
 
@@ -521,7 +491,7 @@ export default function HomeNursingCareHub() {
       <section className="section section--alt" id="hnc-stats">
         <div className="container">
           <div className="section__header">
-            <h2>Our Performance &amp; Impact</h2>
+            <h2>Our Team Performance &amp; Impact</h2>
           </div>
           <div className="hnc-v2__stats-grid">
             {HNC_STATS.map((s, i) => (
@@ -723,10 +693,10 @@ export default function HomeNursingCareHub() {
 
       {false && <section className="section" id="hnc-final-cta">
         <div className="container">
-          <div className="hnc-v2__cta-split" style={{ background: 'linear-gradient(110deg, #073c4a, #008e92 58%, #4763b8)' }}>
+          <div className="hnc-v2__cta-split" style={{ background: 'linear-gradient(110deg, #00234B, #004CA0 58%, #4763b8)' }}>
             <div className="hnc-v2__cta-scenarios">
               <h2 style={{ color: '#ffffff', marginBottom: '1.5rem', fontSize: 'clamp(2rem, 3.5vw, 2.5rem)', fontWeight: 900 }}>Ready to Start Safe, Reliable Home Nursing Care?</h2>
-              <p style={{ color: '#e0f7f6', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
+              <p style={{ color: '#E5F0FA', fontSize: '1.05rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
                 Your recovery or daily care doesn&apos;t need to be complicated. Narpavi Homecare makes it easy to begin safe, personalized Home Nursing Care in Chennai — with trained caregivers, nurse supervision, and real-time updates.
               </p>
               <ul className="hnc-v2__cta-list" style={{ listStyle: 'none', padding: 0, display: 'grid', gap: '0.75rem', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>

@@ -55,7 +55,7 @@ export default function ElderCarePackageSelector() {
 
       <div className="elder-package-list" aria-live="polite">
         <article
-          className="elder-package-card"
+          className="elder-package-card elder-care-balanced-card"
           id={`package-${selectedPackage.id}`}
           key={selectedPackage.id}
           style={packageStyle(selectedPackage)}
@@ -66,43 +66,54 @@ export default function ElderCarePackageSelector() {
               <p>{selectedPackage.tagline}</p>
             </div>
           </div>
-          <div className="elder-package-card__body">
-            <div className="elder-package-card__media">
-              <Image
-                src={selectedPackage.image}
-                alt={`${selectedPackage.name} elder care package`}
-                fill
-                sizes="(max-width: 992px) 320px, 340px"
-              />
+          <div className="elder-package-card__body elder-care-balanced-card__body">
+            {/* Left Column: Image + Ideal For Seniors */}
+            <div className="elder-care-balanced-card__left">
+              <div className="elder-care-balanced-card__media">
+                <Image
+                  src={selectedPackage.image}
+                  alt={`${selectedPackage.name} elder care package`}
+                  fill
+                  sizes="(max-width: 992px) 100vw, 32vw"
+                />
+              </div>
+              <div className="elder-package-summary-block">
+                <h4>Ideal For Seniors</h4>
+                <div className="elder-tag-list">
+                  {selectedPackage.bestFor.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div>
-              <div className="elder-package-summary-grid">
-                <div className="elder-package-summary-block">
-                  <h4>Ideal For Seniors</h4>
-                  <div className="elder-tag-list">
-                    {selectedPackage.bestFor.map((item) => <span key={item}>{item}</span>)}
-                  </div>
+
+            {/* Right Column: Solutions + Scope + Actions */}
+            <div className="elder-care-balanced-card__right">
+              <div className="elder-package-summary-block">
+                <h4>Solutions</h4>
+                <div className="elder-package-solution-list">
+                  {selectedPackage.highlights.map((item) => (
+                    <span key={item.title}>
+                      <SiteIcon name="Check" size={15} />
+                      {item.title}
+                    </span>
+                  ))}
                 </div>
-                <div className="elder-package-summary-block">
-                  <h4>Solutions</h4>
-                  <div className="elder-package-solution-list">
-                    {selectedPackage.highlights.map((item) => (
-                      <span key={item.title}>
-                        <SiteIcon name="Check" size={15} />
-                        {item.title}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="elder-package-summary-block">
-                  <h4>Scope of Service</h4>
-                  <div className="elder-package-scope-list">
-                    {selectedPackage.scope.map((item) => <span key={item.category}>{item.category}</span>)}
-                  </div>
+              </div>
+              <div className="elder-package-summary-block">
+                <h4>Scope of Service</h4>
+                <div className="elder-package-scope-list">
+                  {selectedPackage.scope.map((item) => (
+                    <span key={item.category}>{item.category}</span>
+                  ))}
                 </div>
               </div>
               <div className="elder-package-card__actions">
-                <button type="button" className="btn btn--primary btn--sm" onClick={() => handleBookNow(selectedPackage.name)}>
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm"
+                  onClick={() => handleBookNow(selectedPackage.name)}
+                >
                   Book {selectedPackage.name}
                 </button>
               </div>

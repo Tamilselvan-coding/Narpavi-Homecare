@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://www.narpavihomecare.com',
+    url: 'https://www.nhlcare.com',
     siteName: 'Narpavi Homecare',
     title: 'Narpavi Homecare — Professional Home Healthcare Services',
     description: 'Trusted home healthcare. Nurse-supervised basic nursing care services.',

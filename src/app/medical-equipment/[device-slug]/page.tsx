@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${data.shortTitle} — Narpavi Homecare`,
     description: data.metaDesc,
     keywords: data.keywords,
-    alternates: { canonical: `https://www.narpavihomecare.com/medical-equipment/${deviceSlug}` },
+    alternates: { canonical: `https://www.nhlcare.com/medical-equipment/${deviceSlug}` },
   };
 }
 

@@ -30,7 +30,7 @@ export default function BasicCarePackageSelector() {
   return (
     <div className="elder-packages-layout">
       <aside className="elder-sidebar" aria-label="Basic Nursing Care package navigation">
-        <h3>Packages</h3>
+        <h3>Basic CarePackages</h3>
         {CARE_PACKAGES.map((pkg) => {
           const isSelected = pkg.id === selectedPackage.id;
 

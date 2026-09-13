@@ -1,4 +1,4 @@
-﻿import { Fragment, type ReactElement, type ReactNode } from 'react';
+import { Fragment, type ReactElement, type ReactNode } from 'react';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -1302,7 +1302,7 @@ const privacyPolicyBlocks: readonly PolicyBlock[] = [
 export const metadata: Metadata = {
   title: 'Privacy Policy - Narpavi Homecare',
   description: 'Privacy Policy for Narpavi Homehealth & Life Care Pvt Ltd.',
-  alternates: { canonical: 'https://www.narpavihomecare.com/privacy' },
+  alternates: { canonical: 'https://www.nhlcare.com/privacy' },
 };
 
 const paragraphStyle = {

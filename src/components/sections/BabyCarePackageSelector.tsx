@@ -3,7 +3,6 @@
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { BABY_CARE_PACKAGES, type BabyCarePackage } from '@/lib/babyCareData';
 import SiteIcon from '@/components/ui/SiteIcon';
 
@@ -30,9 +29,9 @@ export default function BabyCarePackageSelector() {
   };
 
   return (
-    <div className="elder-packages-layout">
+    <div className="elder-packages-layout baby-packages-layout">
       <aside className="elder-sidebar" aria-label="Baby care package navigation">
-        <h3>Packages</h3>
+        <h3>Baby Care Packages</h3>
         {BABY_CARE_PACKAGES.map((pkg) => {
           const isSelected = pkg.id === selectedPackage.id;
 
@@ -54,7 +53,7 @@ export default function BabyCarePackageSelector() {
 
       <div className="elder-package-list" aria-live="polite">
         <article
-          className="elder-package-card"
+          className="elder-package-card baby-package-card"
           id={`package-${selectedPackage.id}`}
           key={selectedPackage.id}
           style={packageStyle(selectedPackage)}
@@ -65,20 +64,29 @@ export default function BabyCarePackageSelector() {
               <p>{selectedPackage.tagline}</p>
             </div>
           </div>
-          <div className="elder-package-card__body">
-            <div className="elder-package-card__media">
-              <Image
-                src={selectedPackage.image}
-                alt={`${selectedPackage.name} baby care package`}
-                fill
-                sizes="(max-width: 992px) 100vw, 28vw"
-              />
-            </div>
-            <div>
-              <h4>Ideal For</h4>
-              <div className="elder-tag-list">
-                {selectedPackage.idealFor.map((item) => <span key={item}>{item}</span>)}
+          <div className="elder-package-card__body baby-package-card__body">
+            {/* Left Column: Image + Ideal For directly below image */}
+            <div className="baby-package-card__left">
+              <div className="baby-package-card__media">
+                <Image
+                  src={selectedPackage.image}
+                  alt={`${selectedPackage.name} baby care package`}
+                  fill
+                  sizes="(max-width: 992px) 100vw, 32vw"
+                />
               </div>
+              <div className="baby-package-card__ideal">
+                <h4>Ideal For</h4>
+                <div className="elder-tag-list">
+                  {selectedPackage.idealFor.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Highlights + Action button */}
+            <div className="baby-package-card__right">
               <div className="elder-highlight-list">
                 {selectedPackage.highlights.map((item) => (
                   <div className="elder-highlight-point" key={item.title}>

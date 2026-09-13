@@ -8,7 +8,7 @@ import SiteIcon from '@/components/ui/SiteIcon';
 export const metadata: Metadata = {
   title: 'About Narpavi Homecare',
   description: 'Learn about Narpavi Homecare, our mission, vision, values, and commitment to safe, dignified, family-centred home healthcare.',
-  alternates: { canonical: 'https://www.narpavihomecare.com/about' },
+  alternates: { canonical: 'https://www.nhlcare.com/about' },
 };
 
 const ABOUT_VALUES = [
@@ -64,74 +64,6 @@ const ABOUT_VALUES = [
   },
 ];
 
-const CARE_APPROACH = [
-  {
-    title: 'Understand the Need',
-    description: 'We begin by understanding the health condition, daily challenges, family concerns, preferred schedule, and home setup.',
-    icon: 'Assessment report',
-  },
-  {
-    title: 'Create the Care Plan',
-    description: 'The care scope is matched to required assistance, clinical oversight, communication needs, and realistic family expectations.',
-    icon: 'Personalized plan',
-  },
-  {
-    title: 'Support the Family',
-    description: 'Care is strengthened through routine updates, supervisor coordination, feedback, and escalation whenever attention is required.',
-    icon: 'Family communication',
-  },
-];
-
-const CARE_SCOPE = [
-  {
-    title: 'Home Nursing Care',
-    description: 'Structured nursing and daily care support for recovery, chronic needs, and higher-dependency routines.',
-    href: '/home-nursing-care',
-    icon: 'Home nursing care',
-  },
-  {
-    title: 'Baby Care',
-    description: 'Professional newborn, mother, feeding, sleep, and family support in familiar home surroundings.',
-    href: '/baby-care',
-    icon: 'Baby care',
-  },
-  {
-    title: 'Elder Care',
-    description: 'Dignified senior support for companionship, mobility, safety, recovery, and everyday wellbeing.',
-    href: '/elder-care',
-    icon: 'Elder care',
-  },
-  {
-    title: 'Medical Equipment',
-    description: 'Home-use medical equipment options that help families create a safer and better-supported care setup.',
-    href: '/medical-equipment',
-    icon: 'Medical equipment',
-  },
-];
-
-const CARE_STANDARDS = [
-  {
-    title: 'Care matched to the person',
-    description: 'Support is shaped around condition, routine, dependency, preferences, and the home environment.',
-    icon: 'Personalized care plan',
-  },
-  {
-    title: 'Visible family communication',
-    description: 'Families stay informed through observations, updates, feedback, and timely escalation.',
-    icon: 'Family updates',
-  },
-  {
-    title: 'Safety-led daily routines',
-    description: 'Hygiene, risk awareness, responsible monitoring, and clear boundaries guide everyday care.',
-    icon: 'Safety shield',
-  },
-  {
-    title: 'Ongoing care coordination',
-    description: 'Care plans can be reviewed as health needs, recovery progress, or family expectations change.',
-    icon: 'Care monitoring',
-  },
-];
-
 export default function AboutPage() {
   return (
     <>
@@ -152,9 +84,6 @@ export default function AboutPage() {
               <div className="about-v2-hero__actions">
                 <Link href="/contact" className="btn btn--primary btn--lg">
                   Book Care Assessment <SiteIcon name="Arrow" size={18} />
-                </Link>
-                <Link href="#about-services" className="btn btn--outline btn--lg">
-                  Explore Our Care
                 </Link>
               </div>
               <div className="about-v2-hero__proof">
@@ -293,82 +222,6 @@ export default function AboutPage() {
                   </article>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="section about-v2-services" id="about-services">
-          <div className="container">
-            <div className="about-v2-services__heading">
-              <div>
-                <span className="section-kicker">Our care ecosystem</span>
-                <h2>Support for Different Stages of Life and Recovery</h2>
-              </div>
-              <p>One home healthcare partner, with care pathways designed around different people, needs, and levels of support.</p>
-            </div>
-            <div className="about-v2-services__grid">
-              {CARE_SCOPE.map((service, index) => (
-                <Link
-                  href={service.href}
-                  className={`about-v2-service about-v2-service--${index + 1}`}
-                  key={service.title}
-                  style={{ '--about-order': index } as CSSProperties}
-                >
-                  <div className="about-v2-service__icon"><SiteIcon name={service.icon} size={29} /></div>
-                  <span>0{index + 1}</span>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
-                  <div className="about-v2-service__link">Explore care <SiteIcon name="Arrow" size={17} /></div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section about-v2-approach">
-          <div className="container">
-            <div className="section__header about-v2-section-header">
-              <span className="section-kicker">Our care approach</span>
-              <h2>From First Conversation to Ongoing Support</h2>
-              <p>A practical care journey that stays visible, coordinated, and centred on the person receiving support.</p>
-            </div>
-            <div className="about-v2-approach__journey">
-              <div className="about-v2-approach__line" aria-hidden="true"><span /></div>
-              {CARE_APPROACH.map((item, index) => (
-                <article className={`about-v2-approach__step about-v2-approach__step--${index + 1}`} key={item.title}>
-                  <div className="about-v2-approach__marker">
-                    <SiteIcon name={item.icon} size={27} />
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                  </div>
-                  <div className="about-v2-approach__card">
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section about-v2-standards">
-          <div className="container about-v2-standards__grid">
-            <div className="about-v2-standards__intro">
-              <span className="section-kicker">Our care promise</span>
-              <h2>Professional Structure with a Compassionate Presence</h2>
-              <p>Good care should feel safe and organized without becoming impersonal. These standards keep both sides of care working together.</p>
-              <Link href="/contact" className="btn btn--white btn--lg">
-                Talk to Our Care Team <SiteIcon name="Arrow" size={18} />
-              </Link>
-            </div>
-            <div className="about-v2-standards__list">
-              {CARE_STANDARDS.map((item, index) => (
-                <article key={item.title}>
-                  <div><SiteIcon name={item.icon} size={24} /></div>
-                  <span>0{index + 1}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </article>
-              ))}
             </div>
           </div>
         </section>

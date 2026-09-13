@@ -6,7 +6,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 export const metadata: Metadata = {
   title: 'How to Choose the Right Basic Nursing Care Plan — Narpavi Homecare',
   description: 'A complete family guide to choosing home care plans. Assess mobility, clinical needs, budget, and caregiver training in 6 steps.',
-  alternates: { canonical: 'https://www.narpavihomecare.com/resources/how-to-choose-nursing-care-plan' },
+  alternates: { canonical: 'https://www.nhlcare.com/resources/how-to-choose-nursing-care-plan' },
 };
 
 export default function HowToChoosePage() {

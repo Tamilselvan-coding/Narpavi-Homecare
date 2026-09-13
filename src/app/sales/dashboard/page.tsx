@@ -45,6 +45,19 @@ import {
   Flame,
   Bell,
 } from 'lucide-react';
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from 'recharts';
 
 /* ──────────────── Types ──────────────── */
 type Session = { id?: number; username: string; fullName?: string; role: string };
@@ -71,6 +84,10 @@ type Staff = {
   managerId?: number | null;
   teamLeadId?: number | null;
   tlApprovalStatus?: string;
+  username?: string;
+  email?: string;
+  phone?: string;
+  createdAt?: string;
 };
 
 /* ──────────────── Status Config ──────────────── */
@@ -164,6 +181,7 @@ export default function SalesDashboard() {
   const [roleChoices, setRoleChoices] = useState<Record<number, string>>({});
   const [teamLeadChoices, setTeamLeadChoices] = useState<Record<number, string>>({});
   const [approvalBusy, setApprovalBusy] = useState<number | null>(null);
+  const [viewingApprovalUser, setViewingApprovalUser] = useState<Staff | null>(null);
   const [mounted, setMounted] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -184,10 +202,7 @@ export default function SalesDashboard() {
     setLoading(true);
     const normalized = current.role === 'ADMIN' ? 'MANAGER' : current.role;
     try {
-      let response = await fetch(`/api/sales/workspace?actorId=${current.id || ''}&role=${normalized}`);
-      if (!response.ok) {
-        response = await fetch(`http://127.0.0.1:8085/api/sales/workspace?actorId=${current.id || ''}&role=${normalized}`);
-      }
+      const response = await fetch(`/api/sales/workspace?actorId=${current.id || ''}&role=${normalized}`);
       const data = await response.json();
       if (response.ok) {
         setLeads(data.leads || []);
@@ -204,37 +219,19 @@ export default function SalesDashboard() {
             }
           }
         }
+      } else if (response.status === 403) {
+        showToast(data.message || 'Your session is no longer valid. Please log in again.', 'error');
+        localStorage.removeItem('narpavi_admin_session');
+        window.dispatchEvent(new Event('narpavi:admin-session-changed'));
+        router.replace('/admin/login');
       } else {
         showToast(data.message || 'Could not load leads', 'error');
       }
     } catch {
-      try {
-        const directResponse = await fetch(`http://127.0.0.1:8085/api/sales/workspace?actorId=${current.id || ''}&role=${normalized}`);
-        if (directResponse.ok) {
-          const data = await directResponse.json();
-          setLeads(data.leads || []);
-          setStaff(data.staff || []);
-          setPendingRequests(data.pendingRequests || []);
-          if (current.id && Array.isArray(data.staff)) {
-            const dbUser = data.staff.find((s: Staff) => String(s.id) === String(current.id));
-            if (dbUser && dbUser.role) {
-              const dbRole = dbUser.role.toUpperCase();
-              if (dbRole !== current.role) {
-                const updatedSession = { ...current, role: dbRole, fullName: dbUser.fullName || current.fullName };
-                setSession(updatedSession);
-                localStorage.setItem('narpavi_admin_session', JSON.stringify(updatedSession));
-              }
-            }
-          }
-        } else {
-          showToast('Sales server is unavailable', 'error');
-        }
-      } catch {
-        showToast('Sales server is unavailable', 'error');
-      }
+      showToast('Sales server is unavailable', 'error');
     }
     setLoading(false);
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const raw = localStorage.getItem('narpavi_admin_session');
@@ -396,7 +393,7 @@ export default function SalesDashboard() {
       color: '#0f172a',
       fontFamily: "'Inter', 'Segoe UI', system-ui, sans-serif",
       minHeight: '100vh',
-      background: '#f8fafc',
+      background: 'radial-gradient(circle at 8% 8%, rgba(1,117,191,.09), transparent 25rem), radial-gradient(circle at 92% 18%, rgba(251,0,85,.055), transparent 24rem), #f7fafe',
       opacity: mounted ? 1 : 0,
       transition: 'opacity 0.4s ease',
     }}>
@@ -409,10 +406,10 @@ export default function SalesDashboard() {
         marginBottom: 28,
         flexWrap: 'wrap',
         padding: '24px 32px',
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #0f766e 100%)',
+        background: 'linear-gradient(128deg, #00376f 0%, #004ca0 48%, #0175bf 100%)',
         borderRadius: 24,
         border: '1px solid rgba(255, 255, 255, 0.12)',
-        boxShadow: '0 12px 36px rgba(15, 23, 42, 0.16)',
+        boxShadow: '0 18px 46px rgba(0, 76, 160, 0.24)',
         color: '#ffffff',
         position: 'relative',
         overflow: 'hidden',
@@ -420,7 +417,7 @@ export default function SalesDashboard() {
         {/* Subtle Ambient Glow */}
         <div style={{
           position: 'absolute', top: '-40%', right: '-10%', width: 300, height: 300,
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(0,0,0,0) 70%)',
+          background: 'radial-gradient(circle, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 70%)',
           pointerEvents: 'none',
         }} />
 
@@ -432,10 +429,10 @@ export default function SalesDashboard() {
               fontSize: '0.72rem',
               fontWeight: 800,
               letterSpacing: '0.6px',
-              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              background: 'linear-gradient(135deg, #fb0055 0%, #d2003f 100%)',
               color: '#ffffff',
               textTransform: 'uppercase',
-              boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)',
+              boxShadow: '0 4px 14px rgba(251, 0, 85, 0.32)',
             }}>
               ✨ Executive Suite
             </span>
@@ -480,9 +477,9 @@ export default function SalesDashboard() {
           {role === 'MANAGER' && (
             <button onClick={() => document.getElementById('team-approvals')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} style={{
               ...btnBase,
-              background: 'linear-gradient(135deg, #a855f7 0%, #7e22ce 100%)',
+              background: 'linear-gradient(135deg, #fb0055 0%, #d2003f 100%)',
               color: '#ffffff',
-              boxShadow: '0 4px 14px rgba(126, 34, 206, 0.3)',
+              boxShadow: '0 4px 14px rgba(251, 0, 85, 0.3)',
             }}>
               <ClipboardList size={15} /> Staff approvals
             </button>
@@ -513,7 +510,7 @@ export default function SalesDashboard() {
           icon={<ClipboardList size={22} />}
           label={isExecutive ? "My Total Leads" : "Total Leads"}
           value={isExecutive ? myLeads.length : leads.length}
-          color="#0a8f8f"
+          color="#004ca0"
           delay={0}
         />
         <MetricCard
@@ -736,6 +733,7 @@ export default function SalesDashboard() {
           onConfigure={configureAccount}
           onFinalApprove={(user) => approvalAction('finalApprove', user.id, { allowedTabs: 'sales' })}
           onReject={(user) => approvalAction('reject', user.id)}
+          onView={setViewingApprovalUser}
         />
       )}
 
@@ -745,6 +743,7 @@ export default function SalesDashboard() {
           busyId={approvalBusy}
           onApprove={(user) => approvalAction('tlApprove', user.id)}
           onReject={(user) => approvalAction('tlReject', user.id)}
+          onView={setViewingApprovalUser}
         />
       )}
 
@@ -752,7 +751,7 @@ export default function SalesDashboard() {
       {role !== 'TEAM_LEAD' && leads.length > 0 && (
         <section style={{ marginBottom: 24 }}>
           <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0f172a', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-            <BarChart3 size={18} style={{ color: '#0a8f8f' }} /> Sales Performance Analytics
+            <BarChart3 size={18} style={{ color: '#004ca0' }} /> Sales Performance Analytics
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
             <LeadStatusDonutChart leads={leads} darkBg={false} />
@@ -790,13 +789,13 @@ export default function SalesDashboard() {
             borderRadius: 12,
             border: 'none',
             background: allocationFilter === 'ALL' && typeFilter === 'ALL'
-              ? 'linear-gradient(135deg, #0a8f8f 0%, #066060 100%)'
+              ? 'linear-gradient(135deg, #004ca0 0%, #0175bf 100%)'
               : 'transparent',
             color: allocationFilter === 'ALL' && typeFilter === 'ALL' ? '#ffffff' : '#64748b',
             fontWeight: 800,
             fontSize: '0.85rem',
             cursor: 'pointer',
-            boxShadow: allocationFilter === 'ALL' && typeFilter === 'ALL' ? '0 4px 14px rgba(10, 143, 143, 0.3)' : 'none',
+            boxShadow: allocationFilter === 'ALL' && typeFilter === 'ALL' ? '0 4px 14px rgba(0, 76, 160, 0.28)' : 'none',
             transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
             display: 'inline-flex',
             alignItems: 'center',
@@ -872,13 +871,13 @@ export default function SalesDashboard() {
             borderRadius: 12,
             border: 'none',
             background: typeFilter === 'CARE_ASSESSMENT'
-              ? 'linear-gradient(135deg, #0f766e 0%, #115e59 100%)'
+              ? 'linear-gradient(135deg, #0175bf 0%, #004ca0 100%)'
               : 'transparent',
             color: typeFilter === 'CARE_ASSESSMENT' ? '#ffffff' : '#64748b',
             fontWeight: 800,
             fontSize: '0.85rem',
             cursor: 'pointer',
-            boxShadow: typeFilter === 'CARE_ASSESSMENT' ? '0 4px 14px rgba(15, 118, 110, 0.3)' : 'none',
+            boxShadow: typeFilter === 'CARE_ASSESSMENT' ? '0 4px 14px rgba(0, 76, 160, 0.28)' : 'none',
             transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
             display: 'inline-flex',
             alignItems: 'center',
@@ -1030,7 +1029,7 @@ export default function SalesDashboard() {
                     <p style={{ fontSize: '1rem', fontWeight: 600, margin: '0 0 4px' }}>No leads found</p>
                     <p style={{ fontSize: '0.85rem', margin: 0 }}>
                       {isExecutive
-                        ? 'No leads are currently assigned to you. Check back soon!'
+                        ? 'No leads assigned to you and none available to pick up right now. Check back soon!'
                         : 'No leads match your current filters.'}
                     </p>
                   </td>
@@ -1349,8 +1348,28 @@ export default function SalesDashboard() {
                             </button>
                           )}
 
-                          {/* Status Update Form for Executive / Telecaller */}
-                          {isExecutive ? (
+                          {/* Pick Up (unassigned) or Status Update (own lead) for Executive / Telecaller */}
+                          {isExecutive && isUnassigned ? (
+                            <button
+                              type="button"
+                              onClick={() => pickUp(lead)}
+                              style={{
+                                ...btnBase,
+                                background: 'linear-gradient(135deg, #0a8f8f 0%, #066060 100%)',
+                                color: '#ffffff',
+                                fontWeight: 700,
+                                fontSize: '0.78rem',
+                                padding: '6px 10px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 4,
+                                boxShadow: '0 2px 8px rgba(10, 143, 143, 0.2)',
+                              }}
+                            >
+                              <UserRoundCheck size={12} /> Pick Up Lead
+                            </button>
+                          ) : isExecutive && isMyLead ? (
                             <form onSubmit={(e) => update(e, lead)} style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
                               <div style={{ position: 'relative' }}>
                                 <select
@@ -1467,6 +1486,13 @@ export default function SalesDashboard() {
         />
       )}
 
+      {viewingApprovalUser && (
+        <PendingUserDetailModal
+          user={viewingApprovalUser}
+          onClose={() => setViewingApprovalUser(null)}
+        />
+      )}
+
       <style>{`
         @keyframes spin {
           from { transform: rotate(0deg); }
@@ -1521,6 +1547,7 @@ function ManagerApprovalBoard({
   onConfigure,
   onFinalApprove,
   onReject,
+  onView,
 }: {
   users: Staff[];
   teamLeads: Staff[];
@@ -1532,6 +1559,7 @@ function ManagerApprovalBoard({
   onConfigure: (user: Staff) => void;
   onFinalApprove: (user: Staff) => void;
   onReject: (user: Staff) => void;
+  onView: (user: Staff) => void;
 }) {
   if (!users.length) return null;
   return <section id="team-approvals" style={{ marginBottom: 24, border: '1px solid #ddd6fe', borderRadius: 20, overflow: 'hidden', background: '#fff', boxShadow: '0 8px 28px rgba(76,29,149,.07)' }}>
@@ -1544,7 +1572,7 @@ function ManagerApprovalBoard({
         const isFinalReady = isTeamLead ? configured : configured && user.tlApprovalStatus === 'APPROVED';
         const busy = busyId === user.id;
         return <article key={user.id} style={{ display: 'grid', gridTemplateColumns: 'minmax(150px,1.1fr) minmax(170px,1fr) minmax(190px,1.2fr) auto', alignItems: 'center', gap: 12, border: '1px solid #ede9fe', borderRadius: 14, padding: 14, background: '#fcfbff' }}>
-          <div><strong style={{ color: '#1e1b4b' }}>{user.fullName}</strong><div style={{ marginTop: 4, color: '#64748b', fontSize: '.78rem' }}>#{user.id} · {user.status === 'PENDING' ? 'Pending account' : user.status}</div></div>
+          <div><strong style={{ color: '#1e1b4b' }}>{user.fullName}</strong><div style={{ marginTop: 4, color: '#64748b', fontSize: '.78rem' }}>#{user.id} · {user.status === 'PENDING' ? 'Pending account' : user.status} · <button type="button" onClick={() => onView(user)} style={detailLinkStyle}>View details</button></div></div>
           <label style={{ display: 'grid', gap: 5, color: '#475569', fontSize: '.75rem', fontWeight: 700 }}>Role<select value={selectedRole} onChange={(event) => onRoleChange(user.id, event.target.value)} style={{ ...inputStyle, minWidth: 0 }} disabled={busy}><option value="TEAM_LEAD">Team Lead</option><option value="EXECUTIVE">Sales Executive</option><option value="TELECALLER">Telecaller</option></select></label>
           {isTeamLead ? <div style={{ fontSize: '.8rem', color: '#6d28d9', fontWeight: 700, padding: '10px 0' }}>Reports directly to you</div> : <label style={{ display: 'grid', gap: 5, color: '#475569', fontSize: '.75rem', fontWeight: 700 }}>Assign Team Lead<select value={teamLeadChoices[user.id] || String(user.teamLeadId || '')} onChange={(event) => onTeamLeadChange(user.id, event.target.value)} style={{ ...inputStyle, minWidth: 0 }} disabled={busy}><option value="">Choose TL…</option>{teamLeads.map((lead) => <option key={lead.id} value={lead.id}>{lead.fullName}</option>)}</select></label>}
           <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap', justifyContent: 'flex-end' }}><button type="button" onClick={() => onConfigure(user)} disabled={busy} style={{ ...miniButton, background: '#ede9fe', color: '#6d28d9' }}>{busy ? 'Saving…' : configured ? 'Update setup' : 'Set up'}</button>{isFinalReady ? <button type="button" onClick={() => onFinalApprove(user)} disabled={busy} style={{ ...miniButton, background: '#16a34a', color: '#fff' }}>Final approve</button> : <span style={{ color: '#a16207', fontWeight: 700, fontSize: '.75rem' }}>{configured ? (isTeamLead ? 'Ready to approve' : 'Waiting for TL') : 'Set hierarchy'}</span>}<button type="button" onClick={() => onReject(user)} disabled={busy} style={{ ...miniButton, background: '#fff1f2', color: '#be123c' }}>Reject</button></div>
@@ -1554,15 +1582,117 @@ function ManagerApprovalBoard({
   </section>;
 }
 
-function TeamLeadApprovalBoard({ users, busyId, onApprove, onReject }: { users: Staff[]; busyId: number | null; onApprove: (user: Staff) => void; onReject: (user: Staff) => void }) {
+function TeamLeadApprovalBoard({ users, busyId, onApprove, onReject, onView }: { users: Staff[]; busyId: number | null; onApprove: (user: Staff) => void; onReject: (user: Staff) => void; onView: (user: Staff) => void }) {
   if (!users.length) return null;
-  return <section id="team-approvals" style={{ marginBottom: 24, border: '1px solid #99f6e4', borderRadius: 20, overflow: 'hidden', background: '#fff', boxShadow: '0 8px 28px rgba(13,148,136,.08)' }}>
-    <div style={{ padding: '18px 20px', color: '#fff', background: 'linear-gradient(135deg, #0f766e, #0a8f8f)' }}><div style={{ display: 'flex', alignItems: 'center', gap: 9, fontWeight: 800 }}><UserRoundCheck size={18} /> Team Lead approval queue</div><p style={{ margin: '5px 0 0', fontSize: '.84rem', color: '#ccfbf1' }}>Review executives and telecallers mapped to your team. The Manager gives final access after your approval.</p></div>
-    <div style={{ display: 'grid', gap: 10, padding: 16 }}>{users.map((user) => <article key={user.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, border: '1px solid #ccfbf1', borderRadius: 14, padding: 14, flexWrap: 'wrap' }}><div><strong style={{ color: '#134e4a' }}>{user.fullName}</strong><div style={{ marginTop: 4, color: '#64748b', fontSize: '.78rem' }}>{user.role === 'TELECALLER' ? 'Telecaller' : 'Sales Executive'} · awaiting your review</div></div><div style={{ display: 'flex', gap: 8 }}><button type="button" disabled={busyId === user.id} onClick={() => onApprove(user)} style={{ ...miniButton, background: '#0f766e', color: '#fff' }}>{busyId === user.id ? 'Saving…' : 'Approve for Manager'}</button><button type="button" disabled={busyId === user.id} onClick={() => onReject(user)} style={{ ...miniButton, background: '#fff1f2', color: '#be123c' }}>Reject</button></div></article>)}</div>
+  return <section id="team-approvals" style={{ marginBottom: 24, border: '1px solid #bfdbfe', borderRadius: 20, overflow: 'hidden', background: '#fff', boxShadow: '0 12px 32px rgba(0,76,160,.1)' }}>
+    <div style={{ padding: '18px 20px', color: '#fff', background: 'linear-gradient(135deg, #004ca0, #0175bf)' }}><div style={{ display: 'flex', alignItems: 'center', gap: 9, fontWeight: 800 }}><UserRoundCheck size={18} /> Team Lead approval queue</div><p style={{ margin: '5px 0 0', fontSize: '.84rem', color: '#eaf4ff' }}>Review executives and telecallers mapped to your team. The Manager gives final access after your approval.</p></div>
+    <div style={{ display: 'grid', gap: 10, padding: 16 }}>{users.map((user) => <article key={user.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, border: '1px solid #dbeafe', borderRadius: 14, padding: 14, background: '#fbfdff', flexWrap: 'wrap' }}><div><strong style={{ color: '#00376f' }}>{user.fullName}</strong><div style={{ marginTop: 4, color: '#64748b', fontSize: '.78rem' }}>{user.role === 'TELECALLER' ? 'Telecaller' : 'Sales Executive'} · awaiting your review · <button type="button" onClick={() => onView(user)} style={detailLinkStyle}>View details</button></div></div><div style={{ display: 'flex', gap: 8 }}><button type="button" disabled={busyId === user.id} onClick={() => onApprove(user)} style={{ ...miniButton, background: '#004ca0', color: '#fff' }}>{busyId === user.id ? 'Saving…' : 'Approve for Manager'}</button><button type="button" disabled={busyId === user.id} onClick={() => onReject(user)} style={{ ...miniButton, background: '#fff1f2', color: '#be123c' }}>Reject</button></div></article>)}</div>
   </section>;
 }
 
 const miniButton: React.CSSProperties = { border: 0, borderRadius: 8, padding: '8px 10px', cursor: 'pointer', fontWeight: 800, fontSize: '.75rem', whiteSpace: 'nowrap' };
+const detailLinkStyle: React.CSSProperties = { border: 0, padding: 0, background: 'transparent', color: '#004ca0', cursor: 'pointer', font: 'inherit', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 2 };
+
+function PendingUserDetailModal({ user, onClose }: { user: Staff; onClose: () => void }) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [onClose]);
+
+  const roleLabel = user.role === 'TELECALLER' ? 'Telecaller' : user.role === 'TEAM_LEAD' ? 'Team Lead' : user.role === 'MANAGER' || user.role === 'ADMIN' ? 'Manager' : 'Sales Executive';
+  const rows: Array<{ label: string; value: string }> = [
+    { label: 'Username', value: user.username ? `@${user.username}` : '—' },
+    { label: 'Email', value: user.email || '—' },
+    { label: 'Phone', value: user.phone || '—' },
+    { label: 'Role', value: roleLabel },
+    { label: 'Account status', value: user.status || '—' },
+    { label: 'Team Lead review', value: user.tlApprovalStatus || '—' },
+    { label: 'Submitted', value: user.createdAt ? new Date(user.createdAt).toLocaleString() : '—' },
+  ];
+
+  return (
+    <div role="dialog" aria-modal="true" aria-label={`${user.fullName} details`} style={{
+      position: 'fixed', inset: 0, zIndex: 99999,
+      background: 'rgba(15, 23, 42, 0.6)',
+      backdropFilter: 'blur(6px)',
+      display: 'grid', placeItems: 'center',
+      padding: 16,
+    }} onClick={onClose}>
+      <div onClick={(event) => event.stopPropagation()} style={{
+        width: 'min(420px, 100%)',
+        background: '#ffffff',
+        borderRadius: 22,
+        overflow: 'hidden',
+        boxShadow: '0 30px 70px rgba(15,23,42,.3)',
+        animation: 'fadeIn 0.2s ease-out',
+      }}>
+        <div style={{
+          padding: '22px 24px',
+          background: 'linear-gradient(135deg, #00376f 0%, #004ca0 55%, #0175bf 100%)',
+          color: '#fff',
+          display: 'flex', alignItems: 'center', gap: 14,
+          position: 'relative',
+        }}>
+          <div style={{
+            width: 48, height: 48, borderRadius: 14,
+            background: 'rgba(255,255,255,0.2)',
+            display: 'grid', placeItems: 'center',
+            fontWeight: 800, fontSize: '1.1rem',
+            border: '2px solid rgba(255,255,255,0.3)',
+            flexShrink: 0,
+          }}>
+            {user.fullName?.[0]?.toUpperCase() || '?'}
+          </div>
+          <div style={{ minWidth: 0 }}>
+            <h2 style={{ margin: '0 0 3px', fontSize: '1.1rem', fontWeight: 800, color: '#ffffff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.fullName}</h2>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 4,
+              padding: '3px 10px', borderRadius: 6,
+              background: 'rgba(255,255,255,0.18)',
+              fontSize: '0.72rem', fontWeight: 700,
+            }}>
+              {roleLabel}
+            </span>
+          </div>
+          <button type="button" onClick={onClose} aria-label="Close employee details" style={{ position: 'absolute', top: 14, right: 14, width: 32, height: 32, border: 0, borderRadius: 9, display: 'grid', placeItems: 'center', background: 'rgba(255,255,255,.16)', color: '#fff', cursor: 'pointer' }}>
+            <X size={17} />
+          </button>
+        </div>
+        <div style={{ padding: '20px 24px', display: 'grid', gap: 12 }}>
+          {rows.map((row) => (
+            <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: '0.86rem' }}>
+              <span style={{ color: '#64748b', fontWeight: 600 }}>{row.label}</span>
+              <span style={{ color: '#0f172a', fontWeight: 700, textAlign: 'right', wordBreak: 'break-word' }}>{row.value}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: '0 24px 22px' }}>
+          <button type="button" onClick={onClose} style={{
+            width: '100%',
+            padding: '10px 16px',
+            borderRadius: 12,
+            border: 'none',
+            background: '#f1f5f9',
+            color: '#334155',
+            fontWeight: 800,
+            fontSize: '0.88rem',
+            cursor: 'pointer',
+          }}>
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function TeamLeadControlRoom({
   leads,
@@ -2224,14 +2354,14 @@ function MetricCard({ icon, label, value, color, delay }: {
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
         <div style={{
-          width: 42,
-          height: 42,
-          borderRadius: 12,
-          background: `${color}18`,
-          color,
+          width: 44,
+          height: 44,
+          borderRadius: 13,
+          background: `linear-gradient(135deg, ${color} 0%, ${color}cc 100%)`,
+          color: '#ffffff',
           display: 'grid',
           placeItems: 'center',
-          boxShadow: `0 3px 10px ${color}15`,
+          boxShadow: `0 8px 18px ${color}45`,
         }}>
           {icon}
         </div>
@@ -2279,9 +2409,9 @@ const btnBase: React.CSSProperties = {
 
 const primaryBtnStyle: React.CSSProperties = {
   ...btnBase,
-  background: 'linear-gradient(135deg, #0a8f8f 0%, #0d7c7c 100%)',
+  background: 'linear-gradient(135deg, #004ca0 0%, #0175bf 100%)',
   color: '#ffffff',
-  boxShadow: '0 2px 8px rgba(10, 143, 143, 0.2)',
+  boxShadow: '0 4px 12px rgba(0, 76, 160, 0.22)',
   border: 'none',
 };
 
@@ -2298,9 +2428,9 @@ const quickActionBtnStyle: React.CSSProperties = {
   border: 'none',
 };
 
-/* ──────────────── SVG Donut Graph ──────────────── */
+/* ──────────────── Lead Status Donut Chart (recharts) ──────────────── */
 function LeadStatusDonutChart({ leads, darkBg = false }: { leads: Lead[]; darkBg?: boolean }) {
-  const statuses: Array<{ key: string; label: string; color: string; count?: number; pct?: number }> = [
+  const statuses: Array<{ key: string; label: string; color: string }> = [
     { key: 'NEW', label: 'New', color: '#10b981' },
     { key: 'CONTACTED', label: 'Contacted', color: '#3b82f6' },
     { key: 'QUALIFIED', label: 'Qualified', color: '#8b5cf6' },
@@ -2310,16 +2440,36 @@ function LeadStatusDonutChart({ leads, darkBg = false }: { leads: Lead[]; darkBg
   ];
 
   const total = leads.length;
-  const allCounts = statuses.map(s => {
+  const allData = statuses.map(s => {
     const count = leads.filter(l => (l.lead_status || 'NEW').toUpperCase() === s.key).length;
     const pct = total > 0 ? Math.round((count / total) * 100) : 0;
     return { ...s, count, pct };
   });
-  const counts = allCounts.filter(s => s.count > 0);
+  const data = allData.filter(s => s.count > 0);
+  const pieData = data.length > 0 ? data : allData;
 
-  const radius = 56;
-  const circumference = 2 * Math.PI * radius;
-  let accumulatedPct = 0;
+  const textColor = darkBg ? '#ffffff' : '#0f172a';
+  const subTextColor = darkBg ? 'rgba(255,255,255,0.7)' : '#64748b';
+
+  const DonutTooltip = ({ active, payload }: any) => {
+    if (!active || !payload || !payload.length) return null;
+    const item = payload[0].payload;
+    return (
+      <div style={{
+        background: darkBg ? '#0f172a' : '#ffffff',
+        border: `1px solid ${darkBg ? 'rgba(255,255,255,0.18)' : '#e2e8f0'}`,
+        borderRadius: 10,
+        padding: '8px 12px',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.14)',
+        fontSize: '0.78rem',
+        fontWeight: 700,
+        color: darkBg ? '#ffffff' : '#0f172a',
+      }}>
+        <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: 2, background: item.color, marginRight: 6 }} />
+        {item.label}: {item.count} ({item.pct}%)
+      </div>
+    );
+  };
 
   return (
     <div style={{
@@ -2334,36 +2484,38 @@ function LeadStatusDonutChart({ leads, darkBg = false }: { leads: Lead[]; darkBg
       backdropFilter: darkBg ? 'blur(12px)' : 'none',
       boxShadow: darkBg ? 'none' : '0 4px 20px rgba(0,0,0,0.03)',
     }}>
-      {/* SVG Donut */}
-      <div style={{ position: 'relative', width: 140, height: 140, display: 'grid', placeItems: 'center', flexShrink: 0 }}>
-        <svg width="140" height="140" viewBox="0 0 140 140" style={{ transform: 'rotate(-90deg)' }}>
-          <circle cx="70" cy="70" r={radius} fill="none" stroke={darkBg ? 'rgba(255,255,255,0.1)' : '#f1f5f9'} strokeWidth="16" />
-          {counts.map((item) => {
-            const strokeDasharray = `${(item.pct / 100) * circumference} ${circumference}`;
-            const strokeDashoffset = -((accumulatedPct / 100) * circumference);
-            accumulatedPct += item.pct;
-            return (
-              <circle
-                key={item.key}
-                cx="70"
-                cy="70"
-                r={radius}
-                fill="none"
-                stroke={item.color}
-                strokeWidth="16"
-                strokeDasharray={strokeDasharray}
-                strokeDashoffset={strokeDashoffset}
-                strokeLinecap="round"
-                style={{ transition: 'stroke-dasharray 0.8s cubic-bezier(0.4, 0, 0.2, 1), stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1)' }}
-              />
-            );
-          })}
-        </svg>
-        <div style={{ position: 'absolute', textAlign: 'center' }}>
-          <strong style={{ fontSize: '1.45rem', fontWeight: 800, color: darkBg ? '#ffffff' : '#0f172a', display: 'block', lineHeight: 1 }}>
+      {/* Recharts Donut */}
+      <div style={{ position: 'relative', width: 150, height: 150, flexShrink: 0 }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={pieData}
+              dataKey="count"
+              nameKey="label"
+              cx="50%"
+              cy="50%"
+              innerRadius={50}
+              outerRadius={72}
+              paddingAngle={data.length > 1 ? 2 : 0}
+              startAngle={90}
+              endAngle={-270}
+              stroke="none"
+              isAnimationActive
+              animationDuration={800}
+              animationEasing="ease-out"
+            >
+              {pieData.map((entry) => (
+                <Cell key={entry.key} fill={entry.color} />
+              ))}
+            </Pie>
+            <Tooltip content={<DonutTooltip />} />
+          </PieChart>
+        </ResponsiveContainer>
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', pointerEvents: 'none' }}>
+          <strong style={{ fontSize: '1.45rem', fontWeight: 800, color: textColor, display: 'block', lineHeight: 1 }}>
             {total}
           </strong>
-          <span style={{ fontSize: '0.68rem', color: darkBg ? 'rgba(255,255,255,0.7)' : '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          <span style={{ fontSize: '0.68rem', color: subTextColor, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
             Total Leads
           </span>
         </div>
@@ -2371,12 +2523,12 @@ function LeadStatusDonutChart({ leads, darkBg = false }: { leads: Lead[]; darkBg
 
       {/* Legend Grid */}
       <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: 10, minWidth: 160 }}>
-        {(counts.length > 0 ? counts : allCounts.slice(0, 4)).map((item) => (
+        {(data.length > 0 ? data : allData.slice(0, 4)).map((item) => (
           <div key={item.key} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ width: 10, height: 10, borderRadius: 3, background: item.color, flexShrink: 0 }} />
             <div>
-              <div style={{ fontSize: '0.76rem', color: darkBg ? '#ffffff' : '#334155', fontWeight: 700 }}>{item.label}</div>
-              <div style={{ fontSize: '0.7rem', color: darkBg ? 'rgba(255,255,255,0.65)' : '#64748b', fontWeight: 600 }}>
+              <div style={{ fontSize: '0.76rem', color: textColor, fontWeight: 700 }}>{item.label}</div>
+              <div style={{ fontSize: '0.7rem', color: subTextColor, fontWeight: 600 }}>
                 {item.count ?? 0} <span style={{ opacity: 0.8 }}>({item.pct ?? 0}%)</span>
               </div>
             </div>
@@ -2387,10 +2539,44 @@ function LeadStatusDonutChart({ leads, darkBg = false }: { leads: Lead[]; darkBg
   );
 }
 
-/* ──────────────── SVG Executive Bar Graph ──────────────── */
+/* ──────────────── Executive Performance Bar Chart (recharts) ──────────────── */
 function ExecutivePerformanceBarGraph({ memberStats, darkBg = false }: { memberStats: any[]; darkBg?: boolean }) {
   if (memberStats.length === 0) return null;
-  const maxAssigned = Math.max(1, ...memberStats.map(m => m.assigned));
+
+  const textColor = darkBg ? '#ffffff' : '#0f172a';
+  const subTextColor = darkBg ? 'rgba(255,255,255,0.75)' : '#64748b';
+  const gridColor = darkBg ? 'rgba(255,255,255,0.1)' : '#f1f5f9';
+
+  const data = memberStats.map(({ member, assigned, contacted, qualified }) => ({
+    name: member.fullName,
+    Assigned: assigned,
+    Contacted: contacted,
+    Qualified: qualified,
+  }));
+
+  const chartHeight = Math.max(180, data.length * 46);
+
+  const BarTooltip = ({ active, payload, label }: any) => {
+    if (!active || !payload || !payload.length) return null;
+    return (
+      <div style={{
+        background: darkBg ? '#0f172a' : '#ffffff',
+        border: `1px solid ${darkBg ? 'rgba(255,255,255,0.18)' : '#e2e8f0'}`,
+        borderRadius: 10,
+        padding: '10px 14px',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.14)',
+        fontSize: '0.76rem',
+      }}>
+        <div style={{ fontWeight: 800, color: darkBg ? '#ffffff' : '#0f172a', marginBottom: 4 }}>{label}</div>
+        {payload.map((p: any) => (
+          <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 6, color: darkBg ? 'rgba(255,255,255,0.85)' : '#334155', fontWeight: 600 }}>
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: p.color }} />
+            {p.name}: {p.value}
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div style={{
@@ -2401,47 +2587,22 @@ function ExecutivePerformanceBarGraph({ memberStats, darkBg = false }: { memberS
       backdropFilter: darkBg ? 'blur(12px)' : 'none',
       boxShadow: darkBg ? 'none' : '0 4px 20px rgba(0,0,0,0.03)',
     }}>
-      <div style={{ fontSize: '0.82rem', fontWeight: 800, color: darkBg ? '#ffffff' : '#0f172a', marginBottom: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <TrendingUp size={15} /> Executive Workload &amp; Conversion
-        </span>
-        <div style={{ display: 'flex', gap: 12, fontSize: '0.68rem', fontWeight: 700, color: darkBg ? 'rgba(255,255,255,0.75)' : '#64748b' }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: '#60a5fa' }} /> Assigned</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: '#34d399' }} /> Contacted</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: '#a78bfa' }} /> Qualified</span>
-        </div>
+      <div style={{ fontSize: '0.82rem', fontWeight: 800, color: textColor, marginBottom: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
+        <TrendingUp size={15} /> Executive Workload &amp; Conversion
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        {memberStats.map(({ member, assigned, contacted, qualified }) => {
-          const assignedPct = Math.round((assigned / maxAssigned) * 100);
-          const contactedPct = assigned > 0 ? Math.round((contacted / maxAssigned) * 100) : 0;
-          const qualifiedPct = assigned > 0 ? Math.round((qualified / maxAssigned) * 100) : 0;
-
-          return (
-            <div key={member.id} style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', fontWeight: 700, color: darkBg ? '#ffffff' : '#1e293b' }}>
-                <span>{member.fullName}</span>
-                <span style={{ fontSize: '0.72rem', color: darkBg ? 'rgba(255,255,255,0.7)' : '#64748b' }}>
-                  {assigned} assigned · <strong style={{ color: darkBg ? '#86efac' : '#10b981' }}>{qualified} qualified</strong>
-                </span>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                <div style={{ height: 6, borderRadius: 999, background: darkBg ? 'rgba(255,255,255,0.1)' : '#f1f5f9', overflow: 'hidden' }}>
-                  <div title={`Assigned: ${assigned}`} style={{ width: `${assignedPct}%`, height: '100%', borderRadius: 999, background: 'linear-gradient(90deg, #3b82f6, #60a5fa)', transition: 'width 0.6s ease' }} />
-                </div>
-                <div style={{ height: 6, borderRadius: 999, background: darkBg ? 'rgba(255,255,255,0.1)' : '#f1f5f9', overflow: 'hidden' }}>
-                  <div title={`Contacted: ${contacted}`} style={{ width: `${contactedPct}%`, height: '100%', borderRadius: 999, background: 'linear-gradient(90deg, #10b981, #34d399)', transition: 'width 0.6s ease' }} />
-                </div>
-                <div style={{ height: 6, borderRadius: 999, background: darkBg ? 'rgba(255,255,255,0.1)' : '#f1f5f9', overflow: 'hidden' }}>
-                  <div title={`Qualified: ${qualified}`} style={{ width: `${qualifiedPct}%`, height: '100%', borderRadius: 999, background: 'linear-gradient(90deg, #8b5cf6, #a78bfa)', transition: 'width 0.6s ease' }} />
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <ResponsiveContainer width="100%" height={chartHeight}>
+        <BarChart data={data} layout="vertical" margin={{ top: 0, right: 16, left: 0, bottom: 0 }} barCategoryGap={14}>
+          <CartesianGrid strokeDasharray="3 3" stroke={gridColor} horizontal={false} />
+          <XAxis type="number" tick={{ fontSize: 11, fill: subTextColor }} axisLine={{ stroke: gridColor }} tickLine={false} allowDecimals={false} />
+          <YAxis type="category" dataKey="name" width={110} tick={{ fontSize: 12, fill: textColor, fontWeight: 700 }} axisLine={{ stroke: gridColor }} tickLine={false} />
+          <Tooltip content={<BarTooltip />} cursor={{ fill: darkBg ? 'rgba(255,255,255,0.06)' : '#f8fafc' }} />
+          <Legend wrapperStyle={{ fontSize: '0.7rem', fontWeight: 700, color: subTextColor }} iconType="circle" iconSize={8} />
+          <Bar dataKey="Assigned" fill="#3b82f6" radius={[0, 6, 6, 0]} isAnimationActive animationDuration={700} maxBarSize={14} />
+          <Bar dataKey="Contacted" fill="#10b981" radius={[0, 6, 6, 0]} isAnimationActive animationDuration={700} maxBarSize={14} />
+          <Bar dataKey="Qualified" fill="#8b5cf6" radius={[0, 6, 6, 0]} isAnimationActive animationDuration={700} maxBarSize={14} />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
 }
-

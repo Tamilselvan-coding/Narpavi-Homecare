@@ -2,12 +2,20 @@ export const BRAND = {
   name: 'Narpavi Homecare',
   tagline: 'Professional Home Healthcare',
   email: 'service@nhlcare.com',
-  phone: '+91 97900 16067',
-  whatsapp: '919790016067',
+  phone: '+91 97900 16097',
+  whatsapp: '919790016097',
   address: 'Chennai, Tamil Nadu, India',
-  url: 'https://www.narpavihomecare.com',
+  url: 'https://www.nhlcare.com',
   foundedYear: 2024,
 } as const;
+
+// Add the official profile URLs here when they are supplied.
+export const SOCIAL_URLS: Record<'instagram' | 'facebook' | 'twitter' | 'linkedin', string> = {
+  instagram: '',
+  facebook: '',
+  twitter: '',
+  linkedin: '',
+};
 
 export const NAV_ITEMS = [
   { label: 'Home', href: '/' },

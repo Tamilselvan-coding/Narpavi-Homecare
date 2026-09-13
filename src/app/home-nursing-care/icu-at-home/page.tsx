@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'tracheostomy suctioning home',
     'step-down ICU home nursing'
   ],
-  alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/icu-at-home' },
+  alternates: { canonical: 'https://www.nhlcare.com/home-nursing-care/icu-at-home' },
 };
 
 export default function ICUAtHomePage() {
@@ -103,38 +103,71 @@ export default function ICUAtHomePage() {
         {/* Who We Care For Section */}
         <section className="section basic-care-v2__who basic-care-v2__who-model">
           <div className="container">
-            <div className="basic-care-v2__who-model-title"><h2>{ICU_AT_HOME_WHO_HEADING}</h2></div>
-            <div className="basic-care-v2__who-model-intro">
-              <div className="basic-care-v2__who-model-copy" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <p style={{ textAlign: 'center', margin: 0 }}>
-                  {ICU_AT_HOME_WHO_INTRO}
-                </p>
-              </div>
-              <div className="basic-care-v2__who-model-image">
-                <Image src="/images/icu-at-home/pik-4.png" alt="ICU demographic support group at home" fill sizes="(max-width: 768px) 100vw, 240px" style={{ objectFit: 'cover' }} />
-              </div>
+            <div className="basic-care-v2__who-model-title">
+              <h2>{ICU_AT_HOME_WHO_HEADING}</h2>
             </div>
-            <div className="basic-care-v2__who-model-grid icu-who-grid">
-              {ICU_AT_HOME_WHO.map((person) => {
-                const [title, description] = person.text.includes(' - ')
-                  ? person.text.split(' - ')
-                  : [person.text, ''];
 
-                return (
-                  <article className="basic-care-v2__who-model-card" key={title} style={{ minHeight: '160px', padding: '1.25rem 1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <span className="basic-care-v2__who-model-icon" style={{ marginBottom: '0.5rem' }}><SiteIcon name={person.icon} size={21} /></span>
-                    <h3 style={{ fontSize: '0.95rem', fontWeight: 'bold', lineHeight: '1.4', margin: '0' }}>
-                      {title}
-                      <span style={{ fontWeight: 'normal', color: 'var(--text-secondary)' }}>
-                        {description ? ` - ${description}` : ''}
-                      </span>
-                    </h3>
-                  </article>
-                );
-              })}
+            <div className="advance-who-layout">
+              {/* Left Column Cards */}
+              <div className="advance-who-col advance-who-col--left">
+                {ICU_AT_HOME_WHO.slice(0, 3).map((person) => {
+                  const [title, description] = person.text.includes(' - ')
+                    ? person.text.split(' - ')
+                    : [person.text, ''];
+
+                  return (
+                    <article className="advance-who-card" key={title}>
+                      <div className="advance-who-card__header">
+                        <span className="advance-who-card__icon">
+                          <SiteIcon name={person.icon} size={22} />
+                        </span>
+                        <h3>{title}</h3>
+                      </div>
+                      {description && <p>{description}</p>}
+                    </article>
+                  );
+                })}
+              </div>
+
+              {/* Center Image */}
+              <div className="advance-who-center">
+                <div className="advance-who-center__visual">
+                  <Image
+                    src="/images/icu-at-home/pik-4.png"
+                    alt="ICU demographic support group at home"
+                    fill
+                    sizes="(max-width: 992px) 100vw, 360px"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
+              </div>
+
+              {/* Right Column Cards */}
+              <div className="advance-who-col advance-who-col--right">
+                {ICU_AT_HOME_WHO.slice(3, 6).map((person) => {
+                  const [title, description] = person.text.includes(' - ')
+                    ? person.text.split(' - ')
+                    : [person.text, ''];
+
+                  return (
+                    <article className="advance-who-card" key={title}>
+                      <div className="advance-who-card__header">
+                        <span className="advance-who-card__icon">
+                          <SiteIcon name={person.icon} size={22} />
+                        </span>
+                        <h3>{title}</h3>
+                      </div>
+                      {description && <p>{description}</p>}
+                    </article>
+                  );
+                })}
+              </div>
             </div>
+
             <div className="basic-care-v2__who-model-action">
-              <Link href="#icu-at-home-form" className="btn btn--primary btn--lg">Book ICU @ Home</Link>
+              <Link href="#icu-at-home-form" className="btn btn--primary btn--lg">
+                Book ICU @ Home <SiteIcon name="Arrow" size={18} />
+              </Link>
             </div>
           </div>
         </section>
@@ -143,29 +176,66 @@ export default function ICUAtHomePage() {
         <section className="section section--alt basic-care-v2__deliverables basic-care-v2__deliverables-model">
           <div className="container">
             <div className="basic-care-v2__deliverables-model-shell">
-              <div className="basic-care-v2__deliverables-model-title"><h2>{ICU_AT_HOME_DELIVERABLES_HEADING}</h2></div>
-              
-              <div className="basic-care-v2__who-model-intro">
-                <div className="basic-care-v2__who-model-copy" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <p style={{ textAlign: 'center', margin: 0 }}>
-                    {ICU_AT_HOME_DELIVERABLES_INTRO}
-                  </p>
+              <div className="basic-care-v2__deliverables-model-title">
+                <h2>{ICU_AT_HOME_DELIVERABLES_HEADING}</h2>
+              </div>
+
+              {/* 6 points surrounding the center image (3 Left, 3 Right) */}
+              <div className="advance-deliverables-layout">
+                {/* Left Column Cards */}
+                <div className="advance-deliverables-col advance-deliverables-col--left">
+                  {ICU_AT_HOME_DELIVERABLES.slice(0, 3).map((item) => (
+                    <article className="advance-deliverable-card" key={item.title}>
+                      <span className="advance-deliverable-card__icon">
+                        <SiteIcon name={item.icon} size={22} />
+                      </span>
+                      <h3>{item.title}</h3>
+                    </article>
+                  ))}
                 </div>
-                <div className="basic-care-v2__who-model-image">
-                  <Image src="/images/icu-at-home/pik-6.png" alt="Clinical setup of home ICU deliverables" fill sizes="(max-width: 768px) 100vw, 240px" style={{ objectFit: 'cover' }} />
+
+                {/* Center Image */}
+                <div className="advance-deliverables-center">
+                  <div className="advance-deliverables-center__visual">
+                    <Image
+                      src="/images/icu-at-home/pik-6.png"
+                      alt="Clinical setup of home ICU deliverables"
+                      fill
+                      sizes="(max-width: 992px) 100vw, 360px"
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </div>
+                </div>
+
+                {/* Right Column Cards */}
+                <div className="advance-deliverables-col advance-deliverables-col--right">
+                  {ICU_AT_HOME_DELIVERABLES.slice(3, 6).map((item) => (
+                    <article className="advance-deliverable-card" key={item.title}>
+                      <span className="advance-deliverable-card__icon">
+                        <SiteIcon name={item.icon} size={22} />
+                      </span>
+                      <h3>{item.title}</h3>
+                    </article>
+                  ))}
                 </div>
               </div>
 
-              <div className="basic-care-v2__deliverables-model-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
-                {ICU_AT_HOME_DELIVERABLES.map((item, idx) => (
-                  <article className="basic-care-v2__deliverables-model-card" key={idx} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '120px' }}>
-                    <span className="basic-care-v2__deliverables-model-icon"><SiteIcon name={item.icon} size={22} /></span>
-                    <h3 style={{ fontSize: '1.05rem', fontWeight: 600, margin: '0.5rem 0 0 0' }}>{item.title}</h3>
+              {/* Remaining 3 points in a separate bottom row */}
+              <div className="advance-who-bottom-row">
+                {ICU_AT_HOME_DELIVERABLES.slice(6, 9).map((item) => (
+                  <article className="advance-deliverable-card" key={item.title}>
+                    <span className="advance-deliverable-card__icon">
+                      <SiteIcon name={item.icon} size={22} />
+                    </span>
+                    <h3>{item.title}</h3>
                   </article>
                 ))}
               </div>
-              <div className="basic-care-v2__deliverables-model-action" style={{ marginTop: '3rem' }}>
-                <Link href="#icu-at-home-form" className="btn btn--primary btn--lg">Book ICU @ Home</Link>
+
+              <div className="basic-care-v2__deliverables-model-action">
+                <Link href="#icu-at-home-form" className="btn btn--primary btn--lg">
+                  Book ICU @ Home <SiteIcon name="Arrow" size={18} />
+                </Link>
               </div>
             </div>
           </div>
@@ -176,7 +246,7 @@ export default function ICUAtHomePage() {
           <div className="container">
             <div className="section__header basic-care-v2__packages-header">
               <h2>{ICU_AT_HOME_PACKAGES_HEADING}</h2>
-              <p>{ICU_AT_HOME_PACKAGES_INTRO}</p>
+              {/* <p>{ICU_AT_HOME_PACKAGES_INTRO}</p> */}
             </div>
             <IcuCarePackageSelector />
           </div>
@@ -187,7 +257,7 @@ export default function ICUAtHomePage() {
           <div className="container">
             <div className="section__header basic-care-v2__trust-header">
               <h2>{ICU_AT_HOME_TRUST_HEADING}</h2>
-              <p>{ICU_AT_HOME_TRUST_INTRO}</p>
+              {/* <p>{ICU_AT_HOME_TRUST_INTRO}</p> */}
             </div>
             <div className="baby-trust-orbit icu-trust-orbit">
               <div className="baby-trust-visual">
@@ -207,7 +277,7 @@ export default function ICUAtHomePage() {
                 return (
                   <article className={`baby-trust-card baby-trust-card--${index + 1}`} key={title} style={{ '--baby-trust-order': index } as CSSProperties}>
                     <div className="baby-trust-card__icon"><SiteIcon name={item.icon} size={22} /></div>
-                    <div><h3>{title}</h3><p>{description}</p></div>
+                    <div><h3>{title}</h3></div>
                   </article>
                 );
               })}
@@ -250,14 +320,14 @@ export default function ICUAtHomePage() {
             />
 
             {/* Custom CTA strip requested by user */}
-            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
-              <div style={{ flex: '1 1 500px', border: '1px solid #ff6b35', borderRadius: '12px', padding: '1.25rem 2rem', backgroundColor: '#fff' }}>
-                <p style={{ margin: 0, fontStyle: 'italic', fontSize: '1.1rem', color: '#101010', fontWeight: 500 }}>
+            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '2rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ flex: '1 1 500px' }}>
+                <p style={{ margin: 0, fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--text-secondary, #526b72)', fontWeight: 500 }}>
                   Plan safe ICU care at home with expert tips, cost insights, and safety checklists
                 </p>
               </div>
               <div style={{ flex: '0 0 auto', minWidth: '260px' }}>
-                <Link href="#icu-at-home-form" className="btn btn--primary btn--lg" style={{ display: 'inline-flex', width: '100%', justifyContent: 'center', minHeight: '60px', alignItems: 'center' }}>
+                <Link href="#icu-at-home-form" className="btn btn--primary btn--lg" style={{ display: 'inline-flex', width: '100%', justifyContent: 'center', minHeight: '54px', alignItems: 'center' }}>
                   Book ICU @ Home
                 </Link>
               </div>

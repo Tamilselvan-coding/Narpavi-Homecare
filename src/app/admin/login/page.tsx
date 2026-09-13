@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, LogIn, ShieldAlert, Eye, EyeOff, UserPlus, CheckCircle } from 'lucide-react';
+import { Lock, LogIn, ShieldAlert, Eye, EyeOff, UserPlus, CheckCircle, ShieldCheck, BarChart3, Users } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -48,18 +48,19 @@ export default function AdminLoginPage() {
         return;
       }
 
+      const resolvedRole = data.role || 'ADMIN';
       if (typeof window !== 'undefined') {
         localStorage.setItem('narpavi_admin_session', JSON.stringify({
           username: data.username || inputUser,
           id: data.id,
           fullName: data.fullName || 'Admin User',
-          role: data.role || 'ADMIN',
+          role: resolvedRole,
           allowedTabs: data.allowedTabs || 'packages,downloads,partners,candidates',
           loggedInAt: new Date().toISOString(),
         }));
         window.dispatchEvent(new Event('narpavi:admin-session-changed'));
       }
-      router.push('/sales/dashboard');
+      router.push(resolvedRole === 'ADMIN' || resolvedRole === 'MANAGER' ? '/admin/dashboard' : '/sales/dashboard');
     } catch (err: any) {
       // Fallback
       if ((inputUser === 'admin' || inputUser.includes('admin')) && inputPass === 'PassWord@123') {
@@ -72,7 +73,7 @@ export default function AdminLoginPage() {
           }));
           window.dispatchEvent(new Event('narpavi:admin-session-changed'));
         }
-        router.push('/sales/dashboard');
+        router.push('/admin/dashboard');
       } else {
         setIsSubmitting(false);
         setError('Login failed. Please check your credentials or backend connection.');
@@ -122,7 +123,18 @@ export default function AdminLoginPage() {
 
   return (
     <div className="admin-login-container">
-      <div className="admin-login-card" style={{ maxWidth: 480 }}>
+      <div className="admin-login-shell">
+        <div className="admin-login-brand-panel">
+          <span className="admin-login-brand-badge"><ShieldCheck size={14} /> Narpavi Health &amp; Life</span>
+          <h2>Run your care operations from one powerful dashboard</h2>
+          <p>Track leads, manage your team, and keep every enquiry moving &mdash; all in one secure workspace built for Narpavi&apos;s care staff.</p>
+          <div className="admin-login-brand-features">
+            <div className="admin-login-brand-feature"><span><BarChart3 size={16} /></span> Real-time leads &amp; sales analytics</div>
+            <div className="admin-login-brand-feature"><span><Users size={16} /></span> Team allocation &amp; approvals</div>
+            <div className="admin-login-brand-feature"><span><Lock size={16} /></span> Role-based secure access</div>
+          </div>
+        </div>
+        <div className="admin-login-card" style={{ maxWidth: 480 }}>
         {/* TAB TOGGLE BUTTONS */}
         <div style={{ display: 'flex', gap: 8, marginBottom: 24, background: 'rgba(10, 143, 143, 0.06)', padding: 4, borderRadius: 14 }}>
           <button
@@ -388,6 +400,7 @@ export default function AdminLoginPage() {
             )}
           </>
         )}
+        </div>
       </div>
     </div>
   );

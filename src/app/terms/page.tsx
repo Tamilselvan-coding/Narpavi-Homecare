@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Terms of Service — Narpavi Homecare',
-  alternates: { canonical: 'https://www.narpavihomecare.com/terms' },
+  alternates: { canonical: 'https://www.nhlcare.com/terms' },
 };
 
 export default function TermsPage() {

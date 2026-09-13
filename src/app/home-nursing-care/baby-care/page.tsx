@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     'night baby care chennai',
     'premature baby care at home',
   ],
-  alternates: { canonical: 'https://www.narpavihomecare.com/baby-care' },
+  alternates: { canonical: 'https://www.nhlcare.com/baby-care' },
 };
 
 export default function BabyCarePage() {
@@ -173,11 +173,11 @@ export default function BabyCarePage() {
           <div className="section__header baby-who__header">
             {/* <span className="section-kicker">Who we care for</span> */}
             <h2>Support for Every Parent Suitation </h2>
-            <p>
+            {/* <p>
               Narpavi Homecare supports new mothers, newborns, twins, premature babies and families in Chennai,
               <br />
               with trusted mother and baby care at home matched to each recovery stage, feeding routine and family need.
-            </p>
+            </p> */}
           </div>
 
           <div className="baby-who-orbit">
@@ -191,10 +191,10 @@ export default function BabyCarePage() {
                   sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 340px"
                 />
               </div>
-              <div className="baby-who-visual__badge">
+              {/* <div className="baby-who-visual__badge">
                 <SiteIcon name="Family baby care" size={19} />
                 <span>Care that grows with your family</span>
-              </div>
+              </div> */}
             </div>
 
             {BABY_CARE_WHO.map((item, index) => (
@@ -220,11 +220,11 @@ export default function BabyCarePage() {
           <div className="section__header baby-packages__header">
             {/* <span className="section-kicker">Packages</span> */}
             <h2>Choose the suitable Package </h2>
-            <p>
+            {/* <p>
               Every baby and mother has unique needs that change with time.
               <br />
               These packages support newborns, infants and postnatal mothers with safe, hygienic and compassionate care at home.
-            </p>
+            </p> */}
           </div>
           <BabyCarePackageSelector />
         </div>
@@ -235,11 +235,11 @@ export default function BabyCarePage() {
           <div className="section__header baby-trust__header">
             {/* <span className="section-kicker">Why families trust Narpavi</span> */}
             <h2>Why Families Trust Narpavi for Baby Care </h2>
-            <p>
+            {/* <p>
               <strong>Your Loved One&apos;s Safety Is Our Priority:</strong> Bringing someone into your home to care for your newborn is a big decision,
               <br />
               we understand. That&apos;s why every Narpavi Homecare caregiver and nurse is thoroughly vetted, trained and supported by strict clinical standards.
-            </p>
+            </p> */}
           </div>
 
           <div className="baby-trust-orbit">
@@ -253,10 +253,10 @@ export default function BabyCarePage() {
                   sizes="(max-width: 640px) 82vw, (max-width: 992px) 420px, 350px"
                 />
               </div>
-              <div className="baby-trust-visual__badge">
+              {/* <div className="baby-trust-visual__badge">
                 <SiteIcon name="Safety shield" size={19} />
                 <span>Safety-led care at every step</span>
-              </div>
+              </div> */}
             </div>
 
             {BABY_CARE_TRUST_POINTS.map((item, index) => (
@@ -270,7 +270,7 @@ export default function BabyCarePage() {
                 </div>
                 <div>
                   <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+                  {/* <p>{item.description}</p> */}
                 </div>
               </article>
             ))}
@@ -283,7 +283,7 @@ export default function BabyCarePage() {
           <div className="section__header">
             {/* <span className="section-kicker">FAQs</span> */}
             <h2>Frequently Asked Questions</h2>
-            <p>Clear answers about newborn care, overnight support, premature baby care, feeding, hygiene, and booking.</p>
+            {/* <p>Clear answers about newborn care, overnight support, premature baby care, feeding, hygiene, and booking.</p> */}
           </div>
           <FAQAccordion faqs={BABY_CARE_FAQS} />
         </div>

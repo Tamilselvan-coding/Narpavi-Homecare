@@ -16,13 +16,16 @@ import {
   UsersRound,
 } from 'lucide-react';
 import HomeFAQAccordion from '@/components/sections/HomeFAQAccordion';
+import HomeHeroCarousel from '@/components/sections/HomeHeroCarousel';
 import ScrollAnimator from '@/components/ui/ScrollAnimator';
+import SectionAnchor from '@/components/ui/SectionAnchor';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { BRAND } from '@/lib/constants';
 import { getFaqSchema, getItemListSchema, getWebPageSchema } from '@/lib/seo';
 import styles from './home.module.css';
 
 type ImageCard = {
+  id?: string;
   title: string;
   description: string;
   image: string;
@@ -35,6 +38,7 @@ type ImageCard = {
 
 const SOLUTIONS: ImageCard[] = [
   {
+    id: 'home-nursing',
     title: '',
     description: 'Skilled nursing and caregiver support from basic daily assistance to advanced and ICU-level care.',
     image: '/images/homepage/pik-02.png',
@@ -43,6 +47,7 @@ const SOLUTIONS: ImageCard[] = [
     action: 'Home Nursing Care',
   },
   {
+    id: 'medical-equipment',
     title: '',
     description: 'Hospital-grade equipment for rental or purchase, delivered, installed and supported at home.',
     image: '/images/homepage/pik-03.png',
@@ -51,6 +56,7 @@ const SOLUTIONS: ImageCard[] = [
     action: 'Medical Equipment',
   },
   {
+    id: 'health-visits',
     title: '',
     description: 'Doctor consultations, nursing procedures, treatment support and vaccinations at home.',
     image: '/images/homepage/pik-04.png',
@@ -59,6 +65,7 @@ const SOLUTIONS: ImageCard[] = [
     launchLabel: 'Launching Soon',
   },
   {
+    id: 'rehabilitation',
     title: '',
     description: 'Cardiac, pulmonary, neurological and orthopedic recovery programmes led by experienced professionals.',
     image: '/images/homepage/pik-05.png',
@@ -67,6 +74,7 @@ const SOLUTIONS: ImageCard[] = [
     launchLabel: 'Launching Soon',
   },
   {
+    id: 'wellness',
     title: '',
     description: 'Yoga, nutrition, lifestyle coaching, screenings, stress management and corporate wellness.',
     image: '/images/homepage/pik-06-clean.png',
@@ -75,6 +83,7 @@ const SOLUTIONS: ImageCard[] = [
     launchLabel: 'Launching Soon',
   },
   {
+    id: 'assisted-living',
     title: '',
     description: 'Coordinated support for people who need ongoing safety, supervision, companionship and daily assistance.',
     image: '/images/homepage/pik-24.png',
@@ -415,9 +424,9 @@ const HERO_BANNERS = [
     alt: 'A home nurse supporting a patient and family',
     usps: ['Verified Professionals', 'Hospital-Grade Protocols', 'Customised Care Plans'],
     metric: 'Care plan matched to every patient',
-    accent: '#009A9F',
+    accent: '#004CA0',
     accentRgb: '0, 154, 159',
-    accentSoft: '#E6F8F8',
+    accentSoft: '#EBF3FC',
   },
   {
     kicker: 'Hospital equipment for home',
@@ -429,9 +438,9 @@ const HERO_BANNERS = [
     alt: 'Hospital-grade medical equipment for home care',
     usps: ['Hospital-Grade Protocols', 'Rapid Setup', 'Transparent Pricing'],
     metric: 'Rental and purchase support',
-    accent: '#FF784B',
+    accent: '#FB0055',
     accentRgb: '255, 120, 75',
-    accentSoft: '#FFF1EA',
+    accentSoft: '#FFF0F5',
   },
   {
     kicker: 'Clinical checks at home',
@@ -503,6 +512,7 @@ export const metadata: Metadata = {
 };
 
 function SectionHeading({
+  eyebrow,
   title,
   copy,
   align = 'center',
@@ -511,12 +521,13 @@ function SectionHeading({
   index?: string;
   eyebrow?: string;
   title: string;
-  copy: string;
+  copy?: string;
   align?: 'center' | 'left';
   className?: string;
 }) {
   return (
     <div className={`${styles.sectionHeading} ${align === 'left' ? styles.sectionHeadingLeft : ''} ${className}`}>
+      {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
       <h2>{title}</h2>
       {copy && <p>{copy}</p>}
     </div>
@@ -544,59 +555,7 @@ export default function HomePage() {
       <div className={styles.home}>
         <section className={styles.hero} id="hero">
           <div className={styles.heroGlow} aria-hidden="true" />
-          <div className={`container ${styles.heroCarousel}`} aria-label="Main page service banners">
-            {HERO_BANNERS.map((banner, index) => (
-              <article
-                className={styles.heroSlide}
-                key={banner.heading}
-                style={
-                  {
-                    '--slide-delay': `${(index - HERO_BANNERS.length) * 5}s`,
-                    '--banner-accent': banner.accent,
-                    '--banner-accent-rgb': banner.accentRgb,
-                    '--banner-soft': banner.accentSoft,
-                  } as CSSProperties
-                }
-              >
-                <div className={styles.heroContent}>
-                  <span className={styles.heroEyebrow}>
-                    <Sparkles size={16} />
-                    {banner.kicker}
-                  </span>
-                  <h1>
-                    {banner.heading} <span>{banner.highlight}</span>
-                  </h1>
-                  <p className={styles.heroLead}>{banner.copy}</p>
-                  <ul className={styles.heroUsps} aria-label={`${banner.heading} USPs`}>
-                    {banner.usps.map((usp) => (
-                      <li key={usp}>
-                        <span className={styles.heroUspIcon}>
-                          <CheckCircle2 size={18} />
-                        </span>
-                        <span>{usp}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className={styles.heroVisual}>
-                  <div className={styles.heroImage}>
-                    <Image
-                      src={banner.image}
-                      alt={banner.alt}
-                      fill
-                      priority={index === 0}
-                      sizes="(max-width: 900px) 100vw, 50vw"
-                    />
-                    <div className={styles.heroImageBadge}>
-                      <BadgeCheck size={18} />
-                      <span>{banner.metric}</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <HomeHeroCarousel banners={HERO_BANNERS} />
 
         </section>
 
@@ -632,8 +591,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={`${styles.section} ${styles.sectionTint}`} id="solutions">
+        <section className={`${styles.section} ${styles.sectionTint} ${styles.solutionsSection}`} id="solutions">
           <div className="container">
+            <div className={styles.solutionsOverview}>
             <ScrollAnimator>
               <SectionHeading
                 index="01"
@@ -652,7 +612,7 @@ export default function HomePage() {
                 const cardContent = (
                   <>
                     <div className={styles.solutionMedia}>
-                      <Image src={solution.image} alt={solution.alt} fill sizes="(max-width: 700px) 100vw, 33vw" />
+                      <Image src={solution.image} alt={solution.alt} fill sizes="144px" />
                       {solution.launchLabel && (
                         <span className={`${styles.statusBadge} ${styles.launchBadge}`}>
                           {solution.launchLabel}
@@ -661,7 +621,7 @@ export default function HomePage() {
                       {solution.status && <span className={styles.statusBadge}>{solution.status}</span>}
                     </div>
                     <div className={styles.solutionBody}>
-                      <h3>{solution.title}</h3>
+                      {solution.title && <h3>{solution.title}</h3>}
                       {solution.action && (
                         <span>
                           {solution.action} {solution.href && <ArrowRight size={16} />}
@@ -673,18 +633,19 @@ export default function HomePage() {
 
                 if (!solution.href || !solution.action) {
                   return (
-                    <article className={`${cardClassName} ${styles.solutionCardStatic}`} key={cardKey}>
+                    <article className={`${cardClassName} ${styles.solutionCardStatic}`} key={cardKey} id={solution.id}>
                       {cardContent}
                     </article>
                   );
                 }
 
                 return (
-                  <Link href={solution.href} className={cardClassName} key={cardKey}>
+                  <Link href={solution.href} className={cardClassName} key={cardKey} id={solution.id}>
                     {cardContent}
                   </Link>
                 );
               })}
+            </div>
             </div>
             <div className={styles.serviceOrbit}>
               <div className={styles.serviceDetailGrid}>
@@ -758,15 +719,15 @@ export default function HomePage() {
                   Every plan balances clinical needs with family routines, safety and independence.
                 </span>
               </div>
-              <Link href="#solutions">
+              <SectionAnchor href="#solutions">
                 Find the right solution <ArrowRight size={17} />
-              </Link>
+              </SectionAnchor>
             </div>
             </ScrollAnimator>
           </div>
         </section>
 
-        <section className={styles.section} id="who-we-care-for">
+        <section className={`${styles.section} ${styles.lifeStageSection}`} id="who-we-care-for">
           <div className="container">
             <ScrollAnimator>
             <SectionHeading
@@ -782,7 +743,7 @@ export default function HomePage() {
               {AUDIENCES.map((audience) => (
                 <article className={styles.audienceCard} key={audience.title}>
                   <div className={styles.audienceImage}>
-                    <Image src={audience.image} alt={audience.alt} fill sizes="(max-width: 640px) 100vw, 25vw" />
+                    <Image src={audience.image} alt={audience.alt} fill sizes="(max-width: 1100px) 50vw, 25vw" />
                   </div>
                   <div className={styles.audienceOverlay}>
                     <h3>{audience.title}</h3>
@@ -792,9 +753,9 @@ export default function HomePage() {
             </div>
             </ScrollAnimator>
             <div className={styles.centerAction}>
-              <Link href="#solutions" className={styles.primaryButton}>
+              <SectionAnchor href="#solutions" className={styles.primaryButton}>
                 Find the right solution <ArrowRight size={18} />
-              </Link>
+              </SectionAnchor>
             </div>
           </div>
         </section>
@@ -804,8 +765,8 @@ export default function HomePage() {
             <ScrollAnimator>
             <SectionHeading
               index="05"
-              eyebrow="Why choose Narpavi"
-              title=" Why Choose Us-Care Built on Trust, Safety and Compassion"
+              eyebrow="Why Choose Us"
+              title="Care Built on Trust, Safety and Compassion"
               className={styles.whyChooseHeading}
               copy="Choosing the right home care provider is a serious decision. That’s why families and NRIs trust Narpavi Homecare for compassionate, transparent, and clinically excellent care delivered in the comfort of home."
             />

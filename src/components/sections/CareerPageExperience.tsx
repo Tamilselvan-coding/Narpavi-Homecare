@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, type CSSProperties, type FormEvent } from 'react';
+import { useState, useEffect, useRef, type CSSProperties, type FormEvent } from 'react';
 import Image from 'next/image';
 import {
   ArrowRight,
@@ -414,23 +414,34 @@ const cultureValues: CultureValue[] = [
   },
 ];
 
-/* ─── ROLES LIST ─── */
+/* ─── PROFESSION / ROLES OPTIONS ─── */
 
-const rolesList = [
-  'Care Givers',
+const professionOptions = [
   'Patient Care Assistant',
+  'Care taker',
   'Nurse',
-  'Senior Nurse',
+  'Physiotherapist',
+  'Doctor',
+  'Consultant',
+  'Physician',
+  'Speech Therapist',
+  'Dietician',
   'Nursing Supervisor',
-  'Care Manager',
-  'Physiotherapists',
-  'Rehabilitation Expert',
-  'Wellness Coach',
-  'Bio Medical Engineer (BDE)',
-  'Lab Technician',
-  'Guest Relationship Manager (GRM)',
-  'Talents in HR, Operations, Tele Sales, Digital Marketing, Accounts',
+  'Nursing Educator',
+  'Operations Expert',
+  'Bio Medical Engineer',
+  'HR Professional',
+  'Accountant',
+  'Admin',
+  'Clinical',
+  'COO',
+  'Sales and Marketing',
+  'Customer Care Services',
+  'Digital Marketing',
+  'Others',
 ];
+
+const rolesList = professionOptions;
 
 /* ─── EDUCATION OPTIONS ─── */
 
@@ -467,7 +478,24 @@ export default function CareerPageExperience() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [selectedFileName, setSelectedFileName] = useState('');
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const jobsGridRef = useRef<HTMLDivElement>(null);
+
+  /* Auto-rotate hero banners */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveHeroSlide((prev) => (prev + 1) % CAREER_HERO_BANNERS.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
+
+  /* Scroll to Openings section (with heading + Venn diagram) */
+  const scrollToOpenings = () => {
+    const el = document.getElementById('career-openings');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   /* Pick a track from the overlapping circles, then jump to its openings */
   const selectCategory = (category: JobOpening['category']) => {
@@ -556,11 +584,10 @@ export default function CareerPageExperience() {
         <div className="container career-hero__carousel">
           {CAREER_HERO_BANNERS.map((banner, index) => (
             <article
-              className="career-hero__slide"
+              className={`career-hero__slide ${activeHeroSlide === index ? 'career-hero__slide--active' : ''}`}
               key={banner.heading}
               style={
                 {
-                  '--slide-delay': `${(index - CAREER_HERO_BANNERS.length) * 5}s`,
                   '--banner-accent': banner.accent,
                   '--banner-accent-rgb': banner.accentRgb,
                   '--banner-soft': banner.accentSoft,
@@ -589,7 +616,7 @@ export default function CareerPageExperience() {
                 <button
                   type="button"
                   className="btn btn--primary career-hero__cta"
-                  onClick={() => jobsGridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                  onClick={scrollToOpenings}
                 >
                   Explore Openings <ArrowRight size={17} />
                 </button>
@@ -613,6 +640,19 @@ export default function CareerPageExperience() {
               </div>
             </article>
           ))}
+
+          {/* Carousel dots (commented out) */}
+          {/* <div className="career-hero__dots" role="tablist" aria-label="Hero banner navigation">
+            {CAREER_HERO_BANNERS.map((banner, i) => (
+              <button
+                key={banner.heading}
+                type="button"
+                className={`career-hero__dot ${activeHeroSlide === i ? 'career-hero__dot--active' : ''}`}
+                onClick={() => setActiveHeroSlide(i)}
+                aria-label={`Go to ${banner.kicker} slide`}
+              />
+            ))}
+          </div> */}
         </div>
       </section>
 
@@ -623,7 +663,6 @@ export default function CareerPageExperience() {
         <div className="container">
           <div className="career-summary__block">
             <div className="career-summary__text">
-              <span className="career-eyebrow"><Sparkles size={16} /> About Our Mission</span>
               <p>
                 At Narpavi Homecare, we believe that compassionate healthcare professionals are the true heartbeat of healthcare. Our mission is to bring best-quality care into the comfort of homes, and we are continuously looking for dedicated healthcare professionals — Doctors, Nurses, Patient care assistants, Physiotherapists, Rehabilitation experts, Wellness Coaches, Bio Medical Engineers, Lab Technicians, paramedical professionals, HR Expertise, Guest Relationship and Business Management professionals to join our growing team.
               </p>
@@ -842,7 +881,6 @@ export default function CareerPageExperience() {
       <section className="career-culture">
         <div className="container">
           <div className="career-culture__header">
-            <span className="career-eyebrow"><Heart size={16} /> Our Values</span>
             <h2>Our Culture</h2>
           </div>
           <div className="career-culture__grid">
@@ -944,7 +982,14 @@ export default function CareerPageExperience() {
 
                 <label>
                   <span>Profession</span>
-                  <input name="profession" type="text" placeholder="Your profession / role" required />
+                  <select name="profession" defaultValue="" required>
+                    <option value="" disabled>Select profession</option>
+                    {professionOptions.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
                 </label>
 
                 <label>

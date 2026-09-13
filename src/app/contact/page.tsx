@@ -7,7 +7,7 @@ import SiteIcon from '@/components/ui/SiteIcon';
 export const metadata: Metadata = {
   title: 'Contact Us - Book Care Assessment',
   description: 'Book a professional nursing care assessment. Get professional home healthcare started within 24-48 hours.',
-  alternates: { canonical: 'https://www.narpavihomecare.com/contact' },
+  alternates: { canonical: 'https://www.nhlcare.com/contact' },
 };
 
 const contactOptions = [
@@ -121,7 +121,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <aside className="contact-form-shell" aria-label="Book a care assessment">
+            <aside className="contact-form-shell" id="assessment-form" aria-label="Book a care assessment">
               <div className="contact-form-shell__top">
                 <span className="contact-form-shell__pulse" aria-hidden="true" />
                 Usually responds during care-desk hours

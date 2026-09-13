@@ -494,7 +494,16 @@ export default function CTAForm({
   };
 
   const initialConsultationType = defaultConsultationType || (pathname === '/home-nursing-care' ? 'Free Expert Consultation' : 'Care Assessment');
-  const shouldShowCartButton = showCartButton ?? (pathname !== '/home-nursing-care');
+    const isAssessmentForm =
+    title.toLowerCase().includes('assessment') ||
+    title.toLowerCase().includes('consultation') ||
+    title.toLowerCase().includes('enquir') ||
+    title.toLowerCase().includes('inquir') ||
+    activeEnquiryLabel.toLowerCase().includes('assessment') ||
+    pathname === '/contact' ||
+    pathname === '/home-nursing-care' ||
+    pathname === '/faq';
+  const shouldShowCartButton = showCartButton ?? !isAssessmentForm;
 
   return (
       <form className="cta-form" id={`cta-form-${formId}`} ref={formRef} onSubmit={handleSubmit}>
@@ -510,7 +519,7 @@ export default function CTAForm({
               defaultValue="Free Expert Consultation"
               style={{
                 fontWeight: 700,
-                color: '#0a8f8f',
+                color: '#004CA0',
                 borderColor: 'rgba(10, 143, 143, 0.4)',
                 background: '#f0fdfa',
               }}

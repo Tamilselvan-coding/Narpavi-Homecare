@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'What Does a Basic Nursing Care Caregiver Do? A Complete Guide for Families',
   description: 'A complete guide explaining the roles, responsibilities and benefits of hiring a Basic Nursing Care caregiver for your family.',
   keywords: ['patient care assistant', 'basic nursing care caregiver', 'home caregiver duties', 'BNC caregiver roles'],
-  alternates: { canonical: 'https://www.narpavihomecare.com/blog/what-does-a-basic-nursing-care-caregiver-do' },
+  alternates: { canonical: 'https://www.nhlcare.com/blog/what-does-a-basic-nursing-care-caregiver-do' },
 };
 
 const TOC_ITEMS = [
@@ -83,8 +83,8 @@ export default function CaregiverGuide() {
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Need a Professional Caregiver at Home?</h3>
           <p style={{ opacity: 0.9 }}>Book a care assessment and get matched with a trained caregiver within 24-48 hours.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/home-nursing-care#hnc-cta" className="btn btn--white">Book Care Assessment</Link>
-            <Link href="/home-nursing-care#hnc-cta" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
+            <Link href="/basic-nursing-care#basic-care-form" className="btn btn--white">Book Care Assessment</Link>
+            <Link href="/basic-nursing-care" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Explore Basic Nursing Care</Link>
           </div>
         </div>
       </BlogArticleLayout>

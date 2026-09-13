@@ -10,7 +10,12 @@ export default function AdminRootPage() {
     if (typeof window !== 'undefined') {
       const session = localStorage.getItem('narpavi_admin_session');
       if (session) {
-        router.push('/sales/dashboard');
+        try {
+          const role = JSON.parse(session).role;
+          router.push(role === 'ADMIN' || role === 'MANAGER' ? '/admin/dashboard' : '/sales/dashboard');
+        } catch {
+          router.push('/sales/dashboard');
+        }
       } else {
         router.push('/admin/login');
       }

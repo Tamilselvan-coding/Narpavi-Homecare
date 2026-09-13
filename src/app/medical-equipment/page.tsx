@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Medical Equipment Rental & Sales — Narpavi Homecare',
   description: 'Rent or buy hospital-grade medical equipment at home. BiPAP, CPAP, oxygen cylinders, hospital beds, monitors, wheelchairs and more.',
   keywords: ['medical equipment rental chennai', 'buy medical equipment home', 'bipap rental chennai', 'hospital bed rental'],
-  alternates: { canonical: 'https://www.narpavihomecare.com/medical-equipment' },
+  alternates: { canonical: 'https://www.nhlcare.com/medical-equipment' },
 };
 
 const TRUST_ITEMS = [

@@ -30,7 +30,7 @@ export default function SpecialtyCarePackageSelector() {
   return (
     <div className="elder-packages-layout">
       <aside className="elder-sidebar" aria-label="Specialty Nursing Care package navigation">
-        <h3>Packages</h3>
+        <h3>Speciality Nursing Care Packages</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {SPECIALTY_NURSING_PACKAGES.map((pkg) => {
             const isSelected = pkg.id === selectedPackage.id;

@@ -1,4 +1,4 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 
 import { ChevronRight } from 'lucide-react';
 import RouteVisualBanner from './RouteVisualBanner';
@@ -16,7 +16,7 @@ export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `https://www.narpavihomecare.com${item.href}` } : {}),
+      ...(item.href ? { item: `https://www.nhlcare.com${item.href}` } : {}),
     })),
   };
 

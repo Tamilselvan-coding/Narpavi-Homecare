@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     'basic nursing care package chennai',
     ...packageData.bestFor,
   ],
-  alternates: { canonical: `https://www.narpavihomecare.com${packageData.href}` },
+  alternates: { canonical: `https://www.nhlcare.com${packageData.href}` },
 };
 
 export default function ComfortPlusPage() {

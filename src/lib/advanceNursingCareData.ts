@@ -31,8 +31,8 @@ export const ADVANCE_NURSING_PACKAGES: AdvanceNursingPackage[] = [
     name: 'IV Support Care',
     tagline: 'Short-term IV fluids & medications at home',
     image: '/images/advance-nursing-care/Pik 6.png',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 56%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 56%, #0175BF 100%)',
     icon: 'IV infusion nursing',
     bestFor: [
       'Short courses of prescribed IV fluids or medication',

@@ -6,7 +6,7 @@ import { CARE_PACKAGES } from '@/lib/packages';
 import { ADVANCE_NURSING_PACKAGES } from '@/lib/advanceNursingCareData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.narpavihomecare.com';
+  const baseUrl = 'https://www.nhlcare.com';
   return [
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
     { url: baseUrl + '/baby-care', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },

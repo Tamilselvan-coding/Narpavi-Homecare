@@ -2,9 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { handleAnchorClick } from '@/lib/anchorNavigation';
 
 export default function ScrollEnhancements() {
   const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    document.addEventListener('click', handleAnchorClick, true);
+    return () => document.removeEventListener('click', handleAnchorClick, true);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 520);

@@ -102,8 +102,8 @@ export const ICU_AT_HOME_PACKAGES: ICUAtHomePackage[] = [
     name: 'Essential Step-Down ICU Care',
     fullTitle: 'Essential Step-Down ICU Care - Safe & Affordable Transition from ICU to Home',
     image: '/images/icu-at-home/pik-7.png',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 56%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 56%, #0175BF 100%)',
     icon: 'Step down ICU care',
     bestFor: [
       'Post-critical illness recovery (stable but not ready for independent living)',
@@ -233,7 +233,7 @@ export const ICU_AT_HOME_TRUST_POINTS: ICUAtHomeTextCard[] = [
     icon: 'Post ICU rehabilitation',
   },
   {
-    text: 'Infection Control at Home Medical Council compliant hand hygiene, PPE use, sterile techniques, and proper biomedical waste management reduce hospital-acquired infection risk',
+    text: 'Infection Control at Home - Medical Council compliant hand hygiene & sterile protocols',
     icon: 'Infection control home',
   },
 ];

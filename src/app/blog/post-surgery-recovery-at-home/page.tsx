@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Post-Surgery Recovery for Adults at Home â€” Safety & Comfort Tips',
   description: 'Essential tips for safe post-surgery recovery at home. ADLs, safe mobility, vital checks and home modifications for adults recovering from surgery.',
   keywords: ['post surgery recovery at home', 'caregiver after surgery', 'surgery recovery tips', 'home recovery after surgery chennai'],
-  alternates: { canonical: 'https://www.narpavihomecare.com/blog/post-surgery-recovery-at-home' },
+  alternates: { canonical: 'https://www.nhlcare.com/blog/post-surgery-recovery-at-home' },
 };
 
 const TOC_ITEMS = [
@@ -67,19 +67,19 @@ export default function PostSurgeryRecovery() {
         <h2 id="choose-care-plan" style={{ marginTop: '2.5rem', marginBottom: '1rem' }}>Choosing the Right Basic Nursing Care Plan</h2>
         <div className="grid-2" style={{ marginBottom: '2rem' }}>
           <div className="card">
-            <h4 style={{ color: '#0CB3B3', marginBottom: '0.5rem' }}>Active Assist</h4>
+            <h4 style={{ color: '#0175BF', marginBottom: '0.5rem' }}>Active Assist</h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Independent but weak? Light support for faster recovery.</p>
           </div>
           <div className="card">
-            <h4 style={{ color: '#0A8F8F', marginBottom: '0.5rem' }}>Guided Living</h4>
+            <h4 style={{ color: '#004CA0', marginBottom: '0.5rem' }}>Guided Living</h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Need more routine help and reminders? Structured daily support.</p>
           </div>
           <div className="card">
-            <h4 style={{ color: '#0A8F8F', marginBottom: '0.5rem' }}>Caring Hands</h4>
+            <h4 style={{ color: '#004CA0', marginBottom: '0.5rem' }}>Caring Hands</h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Mobility is severely limited? Full ADL and transfer support.</p>
           </div>
           <div className="card">
-            <h4 style={{ color: '#FF6B35', marginBottom: '0.5rem' }}>Comfort Plus</h4>
+            <h4 style={{ color: '#FB0055', marginBottom: '0.5rem' }}>Comfort Plus</h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Bedridden but no clinical needs? Complete bedside care.</p>
           </div>
         </div>
@@ -118,8 +118,8 @@ export default function PostSurgeryRecovery() {
           <h3 style={{ color: 'white', marginBottom: '1rem' }}>Planning Post-Surgery Recovery at Home?</h3>
           <p style={{ opacity: 0.9 }}>Request a care assessment today to plan your post-surgery care at home.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-            <Link href="/home-nursing-care#hnc-cta" className="btn btn--white">Book Care Assessment</Link>
-            <Link href="/home-nursing-care#hnc-cta" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Send Enquiry</Link>
+            <Link href="/basic-nursing-care#basic-care-form" className="btn btn--white">Book Care Assessment</Link>
+            <Link href="/basic-nursing-care" className="btn btn--outline" style={{ color: 'white', borderColor: 'white' }}>Explore Basic Nursing Care</Link>
           </div>
         </div>
       </BlogArticleLayout>

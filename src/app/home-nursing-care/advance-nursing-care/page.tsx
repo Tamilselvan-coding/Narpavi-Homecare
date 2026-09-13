@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { FAQ } from '@/lib/faqs';
-import { 
-  ADVANCE_NURSING_DOWNLOADS, 
+import {
+  ADVANCE_NURSING_DOWNLOADS,
   ADVANCE_NURSING_RESOURCES,
   ADVANCE_NURSING_PACKAGES,
   ADVANCE_NURSING_PACKAGE_NAMES
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: 'Advanced Nursing Care at Home in Chennai | IV & Infusion Support',
   description: 'Doctor-prescribed IV, infusion, recovery monitoring and oxygen support at home in Chennai, delivered by trained nursing professionals.',
   keywords: ['advanced nursing care chennai', 'IV therapy at home Chennai', 'infusion nurse Chennai', 'oxygen therapy at home'],
-  alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/advance-nursing-care' },
+  alternates: { canonical: 'https://www.nhlcare.com/home-nursing-care/advance-nursing-care' },
 };
 
 const ADVANCE_WHO_WE_HELP = [
@@ -75,52 +75,28 @@ const ADVANCE_WHO_WE_HELP = [
 
 const ADVANCE_DELIVERABLES = [
   {
+    title: 'Daily Living Assistance',
     icon: 'Daily living support',
-    content: (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '80px', width: '100%' }}>
-        <h3 style={{ margin: 0, textAlign: 'center', fontSize: '1.2rem', fontWeight: 600 }}>Daily Living Assistance</h3>
-      </div>
-    ),
   },
   {
+    title: 'Clinical IV & Infusion',
     icon: 'IV infusion nursing',
-    content: (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '80px', width: '100%' }}>
-        <h3 style={{ margin: 0, textAlign: 'center', fontSize: '1.2rem', fontWeight: 600 }}>Clinical IV &amp; Infusion</h3>
-      </div>
-    ),
   },
   {
+    title: 'Health Monitoring & Early Warning',
     icon: 'Vital monitoring',
-    content: (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '80px', width: '100%' }}>
-        <h3 style={{ margin: 0, textAlign: 'center', fontSize: '1.2rem', fontWeight: 600 }}>Health Monitoring &amp; Early Warning</h3>
-      </div>
-    ),
   },
   {
+    title: 'Professional Supervising',
     icon: 'Doctor supervision',
-    content: (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '80px', width: '100%' }}>
-        <h3 style={{ margin: 0, textAlign: 'center', fontSize: '1.2rem', fontWeight: 600 }}>Professional Supervising</h3>
-      </div>
-    ),
   },
   {
+    title: 'Infection Prevention & Home Safety',
     icon: 'Infection safety',
-    content: (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '80px', width: '100%' }}>
-        <h3 style={{ margin: 0, textAlign: 'center', fontSize: '1.2rem', fontWeight: 600 }}>Infection Prevention &amp; Home Safety</h3>
-      </div>
-    ),
   },
   {
+    title: 'Reporting & Transparency',
     icon: 'Digital report',
-    content: (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '80px', width: '100%' }}>
-        <h3 style={{ margin: 0, textAlign: 'center', fontSize: '1.2rem', fontWeight: 600 }}>Reporting &amp; Transparency</h3>
-      </div>
-    ),
   },
 ];
 
@@ -284,7 +260,7 @@ export default function AdvanceNursingCarePage() {
         <section className="baby-hero" id="advance-nursing-form">
           <div className="container baby-hero__grid">
             <div className="baby-hero__content">
-              <h1>Advance Nursing Care at Home - <span>Safe IV &amp; Infusion Therapy</span></h1>
+              <h1>Advance Nursing Care at Home</h1>
               <div className="baby-hero__actions">
                 <a href="#basic-care-packages" className="btn btn--outline btn--lg">View Packages <SiteIcon name="Arrow" size={18} /></a>
               </div>
@@ -316,32 +292,79 @@ export default function AdvanceNursingCarePage() {
 
         <section className="section basic-care-v2__who basic-care-v2__who-model">
           <div className="container">
-            <div className="basic-care-v2__who-model-title"><h2>Designed for Patients Who Need More Than Basic Nursing</h2></div>
-            <div className="basic-care-v2__who-model-intro">
-              <div className="basic-care-v2__who-model-copy" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <p>
-                  Our service is the ideal for those who are medically stable but require IV therapy, injections or infusion support at home. Here are the people with, we help most
-                </p>
+            <div className="basic-care-v2__who-model-title">
+              <h2>Designed for Patients Who Need More Than Basic Nursing</h2>
+            </div>
+
+            {/* 6 points surrounding the center image (3 Left, 3 Right) */}
+            <div className="advance-who-layout">
+              {/* Left Column Cards */}
+              <div className="advance-who-col advance-who-col--left">
+                {ADVANCE_WHO_WE_HELP.slice(0, 3).map((person) => (
+                  <article className="advance-who-card" key={person.title}>
+                    <div className="advance-who-card__header">
+                      <span className="advance-who-card__icon">
+                        <SiteIcon name={person.icon} size={22} />
+                      </span>
+                      <h3>{person.title}</h3>
+                    </div>
+                    {person.description && <p>{person.description}</p>}
+                  </article>
+                ))}
               </div>
-              <div className="basic-care-v2__who-model-image">
-                <Image src="/images/advance-nursing-care/Pik 4.png" alt="Advanced nursing care support at home in Chennai" fill sizes="(max-width: 768px) 100vw, 240px" style={{ objectFit: 'cover' }} />
+
+              {/* Center Image */}
+              <div className="advance-who-center">
+                <div className="advance-who-center__visual">
+                  <Image
+                    src="/images/advance-nursing-care/Pik 4.png"
+                    alt="Advanced nursing care support at home in Chennai"
+                    fill
+                    sizes="(max-width: 992px) 100vw, 360px"
+                    style={{ objectFit: 'cover' }}
+                  />
+                  {/* <div className="advance-who-center__badge">
+                    <SiteIcon name="Doctor supervision" size={18} />
+                    <span>Doctor-Led Care at Home</span>
+                  </div> */}
+                </div>
+              </div>
+
+              {/* Right Column Cards */}
+              <div className="advance-who-col advance-who-col--right">
+                {ADVANCE_WHO_WE_HELP.slice(3, 6).map((person) => (
+                  <article className="advance-who-card" key={person.title}>
+                    <div className="advance-who-card__header">
+                      <span className="advance-who-card__icon">
+                        <SiteIcon name={person.icon} size={22} />
+                      </span>
+                      <h3>{person.title}</h3>
+                    </div>
+                    {person.description && <p>{person.description}</p>}
+                  </article>
+                ))}
               </div>
             </div>
-            <div className="basic-care-v2__who-model-grid">
-              {ADVANCE_WHO_WE_HELP.map((person) => (
-                <article className="basic-care-v2__who-model-card" key={person.title} style={{ minHeight: '160px', padding: '1.25rem 1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <span className="basic-care-v2__who-model-icon" style={{ marginBottom: '0.5rem' }}><SiteIcon name={person.icon} size={21} /></span>
-                  <h3 style={{ fontSize: '0.95rem', fontWeight: 'bold', lineHeight: '1.4', margin: '0' }}>
-                    {person.title}
-                    <span style={{ fontWeight: 'normal', color: 'var(--text-secondary)' }}>
-                      {person.description ? ` - ${person.description}` : ' -'}
+
+            {/* Remaining 3 points in a separate bottom row */}
+            <div className="advance-who-bottom-row">
+              {ADVANCE_WHO_WE_HELP.slice(6, 9).map((person) => (
+                <article className="advance-who-card" key={person.title}>
+                  <div className="advance-who-card__header">
+                    <span className="advance-who-card__icon">
+                      <SiteIcon name={person.icon} size={22} />
                     </span>
-                  </h3>
+                    <h3>{person.title}</h3>
+                  </div>
+                  {person.description && <p>{person.description}</p>}
                 </article>
               ))}
             </div>
+
             <div className="basic-care-v2__who-model-action">
-              <Link href="#advance-nursing-form" className="btn btn--primary btn--lg">Book Advanced Nursing Care</Link>
+              <Link href="#advance-nursing-form" className="btn btn--primary btn--lg">
+                Book Advanced Nursing Care <SiteIcon name="Arrow" size={18} />
+              </Link>
             </div>
           </div>
         </section>
@@ -349,36 +372,57 @@ export default function AdvanceNursingCarePage() {
         <section className="section section--alt basic-care-v2__deliverables basic-care-v2__deliverables-model">
           <div className="container">
             <div className="basic-care-v2__deliverables-model-shell">
-              <div className="basic-care-v2__deliverables-model-title"><h2>We Deliver Everything You Need for Safe IV &amp; Infusion Care</h2></div>
-              
-              <div className="basic-care-v2__who-model-intro">
-                <div className="basic-care-v2__who-model-copy" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <p>
-                    Advanced Nursing Care from <strong>Narpavi Homecare</strong> is more than just IV therapy - it&apos;s a <strong>complete, hospital-grade service framework</strong> designed to keep patients safe, comfortable and well-monitored at home
-                  </p>
+              <div className="basic-care-v2__deliverables-model-title">
+                <h2>We Deliver Everything You Need for Safe IV &amp; Infusion Care</h2>
+              </div>
+
+              <div className="advance-deliverables-layout">
+                {/* Left Column Cards */}
+                <div className="advance-deliverables-col advance-deliverables-col--left">
+                  {ADVANCE_DELIVERABLES.slice(0, 3).map((item) => (
+                    <article className="advance-deliverable-card" key={item.title}>
+                      <span className="advance-deliverable-card__icon">
+                        <SiteIcon name={item.icon} size={22} />
+                      </span>
+                      <h3>{item.title}</h3>
+                    </article>
+                  ))}
                 </div>
-                <div className="basic-care-v2__who-model-image">
-                  <Image src="/images/advance-nursing-care/Pik 5.jpeg" alt="Advanced Nursing Care Deliverables" fill sizes="(max-width: 768px) 100vw, 240px" style={{ objectFit: 'cover' }} />
+
+                {/* Center Image */}
+                <div className="advance-deliverables-center">
+                  <div className="advance-deliverables-center__visual">
+                    <Image
+                      src="/images/advance-nursing-care/Pik 5.jpeg"
+                      alt="Advanced Nursing Care Deliverables"
+                      fill
+                      sizes="(max-width: 992px) 100vw, 360px"
+                      style={{ objectFit: 'cover' }}
+                    />
+                    {/* <div className="advance-deliverables-center__badge">
+                      <SiteIcon name="Safety shield" size={18} />
+                      <span>Hospital-Grade Care</span>
+                    </div> */}
+                  </div>
+                </div>
+
+                {/* Right Column Cards */}
+                <div className="advance-deliverables-col advance-deliverables-col--right">
+                  {ADVANCE_DELIVERABLES.slice(3, 6).map((item) => (
+                    <article className="advance-deliverable-card" key={item.title}>
+                      <span className="advance-deliverable-card__icon">
+                        <SiteIcon name={item.icon} size={22} />
+                      </span>
+                      <h3>{item.title}</h3>
+                    </article>
+                  ))}
                 </div>
               </div>
 
-              <div className="basic-care-v2__deliverables-model-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
-                {ADVANCE_DELIVERABLES.map((item, idx) => (
-                  <article className="basic-care-v2__deliverables-model-card" key={idx}>
-                    <span className="basic-care-v2__deliverables-model-icon"><SiteIcon name={item.icon} size={22} /></span>
-                    {item.content}
-                  </article>
-                ))}
-              </div>
-
-              <div style={{ marginTop: '2.5rem', border: '1px solid #FFC107', borderRadius: '8px', padding: '1rem 1.5rem', backgroundColor: '#FFFDF5', textAlign: 'center' }}>
-                <p style={{ margin: 0, fontSize: '0.95rem', fontWeight: 500, fontStyle: 'italic', color: 'var(--text-primary)', lineHeight: '1.6' }}>
-                  Advanced nursing care in Chennai: IV therapy at home, infusion support, doctor supervised nursing, NRI friendly care.
-                </p>
-              </div>
-
-              <div className="basic-care-v2__deliverables-model-action" style={{ marginTop: '2rem' }}>
-                <Link href="#advance-nursing-form" className="btn btn--primary btn--lg">Book Advanced Nursing Care</Link>
+              <div className="basic-care-v2__deliverables-model-action">
+                <Link href="#advance-nursing-form" className="btn btn--primary btn--lg">
+                  Book Advanced Nursing Care <SiteIcon name="Arrow" size={18} />
+                </Link>
               </div>
             </div>
           </div>
@@ -389,7 +433,7 @@ export default function AdvanceNursingCarePage() {
             <div className="section__header basic-care-v2__packages-header">
               <h2>Choose the Right  Advance Nursing Care Package  </h2>
               <p>
-               Every recovery journey is different. That’s why Narpavi Advance Nursing Care offers four carefully designed packages from basic IV Support to  a full Oxygen Care 
+                Every recovery journey is different. That’s why Narpavi Advance Nursing Care offers four carefully designed packages from basic IV Support to  a full Oxygen Care
               </p>
             </div>
             <AdvanceCarePackageSelector />
@@ -400,9 +444,9 @@ export default function AdvanceNursingCarePage() {
           <div className="container">
             <div className="section__header basic-care-v2__trust-header">
               <h2>Why Families Trust Narpavi Homecare for Advanced Nursing Care</h2>
-              <p>
+              {/* <p>
                 Choosing an IV or infusion service at home is not just about convenience, it&apos;s about safety, skill and reliable clinical backup. At Narpavi Homecare, every Advanced Nursing Care plan is built with strict safety standards and hospital-grade protocols so you can focus on healing with peace of mind.
-              </p>
+              </p> */}
             </div>
             <div className="baby-trust-orbit basic-care-v2__trust-orbit">
               <div className="baby-trust-visual">
@@ -422,8 +466,8 @@ export default function AdvanceNursingCarePage() {
               ))}
             </div>
 
-            <div style={{ marginTop: '2.5rem', border: '1px solid #FFC107', borderRadius: '8px', padding: '1rem 1.5rem', backgroundColor: '#FFFDF5', textAlign: 'center' }}>
-              <p style={{ margin: 0, fontSize: '0.95rem', fontWeight: 500, fontStyle: 'italic', color: 'var(--text-primary)', lineHeight: '1.6' }}>
+            <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+              <p style={{ margin: 0, fontSize: '1rem', fontWeight: 500, fontStyle: 'italic', color: 'var(--text-secondary, #526b72)', lineHeight: '1.6' }}>
                 Lower infection risk, safe escalation plan and complete transparency make our Advanced Nursing Care the smart alternative to prolonged hospital stays.
               </p>
             </div>

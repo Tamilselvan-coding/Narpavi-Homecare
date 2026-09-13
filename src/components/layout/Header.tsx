@@ -6,6 +6,9 @@ import { BRAND, NAV_ITEMS } from '@/lib/constants';
 import { getSearchResults } from '@/lib/search';
 import { getUserCartItems } from '@/lib/cart';
 
+// Open webmail directly so the header CTA works without a configured mail app.
+const emailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(BRAND.email)}`;
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,6 +18,7 @@ export default function Header() {
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const [cartCount, setCartCount] = useState(0);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [adminDashboardHref, setAdminDashboardHref] = useState('/sales/dashboard');
 
   useEffect(() => {
     const updateCount = () => setCartCount(getUserCartItems().length);
@@ -22,6 +26,14 @@ export default function Header() {
       if (typeof window !== 'undefined') {
         const session = localStorage.getItem('narpavi_admin_session');
         setIsAdminLoggedIn(!!session);
+        if (session) {
+          try {
+            const role = JSON.parse(session).role;
+            setAdminDashboardHref(role === 'ADMIN' || role === 'MANAGER' ? '/admin/dashboard' : '/sales/dashboard');
+          } catch {
+            setAdminDashboardHref('/sales/dashboard');
+          }
+        }
       }
     };
 
@@ -176,7 +188,7 @@ export default function Header() {
               <span className="header__cart-count">{cartCount}</span>
             </Link>
             {isAdminLoggedIn ? (
-              <Link href="/admin/dashboard" className="header__login-btn" aria-label="Admin Dashboard" style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}>
+              <Link href={adminDashboardHref} className="header__login-btn" aria-label="Admin Dashboard" style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}>
                 <ShieldCheck size={19} />
                 <span>Dashboard</span>
               </Link>
@@ -212,7 +224,15 @@ export default function Header() {
                 </div>
               ))}
             </nav>
-            <a href={`mailto:${BRAND.email}`} className="btn--email-pill header__cta-desktop" id="header-cta" title={BRAND.email}>
+            <a
+              href={emailComposeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn--email-pill header__cta-desktop"
+              id="header-cta"
+              title={`Email ${BRAND.email} in Gmail (opens in a new tab)`}
+              aria-label={`Email ${BRAND.email} in Gmail (opens in a new tab)`}
+            >
               <Mail size={18} /> Email
             </a>
           </div>
@@ -265,7 +285,15 @@ export default function Header() {
             </div>
           ))}
           <div className="mobile-nav__cta">
-            <a href={`mailto:${BRAND.email}`} className="btn--email-pill" onClick={closeMobileMenu} title={BRAND.email}>
+            <a
+              href={emailComposeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn--email-pill"
+              onClick={closeMobileMenu}
+              title={`Email ${BRAND.email} in Gmail (opens in a new tab)`}
+              aria-label={`Email ${BRAND.email} in Gmail (opens in a new tab)`}
+            >
               <Mail size={18} /> Email
             </a>
           </div>

@@ -30,10 +30,10 @@ function getBlogParentCtaHref(slug: string): string {
     return '/elder-care#elder-care-hero';
   }
   if (ADVANCE_NURSING_BLOG_POSTS.some((p) => p.slug === slug) || slug.includes('advance') || slug.includes('post-operative') || slug.includes('tracheostomy') || slug.includes('iv-infusion')) {
-    return '/home-nursing-care/advance-nursing-care#cta';
+    return '/home-nursing-care/advance-nursing-care#advance-nursing-form';
   }
   if (SPECIALTY_NURSING_BLOG_ARTICLES.some((p) => p.slug === slug) || slug.includes('specialty') || slug.includes('stroke') || slug.includes('cardiac') || slug.includes('chemotherapy')) {
-    return '/home-nursing-care/specialty-nursing-care#cta';
+    return '/home-nursing-care/specialty-nursing-care#specialty-nursing-form';
   }
   return '/home-nursing-care#hnc-cta';
 }

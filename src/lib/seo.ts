@@ -55,6 +55,7 @@ export function getLocalBusinessSchema() {
     name: BRAND.name,
     url: BRAND.url,
     email: BRAND.email,
+    telephone: BRAND.phone,
     image: `${BRAND.url}/images/logo.png`,
     openingHours: 'Mo-Su 00:00-23:59',
     priceRange: '$$',

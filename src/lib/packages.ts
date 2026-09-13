@@ -33,8 +33,8 @@ export const CARE_PACKAGES: CarePackage[] = [
     tagline: 'Gentle Support for Faster Recovery',
     summary: 'Affordable short-term daily living help for adults who remain fairly independent but need support after surgery, injury, or postpartum recovery.',
     image: '/images/pik-7.png',
-    color: '#0CB3B3',
-    gradient: 'linear-gradient(135deg, #0A8F8F 0%, #0CB3B3 52%, #0CB3B3 100%)',
+    color: '#0175BF',
+    gradient: 'linear-gradient(135deg, #004CA0 0%, #0175BF 52%, #0175BF 100%)',
     icon: 'Recovery mobility support',
     facts: ['Short-term recovery', 'Light ADL help', 'Daily vitals'],
     bestFor: [
@@ -75,8 +75,8 @@ export const CARE_PACKAGES: CarePackage[] = [
     tagline: 'Steady Care for Everyday Life',
     summary: 'Structured daily routines for adults with chronic illness, early neurological concerns, or special needs that require dependable home support.',
     image: '/images/pik-8.png',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 52%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 52%, #0175BF 100%)',
     icon: 'Chronic care routine',
     facts: ['Chronic routine support', 'Daily WhatsApp logs', '24x7 nurse helpline'],
     bestFor: [
@@ -117,8 +117,8 @@ export const CARE_PACKAGES: CarePackage[] = [
     tagline: 'Dependable Support for Mobility Needs',
     summary: 'Hands-on support for stroke recovery, accident recovery, and long-term disabilities where safe movement and full ADL help matter every day.',
     image: '/images/pik-9.png',
-    color: '#0A8F8F',
-    gradient: 'linear-gradient(135deg, #065E5E 0%, #0A8F8F 54%, #0CB3B3 100%)',
+    color: '#004CA0',
+    gradient: 'linear-gradient(135deg, #00376F 0%, #004CA0 54%, #0175BF 100%)',
     icon: 'Mobility transfer caregiver',
     facts: ['Limited mobility care', 'Transfer support', 'Supervisor check-ins'],
     bestFor: [
@@ -160,8 +160,8 @@ export const CARE_PACKAGES: CarePackage[] = [
     tagline: 'Complete Care for Bedridden Patients',
     summary: 'Total bedside support for bedridden patients who need complete daily assistance, comfort routines, and careful observation at home.',
     image: '/images/pik-10.png',
-    color: '#FF6B35',
-    gradient: 'linear-gradient(135deg, #E55A2B 0%, #FF6B35 54%, #FFF3ED 100%)',
+    color: '#FB0055',
+    gradient: 'linear-gradient(135deg, #D2003F 0%, #FB0055 54%, #FFE3EC 100%)',
     icon: 'Bedridden comfort care',
     facts: ['Complete bedside care', 'Pressure sore prevention', 'Frequent family updates'],
     bestFor: [

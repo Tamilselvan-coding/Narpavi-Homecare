@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       'newborn care at home chennai',
       ...pkg.idealFor,
     ],
-    alternates: { canonical: `https://www.narpavihomecare.com${pkg.href}` },
+    alternates: { canonical: `https://www.nhlcare.com${pkg.href}` },
   };
 }
 

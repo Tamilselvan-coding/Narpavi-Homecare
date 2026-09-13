@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     'healthcare careers',
     'narpavi jobs',
   ],
-  alternates: { canonical: 'https://www.narpavihomecare.com/join-us' },
+  alternates: { canonical: 'https://www.nhlcare.com/join-us' },
 };
 
 export default function JoinUsPage() {

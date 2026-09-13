@@ -29,6 +29,7 @@ export async function GET() {
       downloadLeads: [],
       partnerEnquiries: [],
       candidateApplications: [],
+      userAccounts: [],
     });
   }
 }

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     'home tube feeding PEG care', 
     'wound care nursing chennai'
   ],
-  alternates: { canonical: 'https://www.narpavihomecare.com/home-nursing-care/specialty-nursing-care' },
+  alternates: { canonical: 'https://www.nhlcare.com/home-nursing-care/specialty-nursing-care' },
 };
 
 const SPECIALTY_WHO_WE_HELP = [
@@ -384,35 +384,63 @@ export default function SpecialtyNursingCarePage() {
 
         <section className="section basic-care-v2__who basic-care-v2__who-model">
           <div className="container">
-            <div className="basic-care-v2__who-model-title"><h2>Who We Care For Under Specialty Nursing Care</h2></div>
-            <div className="basic-care-v2__who-model-intro">
-              <div className="basic-care-v2__who-model-copy">
-                <p>
-                  Specialty Nursing Care at Narpavi Homecare is built for patients who need advanced procedures at home - safe, supervised and hospital-grade.
-                </p>
-                <p>
-                  Our specialized home nursing services in Chennai support patients transitioning from hospital ICU step-down wards or undergoing post-surgery recovery. By providing doctor-supervised care for tracheostomy, enteral feeding (PEG/NG tube), stoma management, and infusion therapy, we help families minimize re-hospitalization risks and ensure complete safety and comfort at home.
-                </p>
+            <div className="basic-care-v2__who-model-title">
+              <h2>Who We Care For Under Specialty Nursing Care</h2>
+            </div>
+
+            <div className="advance-who-layout">
+              {/* Left Column Cards (4 items) */}
+              <div className="advance-who-col advance-who-col--left">
+                {SPECIALTY_WHO_WE_HELP.slice(0, 4).map((person) => (
+                  <article className="advance-who-card" key={person.title}>
+                    <div className="advance-who-card__header">
+                      <span className="advance-who-card__icon">
+                        <SiteIcon name={person.icon} size={22} />
+                      </span>
+                      <h3>{person.title}</h3>
+                    </div>
+                    {person.description && <p>{person.description}</p>}
+                  </article>
+                ))}
               </div>
-              <div className="basic-care-v2__who-model-image">
-                <Image src="/images/specialty-nursing-care/Pik 4.jpeg" alt="Specialty nursing patient demographic" fill sizes="(max-width: 768px) 100vw, 240px" style={{ objectFit: 'cover' }} />
+
+              {/* Center Image */}
+              <div className="advance-who-center">
+                <div className="advance-who-center__visual">
+                  <Image
+                    src="/images/specialty-nursing-care/Pik 4.jpeg"
+                    alt="Specialty nursing patient demographic"
+                    fill
+                    sizes="(max-width: 992px) 100vw, 360px"
+                    style={{ objectFit: 'cover' }}
+                  />
+                  {/* <div className="advance-who-center__badge">
+                    <SiteIcon name="Doctor supervision" size={18} />
+                    <span>Specialized Clinical Care</span>
+                  </div> */}
+                </div>
+              </div>
+
+              {/* Right Column Cards (4 items) */}
+              <div className="advance-who-col advance-who-col--right">
+                {SPECIALTY_WHO_WE_HELP.slice(4, 8).map((person) => (
+                  <article className="advance-who-card" key={person.title}>
+                    <div className="advance-who-card__header">
+                      <span className="advance-who-card__icon">
+                        <SiteIcon name={person.icon} size={22} />
+                      </span>
+                      <h3>{person.title}</h3>
+                    </div>
+                    {person.description && <p>{person.description}</p>}
+                  </article>
+                ))}
               </div>
             </div>
-            <div className="basic-care-v2__who-model-grid">
-              {SPECIALTY_WHO_WE_HELP.map((person) => (
-                <article className="basic-care-v2__who-model-card" key={person.title} style={{ minHeight: '160px', padding: '1.25rem 1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <span className="basic-care-v2__who-model-icon" style={{ marginBottom: '0.5rem' }}><SiteIcon name={person.icon} size={21} /></span>
-                  <h3 style={{ fontSize: '0.95rem', fontWeight: 'bold', lineHeight: '1.4', margin: '0' }}>
-                    {person.title}
-                    <span style={{ fontWeight: 'normal', color: 'var(--text-secondary)' }}>
-                      {person.description ? ` - ${person.description}` : ' -'}
-                    </span>
-                  </h3>
-                </article>
-              ))}
-            </div>
+
             <div className="basic-care-v2__who-model-action">
-              <Link href="#specialty-nursing-form" className="btn btn--primary btn--lg">Book Specialty Nursing Care</Link>
+              <Link href="#specialty-nursing-form" className="btn btn--primary btn--lg">
+                Book Specialty Nursing Care <SiteIcon name="Arrow" size={18} />
+              </Link>
             </div>
           </div>
         </section>
@@ -452,10 +480,10 @@ export default function SpecialtyNursingCarePage() {
           <div className="container">
             <div className="section__header basic-care-v2__packages-header">
               <h2>Packages Designed for Advanced Home Recovery & Specialty Procedures</h2>
-              <p>
+              {/* <p>
                 We offer seven Specialty Nursing Care plans to match each person’s recovery trajectory.<br />
                 Select the care plan that best fits your loved one’s health requirement, or ask our clinical team to guide you.
-              </p>
+              </p> */}
             </div>
             <SpecialtyCarePackageSelector />
           </div>
@@ -465,9 +493,9 @@ export default function SpecialtyNursingCarePage() {
           <div className="container">
             <div className="section__header basic-care-v2__trust-header">
               <h2>Why Families Trust Narpavi Homecare for Specialty Nursing Care</h2>
-              <p>
+              {/* <p>
                 When you choose Narpavi Homecare for Specialty Nursing Care in Chennai, you&apos;re protected by a hospital grade safety net - without leaving home.
-              </p>
+              </p> */}
             </div>
             <div className="baby-trust-orbit basic-care-v2__trust-orbit">
               <div className="baby-trust-visual">
@@ -480,14 +508,14 @@ export default function SpecialtyNursingCarePage() {
               {SPECIALTY_TRUST_POINTS.map((item, index) => (
                 <article className={`baby-trust-card baby-trust-card--${index + 1}`} key={item.title} style={{ '--baby-trust-order': index } as CSSProperties}>
                   <div className="baby-trust-card__icon"><SiteIcon name={item.icon} size={22} /></div>
-                  <div><h3>{item.title}</h3><p>{item.description}</p></div>
+                  <div><h3>{item.title}</h3></div>
                 </article>
               ))}
             </div>
 
-            <p className="basic-care-v2__deliverables-model-note" style={{ marginTop: '3rem', textAlign: 'center' }}>
+            {/* <p className="basic-care-v2__deliverables-model-note" style={{ marginTop: '3rem', textAlign: 'center' }}>
               Peace of mind comes from knowing your loved one is cared for by trained professionals who follow proven healthcare safety standards &mdash; while keeping you informed every day.
-            </p>
+            </p> */}
             <div className="basic-care-v2__trust-action" style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
               <Link href="#specialty-nursing-form" className="btn btn--primary btn--lg">Book Specialty Nursing Care</Link>
             </div>
@@ -507,13 +535,13 @@ export default function SpecialtyNursingCarePage() {
           <div className="container">
             <GatedDownloadResources
               heading="Learn & Prepare — Free Resources for Families"
-              intro={(
-                <>
-                  <p>We believe informed families make better care decisions. That&apos;s why Narpavi Homecare provides guides, expert tips and practical advice for anyone considering Specialty Nursing Care at home.</p>
-                  <p>Read, download, and share these resources to feel confident about arranging safe, comfortable home care.</p>
-                </>
-              )}
-              image="/images/specialty-nursing-care/Pik 14.jpeg"
+              // intro={(
+              //   <>
+              //     <p>We believe informed families make better care decisions. That&apos;s why Narpavi Homecare provides guides, expert tips and practical advice for anyone considering Specialty Nursing Care at home.</p>
+              //     <p>Read, download, and share these resources to feel confident about arranging safe, comfortable home care.</p>
+              //   </>
+              // )}
+              // image="/images/specialty-nursing-care/Pik 14.jpeg"
               imageAlt="Specialty Nursing Care educational guides"
               modalDescription="Fill out these details to download your copy of the Specialty Care Guide."
               downloadFallbackName="specialty-nursing-care-guide.pdf"
@@ -528,7 +556,7 @@ export default function SpecialtyNursingCarePage() {
           <div className="container baby-final-cta__grid">
             <div>
               <h2>Start Safe, Specialist-Led Nursing Care at Home — Today</h2>
-              <p>Book a free expert assessment for Fast onboarding | Verified caregivers | 24×7 emergency support | Transparent pricing</p>
+              
               <div className="cta-strip__badges">
                 <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> Tracheostomy</span>
                 <span className="cta-strip__badge"><SiteIcon name="Check" size={16} /> PEG/NG Feeding</span>
