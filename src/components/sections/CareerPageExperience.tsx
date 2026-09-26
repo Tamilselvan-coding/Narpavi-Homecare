@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/career.css';
 import { useState, useEffect, useRef, type CSSProperties, type FormEvent } from 'react';
 import Image from 'next/image';
 import {

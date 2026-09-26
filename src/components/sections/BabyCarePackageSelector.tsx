@@ -1,9 +1,9 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import { useState } from 'react';
 import Image from 'next/image';
 import { BABY_CARE_PACKAGES, type BabyCarePackage } from '@/lib/babyCareData';
+import { usePackageSelectorHash } from '@/lib/usePackageSelectorHash';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 function packageStyle(pkg: BabyCarePackage) {
@@ -14,8 +14,7 @@ function packageStyle(pkg: BabyCarePackage) {
 }
 
 export default function BabyCarePackageSelector() {
-  const [selectedPackageId, setSelectedPackageId] = useState(BABY_CARE_PACKAGES[0]?.id ?? '');
-  const selectedPackage = BABY_CARE_PACKAGES.find((pkg) => pkg.id === selectedPackageId) ?? BABY_CARE_PACKAGES[0];
+  const { selectedPackage, setSelectedPackageId } = usePackageSelectorHash(BABY_CARE_PACKAGES);
 
   const handleBookNow = (packageName: string) => {
     window.dispatchEvent(new CustomEvent('narpavi:select-package', { detail: { packageName } }));
@@ -29,7 +28,7 @@ export default function BabyCarePackageSelector() {
   };
 
   return (
-    <div className="elder-packages-layout baby-packages-layout">
+    <div className="elder-packages-layout baby-packages-layout" id="baby-care-packages-selector">
       <aside className="elder-sidebar" aria-label="Baby care package navigation">
         <h3>Baby Care Packages</h3>
         {BABY_CARE_PACKAGES.map((pkg) => {
@@ -38,6 +37,7 @@ export default function BabyCarePackageSelector() {
           return (
             <button
               type="button"
+              id={`tab-${pkg.id}`}
               className={`elder-sidebar__link baby-package-selector__tab${isSelected ? ' is-active' : ''}`}
               key={pkg.id}
               style={packageStyle(pkg)}

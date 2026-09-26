@@ -1,3 +1,4 @@
+import '@/styles/about.css';
 import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';

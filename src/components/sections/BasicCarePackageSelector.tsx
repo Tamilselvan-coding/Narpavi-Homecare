@@ -1,9 +1,9 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import { useState } from 'react';
 import Image from 'next/image';
 import { CARE_PACKAGES, type CarePackage } from '@/lib/packages';
+import { usePackageSelectorHash } from '@/lib/usePackageSelectorHash';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 function packageStyle(pkg: CarePackage) {
@@ -14,8 +14,7 @@ function packageStyle(pkg: CarePackage) {
 }
 
 export default function BasicCarePackageSelector() {
-  const [selectedPackageId, setSelectedPackageId] = useState(CARE_PACKAGES[0]?.id ?? '');
-  const selectedPackage = CARE_PACKAGES.find((pkg) => pkg.id === selectedPackageId) ?? CARE_PACKAGES[0];
+  const { selectedPackage, setSelectedPackageId } = usePackageSelectorHash(CARE_PACKAGES);
 
   if (!selectedPackage) return null;
 
@@ -28,7 +27,7 @@ export default function BasicCarePackageSelector() {
   };
 
   return (
-    <div className="elder-packages-layout">
+    <div className="elder-packages-layout" id="basic-care-packages-selector">
       <aside className="elder-sidebar" aria-label="Basic Nursing Care package navigation">
         <h3>Basic CarePackages</h3>
         {CARE_PACKAGES.map((pkg) => {
@@ -37,6 +36,7 @@ export default function BasicCarePackageSelector() {
           return (
             <button
               type="button"
+              id={`tab-${pkg.id}`}
               className={`elder-sidebar__link basic-care-package-selector__tab${isSelected ? ' is-active' : ''}`}
               key={pkg.id}
               style={packageStyle(pkg)}

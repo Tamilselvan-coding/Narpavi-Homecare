@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/admin.css';
 import { FormEvent, useCallback, useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import {

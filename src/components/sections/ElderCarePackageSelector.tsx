@@ -1,10 +1,9 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ELDER_CARE_PACKAGES, type ElderCarePackage } from '@/lib/elderCareData';
+import { usePackageSelectorHash } from '@/lib/usePackageSelectorHash';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 function packageStyle(pkg: ElderCarePackage) {
@@ -15,8 +14,7 @@ function packageStyle(pkg: ElderCarePackage) {
 }
 
 export default function ElderCarePackageSelector() {
-  const [selectedPackageId, setSelectedPackageId] = useState(ELDER_CARE_PACKAGES[0]?.id ?? '');
-  const selectedPackage = ELDER_CARE_PACKAGES.find((pkg) => pkg.id === selectedPackageId) ?? ELDER_CARE_PACKAGES[0];
+  const { selectedPackage, setSelectedPackageId } = usePackageSelectorHash(ELDER_CARE_PACKAGES);
 
   const handleBookNow = (packageName: string) => {
     window.dispatchEvent(new CustomEvent('narpavi:select-package', { detail: { packageName } }));
@@ -30,7 +28,7 @@ export default function ElderCarePackageSelector() {
   };
 
   return (
-    <div className="elder-packages-layout">
+    <div className="elder-packages-layout" id="elder-care-packages-selector">
       <aside className="elder-sidebar" aria-label="Elder care package navigation">
         <h3>Packages</h3>
         {ELDER_CARE_PACKAGES.map((pkg) => {
@@ -39,6 +37,7 @@ export default function ElderCarePackageSelector() {
           return (
             <button
               type="button"
+              id={`tab-${pkg.id}`}
               className={`elder-sidebar__link elder-package-selector__tab${isSelected ? ' is-active' : ''}`}
               key={pkg.id}
               style={packageStyle(pkg)}

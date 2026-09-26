@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/faq.css';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { BRAND } from '@/lib/constants';

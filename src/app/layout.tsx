@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
+import { Inter, Outfit } from 'next/font/google';
 import './globals.css';
 import LayoutShell from '@/components/layout/LayoutShell';
 import StructuredDataScript from '@/components/seo/StructuredDataScript';
 import { BRAND } from '@/lib/constants';
 import { getLocalBusinessSchema, getOrganizationSchema, getWebSiteSchema } from '@/lib/seo';
+
+const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
+const outfit = Outfit({ subsets: ['latin'], display: 'swap', variable: '--font-outfit' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
@@ -30,8 +34,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   alternates: { canonical: '/' },
   icons: {
-    icon: '/images/logo.png',
-    apple: '/images/logo.png',
+    icon: '/images/favicon-32.png',
+    apple: '/images/apple-touch-icon.png',
   },
 };
 
@@ -43,7 +47,7 @@ const GLOBAL_SCHEMAS = [
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
         <StructuredDataScript data={GLOBAL_SCHEMAS} />
       </head>

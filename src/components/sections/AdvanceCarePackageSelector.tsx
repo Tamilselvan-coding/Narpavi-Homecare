@@ -1,9 +1,9 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import { useState } from 'react';
 import Image from 'next/image';
 import { ADVANCE_NURSING_PACKAGES, type AdvanceNursingPackage } from '@/lib/advanceNursingCareData';
+import { usePackageSelectorHash } from '@/lib/usePackageSelectorHash';
 import SiteIcon from '@/components/ui/SiteIcon';
 
 function packageStyle(pkg: AdvanceNursingPackage) {
@@ -14,8 +14,7 @@ function packageStyle(pkg: AdvanceNursingPackage) {
 }
 
 export default function AdvanceCarePackageSelector() {
-  const [selectedPackageId, setSelectedPackageId] = useState(ADVANCE_NURSING_PACKAGES[0]?.id ?? '');
-  const selectedPackage = ADVANCE_NURSING_PACKAGES.find((pkg) => pkg.id === selectedPackageId) ?? ADVANCE_NURSING_PACKAGES[0];
+  const { selectedPackage, setSelectedPackageId } = usePackageSelectorHash(ADVANCE_NURSING_PACKAGES);
 
   if (!selectedPackage) return null;
 
@@ -28,7 +27,7 @@ export default function AdvanceCarePackageSelector() {
   };
 
   return (
-    <div className="elder-packages-layout">
+    <div className="elder-packages-layout" id="advance-care-packages-selector">
       <aside className="elder-sidebar" aria-label="Advanced Nursing Care package navigation">
         <h3>Advance  Nursing Care Packages</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -38,6 +37,7 @@ export default function AdvanceCarePackageSelector() {
             return (
               <button
                 type="button"
+                id={`tab-${pkg.id}`}
                 className={`elder-sidebar__link basic-care-package-selector__tab${isSelected ? ' is-active' : ''}`}
                 key={pkg.id}
                 style={packageStyle(pkg)}

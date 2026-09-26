@@ -7,18 +7,28 @@ const ts = require('typescript');
 
 function setup(href = '#hnc-cta', options = {}) {
   const calls = [];
-  const target = { style: {}, scrollIntoView: (value) => calls.push(value) };
+  const target = {
+    style: {},
+    scrollIntoView: (value) => calls.push(value),
+    querySelector: () => null,
+    closest: () => null,
+  };
   const anchor = { href, target: options.target || '', hasAttribute: () => !!options.download };
   class Element { closest() { return anchor; } }
   const window = {
     location: { href: 'https://example.com/home-nursing-care' },
     matchMedia: () => ({ matches: !!options.reducedMotion }),
     history: { pushState: (_, __, url) => { window.location.href = url; history.push(url); } },
+    setTimeout: (fn) => { fn(); return 0; },
+    clearTimeout: () => {},
   };
   const history = [];
-  const document = { getElementById: (id) => id === 'site-header'
-    ? { getBoundingClientRect: () => ({ height: 128 }) }
-    : id === 'hnc-cta' ? target : null };
+  const document = {
+    getElementById: (id) => id === 'site-header'
+      ? { getBoundingClientRect: () => ({ height: 128 }) }
+      : id === 'hnc-cta' ? target : null,
+    querySelector: () => null,
+  };
   const exports = {};
   const code = ts.transpileModule(fs.readFileSync(path.join(__dirname, '../src/lib/anchorNavigation.ts'), 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS },

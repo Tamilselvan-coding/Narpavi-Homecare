@@ -1,10 +1,13 @@
-import { useState, useEffect, useMemo, type KeyboardEvent } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, Menu, Search, ShoppingCart, User, X, Mail, ShieldCheck } from 'lucide-react';
+import { ChevronDown, Menu, ShoppingCart, User, X, Mail, ShieldCheck } from 'lucide-react';
 import { BRAND, NAV_ITEMS } from '@/lib/constants';
-import { getSearchResults } from '@/lib/search';
+
 import { getUserCartItems } from '@/lib/cart';
+import HeaderSearch from '@/components/layout/HeaderSearch';
 
 // Open webmail directly so the header CTA works without a configured mail app.
 const emailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(BRAND.email)}`;
@@ -13,9 +16,6 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchFocused, setSearchFocused] = useState(false);
-  const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const [cartCount, setCartCount] = useState(0);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [adminDashboardHref, setAdminDashboardHref] = useState('/sales/dashboard');
@@ -56,13 +56,6 @@ export default function Header() {
     };
   }, []);
 
-  const trimmedSearchQuery = searchQuery.trim();
-  const searchSuggestions = useMemo(
-    () => (trimmedSearchQuery ? getSearchResults(trimmedSearchQuery, 6) : []),
-    [trimmedSearchQuery],
-  );
-  const showSearchSuggestions = searchFocused && trimmedSearchQuery.length > 0 && searchSuggestions.length > 0;
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
@@ -81,37 +74,6 @@ export default function Header() {
     setOpenMobileSection(null);
   };
 
-  const closeSearchSuggestions = () => {
-    setSearchFocused(false);
-    setActiveSuggestion(-1);
-  };
-
-  const handleSearchKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (!showSearchSuggestions) return;
-
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      setActiveSuggestion((current) => (current + 1) % searchSuggestions.length);
-      return;
-    }
-
-    if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      setActiveSuggestion((current) => (current <= 0 ? searchSuggestions.length - 1 : current - 1));
-      return;
-    }
-
-    if (event.key === 'Escape') {
-      closeSearchSuggestions();
-      return;
-    }
-
-    if (event.key === 'Enter' && activeSuggestion >= 0) {
-      event.preventDefault();
-      window.location.href = searchSuggestions[activeSuggestion].href;
-    }
-  };
-
   return (
     <>
       <header className={`header ${scrolled ? 'header--scrolled' : ''}`} id="site-header">
@@ -123,65 +85,12 @@ export default function Header() {
                 alt={BRAND.name}
                 width={180}
                 height={43}
-                priority
+                loading="eager"
                 className="header__logo-img"
               />
             </span>
           </Link>
-          <form
-            className="header__search"
-            role="search"
-            action="/search"
-            method="get"
-            onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) closeSearchSuggestions();
-            }}
-          >
-            <Search size={18} aria-hidden="true" />
-            <input
-              name="q"
-              type="search"
-              role="combobox"
-              placeholder="Search services, equipment..."
-              aria-label="Search services and equipment"
-              aria-autocomplete="list"
-              aria-controls="header-search-suggestions"
-              aria-activedescendant={activeSuggestion >= 0 ? `header-search-suggestion-${activeSuggestion}` : undefined}
-              aria-expanded={showSearchSuggestions}
-              aria-haspopup="listbox"
-              autoComplete="off"
-              value={searchQuery}
-              onChange={(event) => {
-                setSearchQuery(event.target.value);
-                setActiveSuggestion(-1);
-              }}
-              onFocus={() => setSearchFocused(true)}
-              onKeyDown={handleSearchKeyDown}
-            />
-            <button type="submit" aria-label="Search">
-              <Search size={17} />
-            </button>
-            {showSearchSuggestions && (
-              <div className="header__suggestions" id="header-search-suggestions" role="listbox">
-                {searchSuggestions.map((suggestion, index) => (
-                  <Link
-                    href={suggestion.href}
-                    key={`${suggestion.type}-${suggestion.href}-${suggestion.title}`}
-                    id={`header-search-suggestion-${index}`}
-                    className={`header__suggestion ${index === activeSuggestion ? 'header__suggestion--active' : ''}`}
-                    role="option"
-                    aria-selected={index === activeSuggestion}
-                    onMouseEnter={() => setActiveSuggestion(index)}
-                    onClick={closeSearchSuggestions}
-                  >
-                    <span>{suggestion.type}</span>
-                    <strong>{suggestion.title}</strong>
-                    <small>{suggestion.excerpt}</small>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </form>
+          <HeaderSearch />
           <div className="header__actions">
             <Link href="/cart" className="header__cart" aria-label={`View Cart (${cartCount} saved items)`}>
               <ShoppingCart size={21} />

@@ -581,7 +581,8 @@ export default function HomePage() {
                         src="/images/homepage/home-health-care-intro.png"
                         alt="Narpavi nurse supporting a patient and family with home healthcare"
                         fill
-                        sizes="(max-width: 900px) 100vw, 48vw"
+                        quality={60}
+                        sizes="(max-width: 640px) calc(100vw - 44px), (max-width: 1100px) 780px, 560px"
                       />
                     </div>
                   </div>
@@ -652,7 +653,7 @@ export default function HomePage() {
                 {SERVICE_DETAILS.map((service) => (
                   <article className={styles.serviceDetailCard} key={service.title}>
                     <div className={styles.serviceDetailMedia}>
-                      <Image src={service.image} alt={service.alt} fill sizes="(max-width: 760px) 100vw, 28vw" />
+                      <Image src={service.image} alt={service.alt} fill sizes="(max-width: 640px) 240px, 304px" />
                     </div>
                     <div className={styles.serviceDetailBody}>
                       <h3>{service.title}</h3>

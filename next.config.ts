@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    qualities: [60, 75],
+    // Avoid jumping from 384px to 640px for small mobile illustrations.
+    imageSizes: [32, 48, 64, 96, 128, 256, 384, 480],
+  },
   async redirects() {
     return [
       {

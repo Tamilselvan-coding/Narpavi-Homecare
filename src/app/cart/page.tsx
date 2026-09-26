@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/cart.css';
 import { useEffect, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import {
