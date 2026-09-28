@@ -442,6 +442,13 @@ const professionOptions = [
   'Others',
 ];
 
+const partnerProfessionOptions = [
+  'Care provider partner',
+  'Equipment partner',
+  'Sales Partner',
+  'Others',
+];
+
 const rolesList = professionOptions;
 
 /* ─── EDUCATION OPTIONS ─── */
@@ -985,7 +992,7 @@ export default function CareerPageExperience() {
                   <span>Profession</span>
                   <select name="profession" defaultValue="" required>
                     <option value="" disabled>Select profession</option>
-                    {professionOptions.map((opt) => (
+                    {(selectedJob.category === 'resource-partner' ? partnerProfessionOptions : professionOptions).map((opt) => (
                       <option key={opt} value={opt}>
                         {opt}
                       </option>

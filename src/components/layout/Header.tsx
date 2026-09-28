@@ -7,6 +7,7 @@ import { ChevronDown, Menu, ShoppingCart, User, X, Mail, ShieldCheck } from 'luc
 import { BRAND, NAV_ITEMS } from '@/lib/constants';
 
 import { getUserCartItems } from '@/lib/cart';
+import { getAdminSession } from '@/lib/adminSession';
 import HeaderSearch from '@/components/layout/HeaderSearch';
 
 // Open webmail directly so the header CTA works without a configured mail app.
@@ -24,11 +25,11 @@ export default function Header() {
     const updateCount = () => setCartCount(getUserCartItems().length);
     const checkAdminSession = () => {
       if (typeof window !== 'undefined') {
-        const session = localStorage.getItem('narpavi_admin_session');
+        const session = getAdminSession();
         setIsAdminLoggedIn(!!session);
         if (session) {
           try {
-            const role = JSON.parse(session).role;
+            const role = session.role;
             setAdminDashboardHref(role === 'ADMIN' || role === 'MANAGER' ? '/admin/dashboard' : '/sales/dashboard');
           } catch {
             setAdminDashboardHref('/sales/dashboard');

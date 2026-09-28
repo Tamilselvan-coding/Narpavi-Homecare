@@ -62,7 +62,7 @@ test('preserves modified clicks, new tabs, downloads and handled events', () => 
 });
 
 test('leaves other routes, queries, external links and missing targets to navigation', () => {
-  for (const href of ['/contact#hnc-cta', '?location=Chennai#hnc-cta', 'https://other.com/#hnc-cta', '#missing', '#%invalid', 'mailto:service@nhlcare.com']) {
+  for (const href of ['/contact#hnc-cta', '?location=Chennai#hnc-cta', 'https://other.com/#hnc-cta', '#missing', '#%invalid', 'mailto:services@narpavihomecare.com']) {
     const s = setup(href); assert.equal(s.click().defaultPrevented, false); assert.equal(s.calls.length, 0);
   }
 });

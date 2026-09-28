@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getAdminSession, clearAdminSession, useSessionTimeout } from '@/lib/adminSession';
 import {
   Users,
   FileText,
@@ -46,6 +47,7 @@ interface DownloadLead {
 interface PartnerEnquiry {
   id: number;
   contact_name: string;
+  name?: string;
   profession?: string;
   organization?: string;
   partner_type?: string;
@@ -179,15 +181,16 @@ export default function AdminDashboardPage() {
     message: '',
   });
 
+  useSessionTimeout({ redirectUrl: '/admin/login?reason=timeout' });
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const rawSession = localStorage.getItem('narpavi_admin_session');
-      if (!rawSession) {
+      const session = getAdminSession();
+      if (!session) {
         router.push('/admin/login');
         return;
       }
       try {
-        const session = JSON.parse(rawSession);
         if (session.role !== 'ADMIN' && session.role !== 'MANAGER') {
           router.replace('/sales/dashboard');
           return;
@@ -251,10 +254,7 @@ export default function AdminDashboardPage() {
   };
 
   const handleLogout = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('narpavi_admin_session');
-      window.dispatchEvent(new Event('narpavi:admin-session-changed'));
-    }
+    clearAdminSession('manual');
     router.push('/admin/login');
   };
 
@@ -822,10 +822,11 @@ export default function AdminDashboardPage() {
                 <tr>
                   <th>ID</th>
                   <th>Contact Name</th>
+                  <th>Partner Category / Profession</th>
                   <th>Organization</th>
-                  <th>Partner Type</th>
                   <th>Phone & Email</th>
                   <th>Location</th>
+                  <th>Attachment (Profile)</th>
                   <th>Message</th>
                   <th>Submitted At</th>
                 </tr>
@@ -833,7 +834,7 @@ export default function AdminDashboardPage() {
               <tbody>
                 {filteredPartners.length === 0 ? (
                   <tr>
-                    <td colSpan={8} style={{ textAlign: 'center', padding: '2.5rem', color: '#64748b' }}>
+                    <td colSpan={9} style={{ textAlign: 'center', padding: '2.5rem', color: '#64748b' }}>
                       No partner enquiries found.
                     </td>
                   </tr>
@@ -841,14 +842,47 @@ export default function AdminDashboardPage() {
                   filteredPartners.map((item) => (
                     <tr key={item.id}>
                       <td><strong>#{item.id}</strong></td>
-                      <td><strong>{item.contact_name}</strong></td>
-                      <td>{item.organization}</td>
-                      <td><span className="admin-pill-tag">{item.partner_type}</span></td>
+                      <td><strong>{item.contact_name || item.name}</strong></td>
+                      <td><span className="admin-pill-tag" style={{ background: '#eff6ff', color: '#1d4ed8' }}>{item.profession || item.partner_type || 'Partner'}</span></td>
+                      <td>{item.organization || item.job_position || '-'}</td>
                       <td>
                         <div><a href={`tel:${item.phone}`} style={{ color: '#0a8f8f', fontWeight: 600 }}>{item.phone}</a></div>
-                        <div style={{ fontSize: '0.82rem', color: '#64748b' }}>{item.email}</div>
+                        <div style={{ fontSize: '0.82rem', color: '#64748b' }}>{item.email || '-'}</div>
                       </td>
-                      <td>{item.location}</td>
+                      <td>{item.location || '-'}</td>
+                      <td>
+                        {item.resume_file_name ? (
+                          <a
+                            href={`/api/admin/resumes/download?type=partner&id=${item.id}`}
+                            download
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`Download Profile (${item.resume_file_name})`}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 6,
+                              padding: '5px 10px',
+                              borderRadius: 6,
+                              background: '#eff6ff',
+                              color: '#1d4ed8',
+                              border: '1px solid #bfdbfe',
+                              fontSize: '0.8rem',
+                              fontWeight: 600,
+                              textDecoration: 'none',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <FileText size={14} />
+                            <span style={{ maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                              {item.resume_file_name}
+                            </span>
+                            <Download size={13} />
+                          </a>
+                        ) : (
+                          <span style={{ color: '#94a3b8', fontStyle: 'italic', fontSize: '0.8rem' }}>None</span>
+                        )}
+                      </td>
                       <td><small style={{ color: '#475569' }}>{item.message || '-'}</small></td>
                       <td><small>{item.created_at ? new Date(item.created_at).toLocaleString() : item.submitted_at}</small></td>
                     </tr>
@@ -867,10 +901,11 @@ export default function AdminDashboardPage() {
                 <tr>
                   <th>ID</th>
                   <th>Candidate Name</th>
-                  <th>Role Applied</th>
+                  <th>Profession / Role</th>
                   <th>Experience</th>
                   <th>Phone & Email</th>
                   <th>Location</th>
+                  <th>Attachment (CV)</th>
                   <th>Message</th>
                   <th>Submitted At</th>
                 </tr>
@@ -878,7 +913,7 @@ export default function AdminDashboardPage() {
               <tbody>
                 {filteredCandidates.length === 0 ? (
                   <tr>
-                    <td colSpan={8} style={{ textAlign: 'center', padding: '2.5rem', color: '#64748b' }}>
+                    <td colSpan={9} style={{ textAlign: 'center', padding: '2.5rem', color: '#64748b' }}>
                       No candidate applications found.
                     </td>
                   </tr>
@@ -887,13 +922,46 @@ export default function AdminDashboardPage() {
                     <tr key={item.id}>
                       <td><strong>#{item.id}</strong></td>
                       <td><strong>{item.name}</strong></td>
-                      <td><span className="admin-pill-tag" style={{ background: '#f3e8ff', color: '#7e22ce' }}>{item.role}</span></td>
-                      <td>{item.experience}</td>
+                      <td><span className="admin-pill-tag" style={{ background: '#f3e8ff', color: '#7e22ce' }}>{item.profession || item.job_position || item.role || 'Care Provider'}</span></td>
+                      <td>{item.experience || '-'}</td>
                       <td>
                         <div><a href={`tel:${item.phone}`} style={{ color: '#0a8f8f', fontWeight: 600 }}>{item.phone}</a></div>
-                        <div style={{ fontSize: '0.82rem', color: '#64748b' }}>{item.email}</div>
+                        <div style={{ fontSize: '0.82rem', color: '#64748b' }}>{item.email || '-'}</div>
                       </td>
-                      <td>{item.location}</td>
+                      <td>{item.location || '-'}</td>
+                      <td>
+                        {item.resume_file_name ? (
+                          <a
+                            href={`/api/admin/resumes/download?type=candidate&id=${item.id}`}
+                            download
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`Download CV (${item.resume_file_name})`}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 6,
+                              padding: '5px 10px',
+                              borderRadius: 6,
+                              background: '#ecfdf5',
+                              color: '#059669',
+                              border: '1px solid #a7f3d0',
+                              fontSize: '0.8rem',
+                              fontWeight: 600,
+                              textDecoration: 'none',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <FileText size={14} />
+                            <span style={{ maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                              {item.resume_file_name}
+                            </span>
+                            <Download size={13} />
+                          </a>
+                        ) : (
+                          <span style={{ color: '#94a3b8', fontStyle: 'italic', fontSize: '0.8rem' }}>None</span>
+                        )}
+                      </td>
                       <td><small style={{ color: '#475569' }}>{item.message || '-'}</small></td>
                       <td><small>{item.created_at ? new Date(item.created_at).toLocaleString() : item.submitted_at}</small></td>
                     </tr>

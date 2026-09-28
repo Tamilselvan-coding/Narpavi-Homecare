@@ -1,7 +1,7 @@
 export const BRAND = {
   name: 'Narpavi Homecare',
   tagline: 'Professional Home Healthcare',
-  email: 'service@nhlcare.com',
+  email: 'services@narpavihomecare.com',
   phone: '+91 97900 16097',
   whatsapp: '919790016097',
   address: 'Chennai, Tamil Nadu, India',

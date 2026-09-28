@@ -1,6 +1,7 @@
 'use client';
 
 import { type FormEvent, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { usePathname, useRouter } from 'next/navigation';
 import { AlertCircle, ArrowRight, CalendarClock, CheckCircle2, ShoppingCart, X } from 'lucide-react';
 import { addToCart } from '@/lib/cart';
@@ -355,6 +356,11 @@ export default function CTAForm({
   const [submittedEnquiry, setSubmittedEnquiry] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   const customizeOption = 'Customize';
   const packageSelectOptions = useMemo(() => (
     packageOptions?.some((option) => option.toLowerCase() === customizeOption.toLowerCase())
@@ -638,7 +644,7 @@ export default function CTAForm({
           </button>
         )}
       </div>
-      {submittedEnquiry && (
+      {isMounted && submittedEnquiry && createPortal(
         <div className="cta-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="cta-popup-title">
           <div className="cta-popup-backdrop" onClick={() => setSubmittedEnquiry(null)} />
           <div className="cta-popup-card">
@@ -654,9 +660,10 @@ export default function CTAForm({
               <CheckCircle2 size={44} />
             </div>
             <h3 id="cta-popup-title">Enquiry Submitted!</h3>
+            <p className="cta-popup-subtitle">Thank you for choosing Narpavi Homecare.</p>
+            <div className="cta-popup-pill">{submittedEnquiry}</div>
             <p className="cta-popup-message">
-              Thank you for choosing Narpavi Homecare. Your enquiry for{' '}
-              <strong>{submittedEnquiry}</strong> has been received. Our expert care team will contact you shortly.
+              Your service request has been received. Our expert care team will contact you shortly to coordinate your consultation.
             </p>
             <div className="cta-popup-actions">
               <button
@@ -668,9 +675,10 @@ export default function CTAForm({
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
-      {submitError && (
+      {isMounted && submitError && createPortal(
         <div className="cta-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="cta-popup-error-title">
           <div className="cta-popup-backdrop" onClick={() => setSubmitError('')} />
           <div className="cta-popup-card cta-popup-card--error">
@@ -697,7 +705,8 @@ export default function CTAForm({
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </form>
   );

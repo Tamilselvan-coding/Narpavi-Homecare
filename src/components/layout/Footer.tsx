@@ -365,7 +365,7 @@ export default function Footer() {
                     aria-label={`Email ${BRAND.email} in Gmail (opens in a new tab)`}
                   >
                     <Mail size={13} />
-                    <span>service@nhlcare.com</span>
+                    <span>{BRAND.email}</span>
                   </a>
                 </div>
               </div>

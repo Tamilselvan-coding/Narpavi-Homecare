@@ -329,13 +329,10 @@ export default function JoinUsExperience() {
                     <span>Partner Type</span>
                     <select name="partnerType" defaultValue="" required>
                       <option value="" disabled>Select partner type</option>
-                      <option>Hospital / Clinic</option>
-                      <option>Doctor / Healthcare Professional</option>
-                      <option>Corporate / Insurance</option>
-                      <option>NGO / Community Organization</option>
-                      <option>Pharmacy / Medical Equipment</option>
-                      <option>Referral / Service Partner</option>
-                      <option>Other</option>
+                      <option>Care provider partner</option>
+                      <option>Equipment partner</option>
+                      <option>Sales Partner</option>
+                      <option>Others</option>
                     </select>
                   </label>
                   <label>

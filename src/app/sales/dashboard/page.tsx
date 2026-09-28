@@ -3,6 +3,7 @@
 import '@/styles/admin.css';
 import { FormEvent, useCallback, useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { getAdminSession, clearAdminSession, useSessionTimeout } from '@/lib/adminSession';
 import {
   LogOut,
   RefreshCw,
@@ -166,6 +167,7 @@ function detectCareCategory(item: { source_path?: string; package_name?: string;
 /* ──────────────── Main Component ──────────────── */
 export default function SalesDashboard() {
   const router = useRouter();
+  useSessionTimeout({ redirectUrl: '/admin/login?reason=timeout' });
   const [session, setSession] = useState<Session | null>(null);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [staff, setStaff] = useState<Staff[]>([]);
@@ -235,9 +237,11 @@ export default function SalesDashboard() {
   }, [router]);
 
   useEffect(() => {
-    const raw = localStorage.getItem('narpavi_admin_session');
+    const raw = getAdminSession();
     if (!raw) { router.replace('/admin/login'); return; }
-    const current = JSON.parse(raw) as Session;
+    const current = raw as unknown as Session;
+
+
     setSession(current);
     load(current);
     setMounted(true);
@@ -486,8 +490,8 @@ export default function SalesDashboard() {
             </button>
           )}
           <button onClick={() => {
-            localStorage.removeItem('narpavi_admin_session');
-            window.dispatchEvent(new Event('narpavi:admin-session-changed'));
+            clearAdminSession('manual');
+            // Session cleared and event dispatched via clearAdminSession
             router.push('/admin/login');
           }} style={{
             ...btnBase,

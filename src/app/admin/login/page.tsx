@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, LogIn, ShieldAlert, Eye, EyeOff, UserPlus, CheckCircle, ShieldCheck, BarChart3, Users } from 'lucide-react';
+import { Lock, LogIn, ShieldAlert, Eye, EyeOff, UserPlus, CheckCircle, ShieldCheck, BarChart3, Users, Clock } from 'lucide-react';
+import { saveAdminSession } from '@/lib/adminSession';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -13,7 +14,20 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [timeoutNotice, setTimeoutNotice] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const reason = params.get('reason');
+      if (reason === 'timeout') {
+        setTimeoutNotice('Your previous session timed out due to inactivity. Please log in again.');
+      } else if (reason === 'closed') {
+        setTimeoutNotice('Your previous usage session was closed. Please log in to continue.');
+      }
+    }
+  }, []);
 
   // Signup form state
   const [regFullName, setRegFullName] = useState('');
@@ -28,6 +42,7 @@ export default function AdminLoginPage() {
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
+    setTimeoutNotice('');
     setIsSubmitting(true);
 
     const inputUser = username.trim().toLowerCase();
@@ -49,30 +64,24 @@ export default function AdminLoginPage() {
       }
 
       const resolvedRole = data.role || 'ADMIN';
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('narpavi_admin_session', JSON.stringify({
-          username: data.username || inputUser,
-          id: data.id,
-          fullName: data.fullName || 'Admin User',
-          role: resolvedRole,
-          allowedTabs: data.allowedTabs || 'packages,downloads,partners,candidates',
-          loggedInAt: new Date().toISOString(),
-        }));
-        window.dispatchEvent(new Event('narpavi:admin-session-changed'));
-      }
+      saveAdminSession({
+        username: data.username || inputUser,
+        id: data.id,
+        fullName: data.fullName || 'Admin User',
+        role: resolvedRole,
+        allowedTabs: data.allowedTabs || 'packages,downloads,partners,candidates',
+        loggedInAt: new Date().toISOString(),
+      });
       router.push(resolvedRole === 'ADMIN' || resolvedRole === 'MANAGER' ? '/admin/dashboard' : '/sales/dashboard');
     } catch (err: any) {
       // Fallback
       if ((inputUser === 'admin' || inputUser.includes('admin')) && inputPass === 'PassWord@123') {
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('narpavi_admin_session', JSON.stringify({
-            username: 'admin',
-            role: 'ADMIN',
-            allowedTabs: 'packages,downloads,partners,candidates,users',
-            loggedInAt: new Date().toISOString(),
-          }));
-          window.dispatchEvent(new Event('narpavi:admin-session-changed'));
-        }
+        saveAdminSession({
+          username: 'admin',
+          role: 'ADMIN',
+          allowedTabs: 'packages,downloads,partners,candidates,users',
+          loggedInAt: new Date().toISOString(),
+        });
         router.push('/admin/dashboard');
       } else {
         setIsSubmitting(false);
@@ -247,6 +256,25 @@ export default function AdminLoginPage() {
                   </button>
                 </div>
               </div>
+
+              {timeoutNotice && (
+                <div style={{
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  background: 'rgba(245, 158, 11, 0.12)',
+                  color: '#b45309',
+                  border: '1px solid rgba(245, 158, 11, 0.3)',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  marginBottom: '1rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}>
+                  <Clock size={18} style={{ flexShrink: 0 }} />
+                  <span>{timeoutNotice}</span>
+                </div>
+              )}
 
               {error && (
                 <div className="admin-error-alert">
